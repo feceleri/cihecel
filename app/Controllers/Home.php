@@ -8,15 +8,15 @@ class Home extends BaseController
 {
     public function index()
     {
-        $venda = new Teste();
-        $venda->preco = "10";
-        $venda->produto = "Carro";
+        // $venda = new Teste();
+        // $venda->preco = "10";
+        // $venda->produto = "Carro";
 
-        echo $venda->preco;
-        echo "<br>";
-        echo $venda->produto;
+        // echo $venda->preco;
+        // echo "<br>";
+        // echo $venda->produto;
         
 
-        // return view('welcome_message');
+        return view('welcome_message');
     }
 }
