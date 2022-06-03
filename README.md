@@ -1,5 +1,4 @@
 # cihecel
 Projeto de ong para doação de medicamentos.
 
-Bla blka bla  
-BLE BLE loremy
+lorem ipsum tal
