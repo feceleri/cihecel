@@ -13,3 +13,5 @@ writable/uploads/*
 !writable/uploads/index.html
 
 writable/debugbar/*
+.env
+.gitignore
