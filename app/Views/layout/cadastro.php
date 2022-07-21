@@ -77,5 +77,16 @@ function mascaraCPF(cpf) {
         cepInput.addEventListener('keyup', function() {
             cepInput.value = mascaraCEP(cepInput.value);
         });
+
+        //Previne "Enter" de enviar o formulário
+
+        document.addEventListener("keydown", function(e) {
+            if(e.keyCode === 13) {
+        
+            e.preventDefault();
+      
+            }
+});
+        // Confirmação de envio
 </script>
 <?= $this->endSection() ?>
