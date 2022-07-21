@@ -243,10 +243,18 @@ $(document).ready(function($) {
 		$(document).on('click', '#toggle_btn', function() {
 			if($('body').hasClass('mini-sidebar')) {
 				$('body').removeClass('mini-sidebar');
-				$('.subdrop + ul').slideDown();
+				$('.subdrop + ul').slideDown(); 
+				var img = document.querySelector('#logoPequeno');
+				img.classList.remove("show");
+				var img = document.querySelector('#logoGrande');		
+				img.classList.add("show");	
 			} else {
-				$('body').addClass('mini-sidebar');
+				$('body').addClass('mini-sidebar'); 
 				$('.subdrop + ul').slideUp();
+				var img = document.querySelector('#logoGrande');
+				img.classList.remove("show");
+				var img = document.querySelector('#logoPequeno')		;
+				img.classList.add("show");		
 			}
 			return false;
 		});
