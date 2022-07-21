@@ -20,7 +20,7 @@
 </head>
 
 <body>
-    <div class="main-wrapper" >
+    <div class="main-wrappe" >
         <div class="header">
             <div class="header-left">
                 <a href="#" class="logo">
@@ -74,7 +74,7 @@
                 </div>
             </div>
         </div>
-        <div class="page-wrappe">
+        <div class="page-wrapper">
         <!-- Conteudo -->
         <?= $this->renderSection("conteudo"); ?>
         </div>
