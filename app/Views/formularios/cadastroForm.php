@@ -10,19 +10,19 @@
                                     <div class="form-group row">
                                         <label for="nomeCompleto" class="col-md-3 col-form-label">Nome Completo</label>
                                         <div class="col-md-9">
-                                            <input type="text" class="form-control" id="nomeCompleto">
+                                            <input type="text" class="form-control" id="nomeCompleto" required>
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label for="cpf" class="col-md-3 col-form-label">CPF</label>
                                         <div class="col-md-9">
-                                            <input type="text" class="form-control" id="cpf" maxlength="14">
+                                            <input type="text" class="form-control" id="cpf" maxlength="14" required>
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label for="sexo" class="col-md-3 col-form-label">Sexo</label>
                                         <div class="col-md-9">
-                                            <div class="form-check form-check-inline">
+                                            <div class="form-check form-check-inline" required>
                                                 <input class="form-check-input" type="radio" name="sexo" id="sexoMasculino" value="masculino" checked>
                                                 <label class="form-check-label" for="sexoMasculino">
                                                 Masculino
@@ -37,7 +37,7 @@
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label for="dtNasc" class="col-md-3 col-form-label">Data de Nascimento</label>
+                                        <label for="dtNasc" class="col-md-3 col-form-label">Data de Nascimento</label required>
                                         <div class="col-md-4">
                                             <input type="date" class="form-control" id="dtNasc">
                                         </div>
