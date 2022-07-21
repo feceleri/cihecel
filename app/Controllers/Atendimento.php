@@ -4,11 +4,11 @@ namespace App\Controllers;
 
 use App\Libraries\Teste;
 
-class Home extends BaseController
+class  Atendimento extends BaseController
 {
     public function index()
     {
-        return view('layout/home');
+        return view('layout/atendimento');
     }
 
     public function cadastro(){
