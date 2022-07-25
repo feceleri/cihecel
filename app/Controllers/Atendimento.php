@@ -11,8 +11,13 @@ class  Atendimento extends BaseController
         return view('layout/atendimento');
     }
 
-    public function cadastro(){
+    public function cadastro()
+    {
         return view('layout/cadastro');
     }
 
+    public function novoAtendimento()
+    {
+        return view('layout/novoAtendimento1');
+    }
 }

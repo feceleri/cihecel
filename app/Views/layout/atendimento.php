@@ -12,7 +12,7 @@
             <div class="card">
                 <div class="card-body">
                     <h5 class="card-title">Novo atendimento</h5>
-                    <p class="card-text">Clique em adicionar para iniciar um novo atendimento.</p> <a href="#" class="btn btn-primary">Adicionar</a>
+                    <p class="card-text">Clique em adicionar para iniciar um novo atendimento.</p> <a href="<?=base_url('public/atendimento/novoAtendimento')?>" class="btn btn-primary">Adicionar</a>
                 </div>
             </div>
         </div>
