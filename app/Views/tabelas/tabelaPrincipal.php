@@ -9,26 +9,18 @@
                     <th>Data de nascimento</th>
                     <th>Status</th>
                 </tr>
+                
             </thead>
             <tbody>
-                <tr>
-                    <td><a href="Perfil">Guilherme</a></td>
-                    <td>000.000.000.00</td>
-                    <td>01/10/2001</td>
-                    <td><i class="fa fa-lock" aria-hidden="true"></i></td>
-                </tr>
-                <tr>
-                    <td><a href="">Matheus</a></td>
-                    <td>000.000.000.00</td>
-                    <td>00/00/2000</td>
-                    <td><i class="fa fa-unlock-alt" aria-hidden="true"></i></td>
-                </tr>
-                <tr>
-                    <td><a href="">Ana</a></td>
-                    <td>000.000.000.00</td>
-                    <td>00/00/0000</td>
-                    <td><i class="fa fa-unlock-alt" aria-hidden="true"></i></td>
-                </tr>
+                    <?php
+                    foreach ($resultado as $key => $paciente) {
+                        echo "<tr>";
+                        echo    "<td><a href='". base_url('public/atendimento/perfil?id='. $paciente->id  ) . "'>" . $paciente->nome . "</a></td>";
+                        echo    "<td>" . $paciente->cpf . "</td>";
+                        echo    "<td>" . $paciente->dataNascimento . "</td>";
+                        echo    "<td><i class='fa fa-lock' style='font-size:25px;' aria-hidden='true'></i></td>";
+                        echo "</tr>";
+                    }; ?>
             </tbody>
         </table>
     </div>

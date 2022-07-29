@@ -65,7 +65,7 @@
                         <li class="submenu">
                             <a href="#"><i class="fa fa-search"></i> <span> Consulta</span> <span class="menu-arrow"></span></a>
                             <ul style="display: none;">
-                                <li><a href="employees.html">Consulta 1</a></li>
+                                <li><a href="<?=base_url('public/atendimento/listarPerfil') ?>">Listar Perfil</a></li>
                                 <li><a href="leaves.html">Consulta 2</a></li>
                                 <li><a href="holidays.html">Consulta 3</a></li>
                             </ul>
@@ -74,7 +74,7 @@
                 </div>
             </div>
         </div>
-        <div class="page-wrapper">
+        <div class="page-wrapper" style="padding: 100px 50px;">
         <!-- Conteudo -->
         <?= $this->renderSection("conteudo"); ?>
         </div>

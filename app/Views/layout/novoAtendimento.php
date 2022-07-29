@@ -6,6 +6,9 @@
     tbody tr td a {
         color: black;
     }
+    i{
+        font-size: 20px;
+    }
 </style>
 <?= $this->endSection() ?>
 
@@ -22,6 +25,7 @@
         </nav>
     </ol>
 </nav>
+<div class="response"></div>
 <?= $this->include('tabelas/tabelaPrincipal.php') ?>
 
 <?= $this->endSection() ?>
