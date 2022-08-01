@@ -12,17 +12,6 @@ class  Atendimento extends BaseController
         //$this->CoreModel = new CoreModel();
     }
 
-    // public function __construct(){
-
-    //         $this->load->library('session');
-    //         $this->load->model('CoreModel');          
-    //         $this->load->helper('url');
-    //         $this->load->library('Funcoes');            
-    //         $this->load->library('form_validation');  
-    //         $this->load->helper('array_helper');
-    //         $this->load->database('cihecel');              
-    // }
-
 
     public function index()
     {
@@ -31,35 +20,63 @@ class  Atendimento extends BaseController
 
     public function cadastro()
     {
-        return view('layout/cadastro');
+        $cadastros =  new Cadastro();
+
+//         $post = $this->request->getPost();
+//         if(!empty($post)){
+
+// $dadosBD = [
+//     "nome" => $post["nomeCompleto"],
+//     "cpf" => $post["cpf"],
+//     "rg" => $post["rg"],
+//     "dataNascimento" => $post["dtNasc"],
+//     "sexo" => $post["sexo"],
+//     "nomeMae"     => $post["nomeDaMae"],
+//     "telefone1" => $post["tel1"],
+// "telefone2" => $post["tel2"],
+// "cep" => $post["cep"],
+// "logradouro" => $post["logradouro"],
+// "numeroCasa" => $post["numero"],
+// "complementoCasa" => $post["complemento"],
+// "cidade" => $post["localidade"],
+// "bairro" => $post["bairro"]
+// ]
+
+
+//             // $resultado = $cadastros->insertUser($post);
+//             // var_dump($post);exit;
+
+
+//         }
+        
+//         return view('layout/cadastro');      
     }
 
     public function novoAtendimento()
     {
         $cadastros =  new Cadastro();
-        $resultado = $cadastros->pegarTudo();
+        $resultado = $cadastros->getAll();
         $data = [
             'resultado' => $resultado
         ];
         return view('layout/novoAtendimento1', $data);
     }
 
-    public function perfil(int $id = null)
+    public function perfil(int $id)
     {
         $cadastros = new  Cadastro();
-        $uri = current_url(true);
-        // $data = $uri->getSegment(3);
-
-        $data = $uri->getQuery();
-        var_dump($uri);exit;
-        // $resultado = $cadastros->teste("Luiz");
-        return view('layout/perfil');
+        
+        $resultado = $cadastros->getUser($id);
+        $data = [
+            'resultado' => $resultado
+        ];
+        return view('layout/perfil',$data);
     }
 
     public function listarPerfil()
     {
         $cadastros =  new Cadastro();
-        $resultado = $cadastros->pegarTudo();
+        $resultado = $cadastros->getAll();
         $data = [
             'resultado' => $resultado
         ];

@@ -15,30 +15,30 @@
 <ol class="breadcrumb">
     <li class="breadcrumb-item"><a href="<?= base_url('public') ?>">Atendimento</a></li>
     <li class="breadcrumb-item"><a href="<?= base_url('public/atendimento/novoAtendimento') ?>">Novo Atendimento</a></li>
-    <li class="breadcrumb-item active" aria-current="page">Perfil - Guilherme Cardoso</li>
+    <li class="breadcrumb-item active" aria-current="page">Perfil - <?= $resultado->nome ?></li>
 </ol>
 <div class="row">
     <div class="block col-6" style="padding: 20px;">    
         <ul class="list-group">
-            <li class="list-group-item col-12"><span>Nome:</span>&nbsp;Guilherme Cardoso</li>
+            <li class="list-group-item col-12"><span>Nome:</span>&nbsp;<?= $resultado->nome ?></li>
             <li class="col-12 list-group-item">
                 <ul class="list-group list-group-horizontal row">
-                    <li class="col-6" style="list-style-type: none;"><span>CPF:</span>&nbsp;500.011.878-21</li>
-                    <li class="col-6" style="list-style-type: none;"><span>RG:</span>&nbsp;32.569.445-5</li>
+                    <li class="col-6" style="list-style-type: none;"><span>CPF:</span>&nbsp;<?= $resultado->cpf ?></li>
+                    <li class="col-6" style="list-style-type: none;"><span>RG:</span>&nbsp;<?= $resultado->rg ?></li>
                 </ul>
             </li>
-            <li class="list-group-item"><span>Nome da Mãe:&nbsp;</span>Maria teste Silva</li>
+            <li class="list-group-item"><span>Nome da Mãe:&nbsp;</span><?= $resultado->nomeMae ?></li>
             <li class="col-12 list-group-item">
                 <ul class="list-group list-group-horizontal row">
-                    <li class="col-6" style="list-style-type: none;"><span>Telefone 1:</span>&nbsp;(11) 3666-1245</li>
-                    <li class="col-6" style="list-style-type: none;"><span>Telefone 2:</span>&nbsp;(11) 3666-1245</li>
+                    <li class="col-6" style="list-style-type: none;"><span>Telefone 1:</span>&nbsp;<?= $resultado->telefone1 ?></li>
+                    <li class="col-6" style="list-style-type: none;"><span>Telefone 2:</span>&nbsp;<?= $resultado->telefone2 ?></li>
                 </ul>
             </li>
-            <li class="list-group-item"><span>Endereço:</span>&nbsp;Rua Capote Valente, 487</li>
+            <li class="list-group-item"><span>Endereço:</span>&nbsp;<?= $resultado->logradouro ?>, <?= $resultado->numeroCasa?> <?= $resultado->complementoCasa ?></li>
             <li class="col-12 list-group-item">
                 <ul class="list-group list-group-horizontal row">
-                    <li class="col-6" style="list-style-type: none;"><span>Bairro:</span>&nbsp;Pinheiros</li>
-                    <li class="col-6" style="list-style-type: none;"><span>CEP:</span>&nbsp;05409-001</li>
+                    <li class="col-6" style="list-style-type: none;"><span>Bairro:</span>&nbsp;<?= $resultado->bairro ?></li>
+                    <li class="col-6" style="list-style-type: none;"><span>CEP:</span>&nbsp;<?= $resultado->cep ?></li>
                 </ul>
             </li>            
         </ul>

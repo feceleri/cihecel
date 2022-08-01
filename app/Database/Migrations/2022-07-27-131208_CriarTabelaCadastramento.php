@@ -38,7 +38,7 @@ class CriarTabelaCadastramento extends Migration
                 'constraint' => '1',
                 'null' => false, 
             ],
-            'nomeMãe' => [
+            'nomeMae' => [
                 'type' => 'VARCHAR',
                 'constraint' => '255',
                 'null' => false,

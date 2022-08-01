@@ -32,16 +32,14 @@ class Cadastro extends Model
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
 
-    public function pegarTudo()
+    public function getAll()
     {
-    //    $result = $this->where('id', 1)->findAll();
     $result = $this->findAll();
        return $result;
     }
 
-    public function teste($id = null){
-        var_dump($id);exit;
-
+    public function getUser($id){
         $result = $this->find($id);
+        return $result;
     }
 }

@@ -15,7 +15,7 @@
                     <?php
                     foreach ($resultado as $key => $paciente) {
                         echo "<tr>";
-                        echo    "<td><a href='". base_url('public/atendimento/perfil?id='. $paciente->id  ) . "'>" . $paciente->nome . "</a></td>";
+                        echo    "<td><a href='". base_url('public/atendimento/perfil/'. $paciente->id  ) . "'>" . $paciente->nome . "</a></td>";
                         echo    "<td>" . $paciente->cpf . "</td>";
                         echo    "<td>" . $paciente->dataNascimento . "</td>";
                         echo    "<td><i class='fa fa-lock' style='font-size:25px;' aria-hidden='true'></i></td>";
