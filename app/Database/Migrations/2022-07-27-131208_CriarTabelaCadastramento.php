@@ -26,7 +26,7 @@ class CriarTabelaCadastramento extends Migration
             ],
             'rg' => [
                 'type' => 'VARCHAR',
-                'constraint' => '11',
+                'constraint' => '27',
                 'null' => false,
             ],
             'dataNascimento' => [
@@ -88,7 +88,6 @@ class CriarTabelaCadastramento extends Migration
 
 
         $this->forge->addKey('id', true);
-        $this->forge->addUniqueKey('cpf');
         $this->forge->createTable('cadastro');
     }
 
