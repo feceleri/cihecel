@@ -22,32 +22,30 @@ class  Atendimento extends BaseController
     {
         $cadastros =  new Cadastro();
 
-//         $post = $this->request->getPost();
-//         if(!empty($post)){
+        $post = $this->request->getPost();
+        if(!empty($post)){
 
-// $dadosBD = [
-//     "nome" => $post["nomeCompleto"],
-//     "cpf" => $post["cpf"],
-//     "rg" => $post["rg"],
-//     "dataNascimento" => $post["dtNasc"],
-//     "sexo" => $post["sexo"],
-//     "nomeMae"     => $post["nomeDaMae"],
-//     "telefone1" => $post["tel1"],
-// "telefone2" => $post["tel2"],
-// "cep" => $post["cep"],
-// "logradouro" => $post["logradouro"],
-// "numeroCasa" => $post["numero"],
-// "complementoCasa" => $post["complemento"],
-// "cidade" => $post["localidade"],
-// "bairro" => $post["bairro"]
-// ]
-
-
-//             // $resultado = $cadastros->insertUser($post);
-//             // var_dump($post);exit;
+        $dadosBD = [
+                    "nome" => $post["nomeCompleto"],
+                    "cpf" => $post["cpf"],
+                    "rg" => $post["rg"],
+                    "dataNascimento" => $post["dtNasc"],
+                    "sexo" => $post["sexo"],
+                    "nomeMae"     => $post["nomeDaMae"],
+                    "telefone1" => $post["tel1"],
+                    "telefone2" => $post["tel2"],
+                    "cep" => $post["cep"],
+                    "logradouro" => $post["logradouro"],
+                    "numeroCasa" => $post["numero"],
+                    "complementoCasa" => $post["complemento"],
+                    "cidade" => $post["localidade"],
+                    "bairro" => $post["bairro"]
+                ];
 
 
-//         }
+            $resultado = $cadastros->save($dadosBD);
+
+        }
         
         return view('layout/cadastro');      
     }

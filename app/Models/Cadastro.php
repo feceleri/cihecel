@@ -15,6 +15,8 @@ class Cadastro extends Model
     protected $protectFields    = true;
     protected $allowedFields    = ['nome', 'cpf', 'rg', 'dataNascimento', 'sexo', 'nomeMae', 'telefone1', 'telefone2'];
 
+
+
     // Validation
     protected $validationRules      = [];
     protected $validationMessages   = [];
