@@ -13,7 +13,7 @@ class Cadastro extends Model
     protected $returnType       = 'object';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['nome', 'cpf', 'rg', 'dataNascimento', 'sexo', 'nomeMãe', 'telefone1', 'telefone2'];
+    protected $allowedFields    = ['nome', 'cpf', 'rg', 'dataNascimento', 'sexo', 'nomeMae', 'telefone1', 'telefone2'];
 
     // Validation
     protected $validationRules      = [];
@@ -42,4 +42,11 @@ class Cadastro extends Model
         $result = $this->find($id);
         return $result;
     }
+
+    public function getUsuario($cpf){
+        $result = $this->find($cpf);
+        return $result;
+    }
+
+
 }

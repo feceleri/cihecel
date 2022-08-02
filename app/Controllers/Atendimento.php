@@ -49,7 +49,7 @@ class  Atendimento extends BaseController
 
 //         }
         
-//         return view('layout/cadastro');      
+        return view('layout/cadastro');      
     }
 
     public function novoAtendimento()
@@ -65,7 +65,6 @@ class  Atendimento extends BaseController
     public function perfil(int $id)
     {
         $cadastros = new  Cadastro();
-        
         $resultado = $cadastros->getUser($id);
         $data = [
             'resultado' => $resultado
@@ -82,4 +81,21 @@ class  Atendimento extends BaseController
         ];
         return view('layout/listarPerfil', $data);
     }
+
+    public function pesquisaCPF()
+    {
+        $cadastros = new  Cadastro();
+        // $cpf = $this->request->getPost();
+        // var_dump($cpf);exit;
+        // $resultado = $cadastros->getCPF($id);
+        // $cpf = $this->request->getPost($cpf);
+
+        
+        //  $data = [
+        //      'resultado' => $resultado
+        //  ];
+        return view('layout/pesquisaCPF');
+    }
+
+    
 }
