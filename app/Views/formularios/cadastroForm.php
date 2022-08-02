@@ -11,9 +11,9 @@
                                         <label for="nomeCompleto" class="col-md-3 col-form-label">Nome Completo</label>
                                         <div class="col-md-9">
                                             <input type="text" class="form-control" id="nomeCompleto" name="nomeCompleto" required minlength="3">
-                                        </div>
+                                        </div>          
                                     </div>
-                                    <div class="form-group row">
+                                    <div class="form-group row">           
                                         <label for="cpf" class="col-md-3 col-form-label">CPF</label>
                                         <div class="col-md-9">
                                             <input type="text" class="form-control" id="cpf" name="cpf" maxlength="14" required>

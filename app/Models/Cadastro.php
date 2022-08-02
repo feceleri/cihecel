@@ -13,7 +13,7 @@ class Cadastro extends Model
     protected $returnType       = 'object';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['nome', 'cpf', 'rg', 'dataNascimento', 'sexo', 'telefone1', 'telefone2'];
+    protected $allowedFields    = ['nome', 'cpf', 'rg', 'dataNascimento', 'sexo', 'telefone1', 'telefone2','nomeMae','cep','logradouro','numeroCasa','complementoCasa','cidade','bairro'];
 
     // Validation
     protected $validationRules      = [];

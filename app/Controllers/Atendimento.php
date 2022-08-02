@@ -42,9 +42,8 @@ class  Atendimento extends BaseController
                     "bairro" => $post["bairro"]
                 ];
 
-
             $resultado = $cadastros->save($dadosBD);
-
+    
         }
         
         return view('layout/cadastro');      
