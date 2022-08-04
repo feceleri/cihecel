@@ -15,7 +15,12 @@ class  Atendimento extends BaseController
 
     public function index()
     {
-        return view('layout/atendimento');
+        $cadastros =  new Cadastro();
+        $resultado = $cadastros->getAll();
+        $data = [
+            'resultado' => $resultado
+        ];
+        return view('layout/paciente',$data);
     }
 
     public function cadastro()
@@ -42,7 +47,7 @@ class  Atendimento extends BaseController
                     "bairro" => $post["bairro"]
                 ];
 
-            $resultado = $cadastros->save($dadosBD);
+            $cadastros->save($dadosBD);
     
         }
         

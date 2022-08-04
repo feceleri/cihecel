@@ -59,13 +59,13 @@
                     <ul>
                         <li class="menu-title">Menu</li>
                         <li class="active">
-                            <a href="<?= base_url('public')?>"><i class="fa fa-user"></i> <span>Atendimento</span></a>
+                            <a href="<?= base_url('public')?>"><i class="fa fa-user"></i> <span>Pacientes</span></a>
                         </li>
                     
                         <li class="submenu">
                             <a href="#"><i class="fa fa-search"></i> <span> Consulta</span> <span class="menu-arrow"></span></a>
                             <ul style="display: none;">
-                                <li><a href="<?=base_url('public/atendimento/listarPerfil') ?>">Listar Perfil</a></li>
+                                <li><a href="<?=base_url('public/atendimento/listarPerfil') ?>">x</a></li>
                                 <li><a href="leaves.html">Consulta 2</a></li>
                                 <li><a href="holidays.html">Consulta 3</a></li>
                             </ul>

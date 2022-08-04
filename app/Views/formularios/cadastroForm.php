@@ -23,14 +23,14 @@
                                         <label for="sexo" class="col-md-3 col-form-label">Sexo</label>
                                         <div class="col-md-9">
                                             <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio" name="sexo" id="sexoMasculino" value="masculino" required>
+                                                <input class="form-check-input" type="radio" name="sexo" id="sexoMasculino" value="MASCULINO" required>
                                                 <label class="form-check-label" for="sexoMasculino">
                                                 Masculino
                                                 </label>
                                                
                                             </div>
                                             <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio" name="sexo" id="sexoFeminino" value="feminino">
+                                                <input class="form-check-input" type="radio" name="sexo" id="sexoFeminino" value="FEMININO">
                                                 <label class="form-check-label" for="sexoFeminino">
                                                 Feminino
                                                 </label>

@@ -1,13 +1,13 @@
 <div class="card-block">
     <h5 class="text-bold card-title">Pacientes</h5>
     <div class="table-responsive">
-        <table class="table table-striped mb-0">
+        <table class="table table-striped mb-0 table-sm" id="ajaxTable">
             <thead>
                 <tr>
                     <th>Nome</th>
                     <th>CPF</th>
                     <th>Data de nascimento</th>
-                    <th>Status</th>
+                    <th>Ação</th>
                 </tr>
                 
             </thead>
@@ -17,10 +17,15 @@
                         echo "<tr>";
                         echo    "<td><a href='". base_url('public/atendimento/perfil/'. $paciente->id  ) . "'>" . $paciente->nome . "</a></td>";
                         echo    "<td>" . $paciente->cpf . "</td>";
-                        echo    "<td>" . $paciente->dataNascimento . "</td>";
-                        echo    "<td><i class='fa fa-lock' style='font-size:25px;' aria-hidden='true'></i></td>";
+                        $oldData = $paciente->dataNascimento;
+                        $orgDate = $oldData;  
+                        $date = str_replace('-"', '/', $orgDate);  
+                        $newDate = date("d/m/Y", strtotime($date));  
+                        echo "<td>" .$newDate. "</td>";       
+                        echo    "<td> <div><a class='pencil' href=''><span><i class='fa fa-pencil' aria-hidden='true'></i> </span></a><a class='eraser' href=''><span><i class='fa fa-eraser' aria-hidden='true'></i> </span></a></div> </td>";
                         echo "</tr>";
                     }; ?>
+                    
             </tbody>
         </table>
     </div>

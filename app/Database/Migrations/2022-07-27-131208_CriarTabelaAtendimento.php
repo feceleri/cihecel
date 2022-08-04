@@ -88,11 +88,11 @@ class CriarTabelaCadastramento extends Migration
 
 
         $this->forge->addKey('id', true);
-        $this->forge->createTable('cadastro');
+        $this->forge->createTable('paciente');
     }
 
     public function down()
     {
-        $this->forge->dropTable('cadastro');
+        $this->forge->dropTable('paciente');
     }
 }
