@@ -94,6 +94,17 @@ class  Atendimento extends BaseController
         //  ];
         return view('layout/pesquisaCPF');
     }
+    
+    public function consultaEstoque()
+    {
+        $cadastros =  new Cadastro();
+        $resultado = $cadastros->getAll();
+        $data = [
+            'resultado' => $resultado
+        ];
+        return view('layout/estoque', $data);
+    }
+
 
     
 }

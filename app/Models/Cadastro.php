@@ -50,5 +50,11 @@ class Cadastro extends Model
         return $result;
     }
 
+    public function getMed($idEstoque){
+        $result = $this->find($idEstoque);
+        return $result;
+    }
+
+
 
 }
