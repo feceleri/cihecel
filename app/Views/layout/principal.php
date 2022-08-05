@@ -33,7 +33,7 @@
             <ul class="nav user-menu float-right">
                 <li class="nav-item dropdown has-arrow">
                     <a href="#" class="dropdown-toggle nav-link user-link" data-toggle="dropdown">
-                        <span>Guilherme Cardoso</span>
+                        <span>Ana Marques</span>
                     </a>
                     <div class="dropdown-menu">
                         <a class="dropdown-item" href="profile.html">My Profile</a>
@@ -65,9 +65,15 @@
                         <li class="submenu">
                             <a href="#"><i class="fa fa-search"></i> <span> Consulta</span> <span class="menu-arrow"></span></a>
                             <ul style="display: none;">
+<<<<<<< HEAD
                                 <li><a href="<?=base_url('public/atendimento/listarPerfil') ?>">x</a></li>
                                 <li><a href="leaves.html">Consulta 2</a></li>
+=======
+                                <li><a href="<?=base_url('public/atendimento/listarPerfil') ?>">Listar Perfil</a></li>
+                                <li><a href="<?=base_url('public/atendimento/pesquisaCPF') ?>">Pesquisa por CPF</a></li>
+>>>>>>> 9cdb06ad6e45a92cc7135f3a41078136ee707f7b
                                 <li><a href="holidays.html">Consulta 3</a></li>
+                                <li><a href="holidays.html">Consulta 4</a></li>
                             </ul>
                         </li>
                     </ul>
