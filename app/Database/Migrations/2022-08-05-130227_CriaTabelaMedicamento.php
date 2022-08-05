@@ -4,7 +4,7 @@ namespace App\Database\Migrations;
 
 use CodeIgniter\Database\Migration;
 
-class CriarTabelaCadastramento extends Migration
+class CriaTabelaMedicamento extends Migration
 {
     public function up()
     {
@@ -15,84 +15,69 @@ class CriarTabelaCadastramento extends Migration
                 'auto_increment' => true,
                 'null' => false,
             ],
-            'nome' => [
+            'SUBSTANCIA' => [
                 'type'       => 'VARCHAR',
-                'constraint' => '255',
-            ],
-            'cpf' => [
-                'type' => 'VARCHAR',
-                'constraint' => '14',
+                'constraint' => '100',
                 'null' => false,
             ],
-            'rg' => [
+            'GGREM' => [
                 'type' => 'VARCHAR',
-                'constraint' => '27',
+                'constraint' => '100',
                 'null' => false,
             ],
-            'dataNascimento' => [
-                'type' => 'date',
-                'null' => false,
-            ],
-            'sexo' => [
+            'REGISTRO' => [
                 'type' => 'VARCHAR',
-                'constraint' => '1',
-                'null' => false, 
-            ],
-            'nomeMae' => [
-                'type' => 'VARCHAR',
-                'constraint' => '255',
-                'null' => false,
-            ],
-            'telefone1' => [
-                'type' => 'VARCHAR',
-                'constraint' => '50',
-                'null' => false,
-            ],
-            'telefone2' => [
-                'type' => 'VARCHAR',
-                'constraint' => '50',
+                'constraint' => '100',
                 'null' => true,
             ],
-            'cep' => [
+            'EAN1' => [
                 'type' => 'VARCHAR',
-                'constraint' => '50',
+                'constraint' => '100',
                 'null' => false,
             ],
-            'logradouro' => [
+            'EAN2' => [
                 'type' => 'VARCHAR',
-                'constraint' => '255',
-                'null' => false,
+                'constraint' => '100',
+                'null' => true,
             ],
-            'numeroCasa' => [
+            'EAN3' => [
+                'type' => 'VARCHAR',
+                'constraint' => '100',
+                'null' => true,
+            ],
+            'PRODUTO' => [
                 'type' => 'VARCHAR',
                 'constraint' => '150',
-                'null' => false,
-            ],
-            'complementoCasa' => [
-                'type' => 'VARCHAR',
-                'constraint' => '100',
                 'null' => true,
             ],
-            'cidade' => [
+            'DOSAGEM' => [
+                'type' => 'VARCHAR',
+                'constraint' => '50',
+                'null' => false,
+            ],
+            'CATEGORIA' => [
                 'type' => 'VARCHAR',
                 'constraint' => '100',
                 'null' => false,
             ],
-            'bairro' => [
+            'TIPO' => [
                 'type' => 'VARCHAR',
                 'constraint' => '100',
                 'null' => false,
             ],
-
+            'TARJA' => [
+                'type' => 'VARCHAR',
+                'constraint' => '50',
+                'null' => false,
+            ],
         ]);
 
-
         $this->forge->addKey('id', true);
-        $this->forge->createTable('paciente');
+        $this->forge->createTable('medicamento');
     }
 
     public function down()
     {
-        $this->forge->dropTable('paciente');
+        $this->forge->dropTable('medicamento');
     }
 }

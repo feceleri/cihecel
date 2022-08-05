@@ -108,5 +108,6 @@
             ],
         });
     });
+
 </script>
 <?= $this->endSection() ?>

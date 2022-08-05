@@ -115,7 +115,7 @@
                                 </div>
                             </div>
                             <div class="text-right">
-                                <button type="submit" class="btn btn-primary" id="cadastrar">Cadastrar</button>
+                                <button type="submit" class="btn btn-primary" id="cadastrar" onclick="confirm()">Cadastrar</button>
                             </div>
                         </form>
                     </div>

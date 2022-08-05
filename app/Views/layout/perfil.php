@@ -13,8 +13,7 @@
 <?= $this->section('conteudo') ?>
 <!-- Conteudo -->
 <ol class="breadcrumb">
-    <li class="breadcrumb-item"><a href="<?= base_url('public') ?>">Atendimento</a></li>
-    <li class="breadcrumb-item"><a href="<?= base_url('public/atendimento/novoAtendimento') ?>">Novo Atendimento</a></li>
+    <li class="breadcrumb-item"><a href="<?= base_url('public') ?>">Paciente</a></li>
     <li class="breadcrumb-item active" aria-current="page">Perfil - <?= $resultado->nome ?></li>
 </ol>
 <div class="row">

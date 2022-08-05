@@ -15,7 +15,7 @@ class  Atendimento extends BaseController
 
     public function index()
     {
-        $cadastros =  new Cadastro();
+          $cadastros =  new Cadastro();
         $resultado = $cadastros->getAll();
         $data = [
             'resultado' => $resultado
@@ -46,10 +46,12 @@ class  Atendimento extends BaseController
                     "cidade" => $post["localidade"],
                     "bairro" => $post["bairro"]
                 ];
-
             $cadastros->save($dadosBD);
+            $response['info'] = "Essa é uma msg de info";
+            return view('layout/cadastro',$response);
+            
     
-        }
+    }
         
         return view('layout/cadastro');      
     }
