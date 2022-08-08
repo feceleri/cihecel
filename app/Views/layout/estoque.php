@@ -7,7 +7,10 @@
 
 <?= $this->section('conteudo') ?>
 <!-- Conteudo -->
+
 <?= $this->include('tabelas/tabelaMedicamentos.php')?>
+
+
 <?= $this->endSection() ?>
 
 <?= $this->section('script') ?>

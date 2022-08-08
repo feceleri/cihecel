@@ -1,4 +1,4 @@
-<!-- <div class="card-block">
+<div class="card-block">
     <h5 class="text-bold card-title">Estoque</h5>
     <div class="table-responsive">
         <table class="table table-striped mb-0">
@@ -13,15 +13,15 @@
             </thead>
             <tbody>
                     <?php
-                    // foreach ($resultado as $key => $medicamento) {
-                    //     echo "<tr>";
-                    //     echo    "<td><a href='". base_url('public/atendimento/consultaEstoque/'. $medicamento->idEstoque  ) . "'>" . $medicamento->nome . "</a></td>";
-                    //     echo    "<td>" . $medicamento->idMedicamento . "</td>";
-                    //     echo    "<td>" . $medicamento->quantidade . "</td>";
-                    //     echo    "<td><i class='fa fa-lock' style='font-size:25px;' aria-hidden='true'></i></td>";
-                    //     echo "</tr>";
-                    // }; ?>
+                    foreach ($resultado as $key => $medicamento) {
+                        echo "<tr>";
+                        echo    "<td><a href='". base_url('public/atendimento/consultaEstoque/'. $medicamento->idEstoque  ) . "'>" . $medicamento->nome . "</a></td>";
+                        echo    "<td>" . $medicamento->idMedicamento . "</td>";
+                        echo    "<td>" . $medicamento->quantidade . "</td>";
+                        echo    "<td><i class='fa fa-lock' style='font-size:25px;' aria-hidden='true'></i></td>";
+                        echo "</tr>";
+                    }; ?>
             </tbody>
         </table>
     </div>
-</div> -->
+</div>
