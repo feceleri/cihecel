@@ -6,14 +6,16 @@ use CodeIgniter\Model;
 
 class Cadastro extends Model
 {    
-    protected $table            = 'paciente';
-    protected $primaryKey       = 'id';
-    protected $useAutoIncrement = true;
-    protected $insertID         = 0;
+    protected $table            = 'estoque';
+    protected $primaryKey       = 'idEstoque';
+    protected $useAutoIncrement = false;
+    // protected $insertID         = 0;
     protected $returnType       = 'object';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['nome', 'cpf', 'rg', 'dataNascimento', 'sexo', 'telefone1', 'telefone2','nomeMae','cep','logradouro','numeroCasa','complementoCasa','cidade','bairro'];
+    protected $allowedFields    = ['idEstoque', 'idMedicamento', 'quantidade', 'nome', 'observacao'];
+
+
 
     // Validation
     protected $validationRules      = [];
@@ -43,6 +45,15 @@ class Cadastro extends Model
         return $result;
     }
 
+    public function getUsuario($cpf){
+        $result = $this->find($cpf);
+        return $result;
+    }
+
+    public function getMed($idEstoque){
+        $result = $this->find($idEstoque);
+        return $result;
+    }
 
 
 

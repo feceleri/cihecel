@@ -36,9 +36,9 @@
                         <span>Ana Marques</span>
                     </a>
                     <div class="dropdown-menu">
-                        <a class="dropdown-item" href="profile.html">My Profile</a>
-                        <a class="dropdown-item" href="edit-profile.html">Edit Profile</a>
-                        <a class="dropdown-item" href="settings.html">Settings</a>
+                        <a class="dropdown-item" href="profile.html">Meu Perfil</a>
+                        <a class="dropdown-item" href="edit-profile.html">Editar Perfil</a>
+                        <a class="dropdown-item" href="settings.html">Configurações</a>
                         <a class="dropdown-item" href="login.html">Logout</a>
                     </div>
                 </li>
@@ -46,9 +46,9 @@
             <div class="dropdown mobile-user-menu float-right">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
                 <div class="dropdown-menu dropdown-menu-right">
-                    <a class="dropdown-item" href="profile.html">My Profile</a>
-                    <a class="dropdown-item" href="edit-profile.html">Edit Profile</a>
-                    <a class="dropdown-item" href="settings.html">Settings</a>
+                    <a class="dropdown-item" href="profile.html">Meu Perfil</a>
+                    <a class="dropdown-item" href="edit-profile.html">Editar Perfil</a>
+                    <a class="dropdown-item" href="settings.html">Configurações</a>
                     <a class="dropdown-item" href="login.html">Logout</a>
                 </div>
             </div>
@@ -70,8 +70,12 @@
                                 <li><a href="leaves.html">Consulta 2</a></li>
                                 <li><a href="<?=base_url('public/atendimento/listarPerfil') ?>">Listar Perfil</a></li>
                                 <li><a href="<?=base_url('public/atendimento/pesquisaCPF') ?>">Pesquisa por CPF</a></li>
+<<<<<<< HEAD
 
                                 <li><a href="holidays.html">Consulta 3</a></li>
+=======
+                                <li><a href="<?=base_url('public/atendimento/consultaEstoque') ?>">Estoque de Medicamentos</a></li>
+>>>>>>> 33563c710e2d4a382a3c87ff5773a4de67ace831
                                 <li><a href="holidays.html">Consulta 4</a></li>
                             </ul>
                         </li>
