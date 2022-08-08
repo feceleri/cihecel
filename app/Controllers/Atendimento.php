@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Libraries\Teste;
 use App\Models\Cadastro;
+use App\Models\Medicamento;
 
 class  Atendimento extends BaseController
 {
@@ -97,11 +98,18 @@ class  Atendimento extends BaseController
     
     public function consultaEstoque()
     {
-        $cadastros =  new Cadastro();
-        $resultado = $cadastros->getAll();
+        $remedios =  new Medicamento();
+        $resultado = $remedios->getAll();
         $data = [
-            'resultado' => $resultado
+             'resultado' => $resultado
         ];
+        $userModel = model(Medicamentos::class);
+        $userModel = model('App\Models\Medicamentos');
+        $TestModel = new Cadastro();
+    
+        // $this->data['Medicamentos']   = $TestModel->test();
+
+
         return view('layout/estoque', $data);
     }
 

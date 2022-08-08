@@ -4,7 +4,7 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class Cadastro extends Model
+class Medicamento extends Model
 {    
     protected $table            = 'estoque';
     protected $primaryKey       = 'idEstoque';
