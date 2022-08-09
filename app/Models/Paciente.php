@@ -4,7 +4,7 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class Cadastro extends Model
+class Paciente extends Model
 {    
     protected $table            = 'paciente';
     protected $primaryKey       = 'id';
@@ -43,7 +43,9 @@ class Cadastro extends Model
         return $result;
     }
 
-
-
+    public function deleteUser($id){
+        $result = $this->where('id', $id)->delete();
+        return $result;        
+    }
 
 }

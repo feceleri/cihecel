@@ -8,7 +8,7 @@
         align-items: center;
     }
 
-    a.pencil  {
+    a.pencil {
         margin: 0 5px;
         font-size: 16px;
         line-height: 30px;
@@ -19,14 +19,20 @@
         margin-right: 1.6px;
     }
 
-    a.eraser  {
+    button.eraser {
         /* color:red; */
         font-size: 16px;
         line-height: 30px;
     }
 
-    a.eraser:hover  {
+    button.eraser:hover {
         font-size: 20px;
+        color: #009ce7;
+    }
+
+    button {
+        border: none;
+        background-color: transparent;
     }
 </style>
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.12.1/datatables.min.css" />
@@ -48,6 +54,26 @@
     </ol>
 </nav>
 <a class="btn btn-success mb-3" href="<?= base_url('public/atendimento/cadastro') ?>" style="float:right;top:5px"><i class="fa fa-user-plus" aria-hidden="true"></i></a>
+
+<!-- Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteModalLabel"><span class="text-danger font-weight-bold">DELETAR </span>Cadastro</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Você realmente deseja <span class="text-danger font-weight-bold">EXCLUIR</span> esse paciente do sistema?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <a class="btn btn-danger" href="<?= base_url('public/atendimento/deletar/') ?>">Excluir</a>
+            </div>
+        </div>
+    </div>
+</div>
+
 <?= $this->include('tabelas/tabelaPrincipal.php') ?>
 
 <?= $this->endSection() ?>
@@ -56,7 +82,18 @@
 <!-- Script -->
 <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.12.1/datatables.min.js"></script>
 
+<!-- JavaScript Bootstrap -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
+
+
 <script>
+    function preencherModalDelete(id) {
+        modal = document.getElementById("deleteModal");
+        btnExcluir = modal.getElementsByClassName("btn-danger")[0];
+        link = "<?= base_url('public/atendimento/deletar/') ?>/"+id;        
+        btnExcluir.setAttribute('href', link);
+    }
+
     $(document).ready(function() {
         const DATATABLE_PTBR = {
             "sEmptyTable": "Nenhum registro encontrado",
@@ -108,6 +145,6 @@
             ],
         });
     });
-
 </script>
+
 <?= $this->endSection() ?>

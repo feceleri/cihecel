@@ -2,6 +2,7 @@
             <div class="row align-items-center" style="height:80vh">
                 <div class="col-md-12">
                     <div class="card-box">
+                        <h4 class="card-title">Formulário de cadastro</h4>
                         <h4 class="card-title">Informações Pessoais</h4>
                         <form action="<?= base_url('public/atendimento/cadastro')?>" method="POST" name="datesCadastro" id='form'>
                             <div class="row">
@@ -114,7 +115,7 @@
                                 </div>
                             </div>
                             <div class="text-right">
-                                <button type="submit" class="btn btn-primary" id="cadastrar">Cadastrar</button>
+                                <button type="submit" class="btn btn-primary" id="cadastrar">Seguinte</button>
                             </div>
                         </form>
                     </div>

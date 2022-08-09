@@ -70,12 +70,9 @@
                                 <li><a href="leaves.html">Consulta 2</a></li>
                                 <li><a href="<?=base_url('public/atendimento/listarPerfil') ?>">Listar Perfil</a></li>
                                 <li><a href="<?=base_url('public/atendimento/pesquisaCPF') ?>">Pesquisa por CPF</a></li>
-<<<<<<< HEAD
 
                                 <li><a href="holidays.html">Consulta 3</a></li>
-=======
                                 <li><a href="<?=base_url('public/atendimento/consultaEstoque') ?>">Estoque de Medicamentos</a></li>
->>>>>>> 33563c710e2d4a382a3c87ff5773a4de67ace831
                                 <li><a href="holidays.html">Consulta 4</a></li>
                             </ul>
                         </li>

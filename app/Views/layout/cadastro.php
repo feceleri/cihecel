@@ -1,5 +1,28 @@
 <?= $this->extend('layout/principal') ?>
 
+<?= $this->section('css') ?>
+<style>
+    #response {
+
+        display: none;
+        align-content: center;
+        justify-content: center;
+        align-items: center;
+        height: 50px;
+        width: auto; 
+
+
+    }
+
+
+    .show {
+
+        display: flex !important;
+        text-align: center;
+    }
+</style>
+<?= $this->endSection() ?>
+
 <?= $this->section('conteudo') ?>
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
@@ -8,8 +31,8 @@
     </ol>
 </nav>
 <!-- Back-end -->
-<div id="response">
-    
+<div id="response" class="alert alert-success">
+<h5> Cadastrado com Sucesso &nbsp; <i style="font-size:25px" class="fa fa-check" aria-hidden="true"></i></h5>
 </div>
 <?= $this->include('formularios/cadastroForm.php') ?>
 
@@ -93,18 +116,21 @@
         }
     });
     // Confirmação de envio
-
-
-
-    
 </script>
 
-<script> 
-// Script Confirmação
-    // const cadastrar = document.querySelector("#cadastrar");
-    function confirm () {{
-                $("#response").html('<div class="alert alert-info">' + response.info + '</div>');
-            }
-        }
+<script>
+    const form = document.querySelector('#form');
+    const successMessage = document.querySelector('#response');
+    form.addEventListener('submit', (e) => {
+
+        e.preventDefault();
+
+        successMessage.classList.add('show');
+
+        setTimeout(() => form.submit(), 2000 ); 
+        
+        
+
+    });
 </script>
 <?= $this->endSection() ?>
