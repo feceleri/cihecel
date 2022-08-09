@@ -7,7 +7,7 @@
                     <th>Nome</th>
                     <th>ID</th>
                     <th>Quantidade</th>
-                    <!-- <th>Status</th> -->
+                    <th>Observação</th>
                 </tr>
                 
             </thead>
@@ -16,10 +16,10 @@
                     foreach ($resultado as $key => $medicamento) {
                         
                         echo "<tr>";
-                        echo    "<td><a href='". base_url('public/atendimento/consultaEstoque/'. $medicamento->idEstoque  ) . "'>" . $medicamento->nome . "</a></td>";
+                        echo    "<td><a href='". base_url('public/atendimento/estoque/'. $medicamento->id  ) . "'>" . $medicamento->nomeMed . "</a></td>";
                         echo    "<td>" . $medicamento->idMedicamento . "</td>";
                         echo    "<td>" . $medicamento->quantidade . "</td>";
-                        // echo    "<td><i class='fa fa-lock' style='font-size:25px;' aria-hidden='true'></i></td>";
+                        echo    "<td>" . $medicamento->observacao . "</td>";
                         echo "</tr>";
                     }; ?>
             </tbody>

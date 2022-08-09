@@ -6,7 +6,7 @@ use CodeIgniter\Model;
 
 class Cadastro extends Model
 {    
-    protected $table            = 'cadastro';
+    protected $table            = 'paciente';
     protected $primaryKey       = 'id';
     protected $useAutoIncrement = true;
     protected $insertID         = 0;

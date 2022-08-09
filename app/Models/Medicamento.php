@@ -7,13 +7,13 @@ use CodeIgniter\Model;
 class Medicamento extends Model
 {    
     protected $table            = 'estoque';
-    protected $primaryKey       = 'idEstoque';
+    protected $primaryKey       = 'id';
     protected $useAutoIncrement = false;
-    // protected $insertID         = 0;
+    protected $insertID         = 0;
     protected $returnType       = 'object';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['idEstoque', 'idMedicamento', 'quantidade', 'nome', 'observacao'];
+    protected $allowedFields    = ['id', 'idMedicamento', 'quantidade', 'nome', 'observacao'];
 
 
 
@@ -40,21 +40,11 @@ class Medicamento extends Model
        return $result;
     }
 
-    public function getUser($id){
+
+    public function getMed($id){
         $result = $this->find($id);
         return $result;
     }
-
-    public function getUsuario($cpf){
-        $result = $this->find($cpf);
-        return $result;
-    }
-
-    public function getMed($idEstoque){
-        $result = $this->find($idEstoque);
-        return $result;
-    }
-
 
 
 }

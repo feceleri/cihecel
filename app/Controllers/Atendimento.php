@@ -84,8 +84,7 @@ class  Atendimento extends BaseController
     public function pesquisaCPF()
     {
         $cadastros = new  Cadastro();
-        // $cpf = $this->request->getPost();
-        // var_dump($cpf);exit;
+        // $cpf = $this->request->getPost($cpf);
         // $resultado = $cadastros->getCPF($id);
         // $cpf = $this->request->getPost($cpf);
 
@@ -103,16 +102,18 @@ class  Atendimento extends BaseController
         $data = [
              'resultado' => $resultado
         ];
-        $userModel = model(Medicamentos::class);
-        $userModel = model('App\Models\Medicamentos');
-        $TestModel = new Cadastro();
-    
-        // $this->data['Medicamentos']   = $TestModel->test();
-
-
         return view('layout/estoque', $data);
     }
 
-
+    public function estoque(int $id)
+    {
+        $remedios =  new Medicamento();
+        $resultado = $remedios->getAll();
+        $data = [
+            'resultado' => $resultado
+        ];
+    
+        return view('layout/listarEstoque',$data);
+    }
     
 }
