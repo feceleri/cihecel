@@ -16,7 +16,12 @@ class  Atendimento extends BaseController
 
     public function index()
     {
-        return view('layout/atendimento');
+          $cadastros =  new Cadastro();
+        $resultado = $cadastros->getAll();
+        $data = [
+            'resultado' => $resultado
+        ];
+        return view('layout/paciente',$data);
     }
 
     public function cadastro()
@@ -42,11 +47,12 @@ class  Atendimento extends BaseController
                     "cidade" => $post["localidade"],
                     "bairro" => $post["bairro"]
                 ];
-
-
-            $resultado = $cadastros->save($dadosBD);
-
-        }
+            $cadastros->save($dadosBD);
+            $response['info'] = "Essa é uma msg de info";
+            return view('layout/cadastro',$response);
+            
+    
+    }
         
         return view('layout/cadastro');      
     }
@@ -64,6 +70,7 @@ class  Atendimento extends BaseController
     public function perfil(int $id)
     {
         $cadastros = new  Cadastro();
+        
         $resultado = $cadastros->getUser($id);
         $data = [
             'resultado' => $resultado
@@ -80,6 +87,7 @@ class  Atendimento extends BaseController
         ];
         return view('layout/listarPerfil', $data);
     }
+<<<<<<< HEAD
 
     public function pesquisaCPF()
     {
@@ -116,4 +124,6 @@ class  Atendimento extends BaseController
         return view('layout/listarEstoque',$data);
     }
     
+=======
+>>>>>>> 29957ec4d97de9a36bf58baf3e891f01a5eda7dc
 }

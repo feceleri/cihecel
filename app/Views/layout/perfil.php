@@ -13,14 +13,18 @@
 <?= $this->section('conteudo') ?>
 <!-- Conteudo -->
 <ol class="breadcrumb">
-    <li class="breadcrumb-item"><a href="<?= base_url('public') ?>">Atendimento</a></li>
-    <li class="breadcrumb-item"><a href="<?= base_url('public/atendimento/novoAtendimento') ?>">Novo Atendimento</a></li>
+    <li class="breadcrumb-item"><a href="<?= base_url('public') ?>">Paciente</a></li>
     <li class="breadcrumb-item active" aria-current="page">Perfil - <?= $resultado->nome ?></li>
 </ol>
 <div class="row">
     <div class="block col-6" style="padding: 20px;">    
         <ul class="list-group">
-            <li class="list-group-item col-12"><span>Nome:</span>&nbsp;<?= $resultado->nome ?></li>
+            <li class="col-12 list-group-item">
+                <ul class="list-group list-group-horizontal row">
+                    <li class="col-6" style="list-style-type: none;"><span>Nome:</span>&nbsp;<?= $resultado->nome?></li>
+                    <li class="col-6" style="list-style-type: none;"><span>Sexo:</span>&nbsp;<?= $resultado->sexo ?></li>
+                </ul>
+            </li>    
             <li class="col-12 list-group-item">
                 <ul class="list-group list-group-horizontal row">
                     <li class="col-6" style="list-style-type: none;"><span>CPF:</span>&nbsp;<?= $resultado->cpf ?></li>

@@ -11,9 +11,9 @@
                                         <label for="nomeCompleto" class="col-md-3 col-form-label">Nome Completo</label>
                                         <div class="col-md-9">
                                             <input type="text" class="form-control" id="nomeCompleto" name="nomeCompleto" required minlength="3">
-                                        </div>
+                                        </div>          
                                     </div>
-                                    <div class="form-group row">
+                                    <div class="form-group row">           
                                         <label for="cpf" class="col-md-3 col-form-label">CPF</label>
                                         <div class="col-md-9">
                                             <input type="text" class="form-control" id="cpf" name="cpf" maxlength="14" required>
@@ -23,14 +23,14 @@
                                         <label for="sexo" class="col-md-3 col-form-label">Sexo</label>
                                         <div class="col-md-9">
                                             <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio" name="sexo" id="sexoMasculino" value="masculino" required>
+                                                <input class="form-check-input" type="radio" name="sexo" id="sexoMasculino" value="MASCULINO" required>
                                                 <label class="form-check-label" for="sexoMasculino">
                                                 Masculino
                                                 </label>
                                                
                                             </div>
                                             <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio" name="sexo" id="sexoFeminino" value="feminino">
+                                                <input class="form-check-input" type="radio" name="sexo" id="sexoFeminino" value="FEMININO">
                                                 <label class="form-check-label" for="sexoFeminino">
                                                 Feminino
                                                 </label>
@@ -115,7 +115,7 @@
                                 </div>
                             </div>
                             <div class="text-right">
-                                <button type="submit" class="btn btn-primary" id="cadastrar">Cadastrar</button>
+                                <button type="submit" class="btn btn-primary" id="cadastrar" onclick="confirm()">Cadastrar</button>
                             </div>
                         </form>
                     </div>

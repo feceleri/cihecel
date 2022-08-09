@@ -13,9 +13,7 @@ class Cadastro extends Model
     protected $returnType       = 'object';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['nome', 'cpf', 'rg', 'dataNascimento', 'sexo', 'nomeMae', 'telefone1', 'telefone2'];
-
-
+    protected $allowedFields    = ['nome', 'cpf', 'rg', 'dataNascimento', 'sexo', 'telefone1', 'telefone2','nomeMae','cep','logradouro','numeroCasa','complementoCasa','cidade','bairro'];
 
     // Validation
     protected $validationRules      = [];
@@ -45,15 +43,6 @@ class Cadastro extends Model
         return $result;
     }
 
-    public function getUsuario($cpf){
-        $result = $this->find($cpf);
-        return $result;
-    }
-
-    public function getMed($idEstoque){
-        $result = $this->find($idEstoque);
-        return $result;
-    }
 
 
 
