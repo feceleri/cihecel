@@ -6,52 +6,61 @@ use App\Models\Paciente;
 
 class  Atendimento extends BaseController
 {
-    public function __construct()
+    
+    public function loguin()
     {
-        //$this->CoreModel = new CoreModel();
+        echo view('formularios/formLoguin');
     }
 
+    public function recuperarSenha()
+    {
+        echo view('formularios/formRecuperaSenha');
+    }
 
     public function index()
     {
-          $cadastros =  new Paciente();
-        $resultado = $cadastros->getAll();
+        $paciente =  new Paciente();
+        $resultado = $paciente->getAll();
         $data = [
-            'resultado' => $resultado
+            'resultado' => $resultado     
         ];
-        return view('layout/paciente',$data);
+        echo view('layout/paciente', $data);
     }
 
     public function cadastro()
     {
         $cadastros =  new Paciente();
-
-        $post = $this->request->getPost();
-        if(!empty($post)){
-
-        $dadosBD = [
-                    "nome" => $post["nomeCompleto"],
-                    "cpf" => $post["cpf"],
-                    "rg" => $post["rg"],
-                    "dataNascimento" => $post["dtNasc"],
-                    "sexo" => $post["sexo"],
-                    "nomeMae"     => $post["nomeDaMae"],
-                    "telefone1" => $post["tel1"],
-                    "telefone2" => $post["tel2"],
-                    "cep" => $post["cep"],
-                    "logradouro" => $post["logradouro"],
-                    "numeroCasa" => $post["numero"],
-                    "complementoCasa" => $post["complemento"],
-                    "cidade" => $post["localidade"],
-                    "bairro" => $post["bairro"]
-                ];
-            $cadastros->save($dadosBD);            
-            return redirect()->to(base_url('/public'));
-            
-    
-    }
         
-        return view('layout/cadastro');      
+        $post = $this->request->getPost();
+        if (!empty($post)) {
+
+            $dadosBD = [
+                "nome" => $post["nomeCompleto"],
+                "cpf" => $post["cpf"],
+                "rg" => $post["rg"],
+                "dataNascimento" => $post["dtNasc"],
+                "sexo" => $post["sexo"],
+                "nomeMae"     => $post["nomeDaMae"],
+                "telefone1" => $post["tel1"],
+                "telefone2" => $post["tel2"],
+                "cep" => $post["cep"],
+                "logradouro" => $post["logradouro"],
+                "numeroCasa" => $post["numero"],
+                "complementoCasa" => $post["complemento"],
+                "cidade" => $post["localidade"],
+                "bairro" => $post["bairro"]
+            ];
+        
+            if($cadastros->save($dadosBD)){                
+                $this->session->setFlashdata('mensagem', true);
+            }
+            else{
+                $this->session->setFlashdata('mensagem', false);
+            }
+            return redirect()->to(base_url('/public'));
+        }
+
+        echo view('layout/cadastro');
     }
 
     public function novoAtendimento()
@@ -61,61 +70,55 @@ class  Atendimento extends BaseController
         $data = [
             'resultado' => $resultado
         ];
-        return view('layout/novoAtendimento1', $data);
+        echo view('layout/novoAtendimento1', $data);
     }
 
     public function perfil(int $id)
     {
         $cadastros = new  Paciente();
-        
+
         $resultado = $cadastros->getUser($id);
         $data = [
             'resultado' => $resultado
         ];
-        return view('layout/perfil',$data);
+        echo view('layout/perfil', $data);
     }
 
-    public function listarPerfil()
+    public function editar()
     {
-        $cadastros =  new Paciente();
-        $resultado = $cadastros->getAll();
-        $data = [
-            'resultado' => $resultado
-        ];
-        return view('layout/listarPerfil', $data);
-    }
-
-    public function editar(){
         $cadastros =  new Paciente();
 
         $post = $this->request->getPost();
-        if(!empty($post)){
+        if (!empty($post)) {
 
-        $dadosBD = [
-                    "nome" => $post["nomeCompleto"],
-                    "cpf" => $post["cpf"],
-                    "rg" => $post["rg"],
-                    "dataNascimento" => $post["dtNasc"],
-                    "sexo" => $post["sexo"],
-                    "nomeMae"     => $post["nomeDaMae"],
-                    "telefone1" => $post["tel1"],
-                    "telefone2" => $post["tel2"],
-                    "cep" => $post["cep"],
-                    "logradouro" => $post["logradouro"],
-                    "numeroCasa" => $post["numero"],
-                    "complementoCasa" => $post["complemento"],
-                    "cidade" => $post["localidade"],
-                    "bairro" => $post["bairro"]
-                ];
+            $dadosBD = [
+                "nome" => $post["nomeCompleto"],
+                "cpf" => $post["cpf"],
+                "rg" => $post["rg"],
+                "dataNascimento" => $post["dtNasc"],
+                "sexo" => $post["sexo"],
+                "nomeMae"     => $post["nomeDaMae"],
+                "telefone1" => $post["tel1"],
+                "telefone2" => $post["tel2"],
+                "cep" => $post["cep"],
+                "logradouro" => $post["logradouro"],
+                "numeroCasa" => $post["numero"],
+                "complementoCasa" => $post["complemento"],
+                "cidade" => $post["localidade"],
+                "bairro" => $post["bairro"]
+            ];
             $cadastros->save($dadosBD);
-            
-    }}
-
-    public function deletar($id){
-        $paciente =  new Paciente();
-        $paciente->deleteUser($id);
-        
-        return redirect()->to(base_url('/public'));
+        }
     }
-}
 
+    public function deletar()
+    {
+        if ($this->request->isAJAX()) {
+            $id = $this->request->getPost('id');
+            $paciente =  new Paciente();            
+            return $this->response->setJSON($paciente->deleteUser($id));
+            exit;
+        }
+    }
+
+}

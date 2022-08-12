@@ -1,5 +1,5 @@
 
-            <div class="row align-items-center" style="height:80vh">
+            <div class="row" style="height:80vh">
                 <div class="col-md-12">
                     <div class="card-box">
                         <h4 class="card-title">Informações Pessoais</h4>
@@ -113,11 +113,13 @@
                                     </div>
                                 </div>
                             </div>
+                            
                             <div class="text-right">
-                                <button type="submit" class="btn btn-primary" id="cadastrar">Cadastrar</button>
+                                <button type="submit" class="btn btn-primary float-end" id="cadastrar">Cadastrar</button>
                             </div>
+                            <p><br></p>
                         </form>
                     </div>
                 </div>
             </div>
-        </div>
+        

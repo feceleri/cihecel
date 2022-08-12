@@ -756,6 +756,9 @@ table.table td h2 span {
 .table.dataTable {
 	border-collapse: collapse !important;
 }
+.table.dataTable a{
+	text-decoration: none;
+}
 
 textarea.form-control {
 	height: auto;

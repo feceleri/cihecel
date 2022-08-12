@@ -10,10 +10,7 @@
         align-items: center;
         height: 50px;
         width: auto; 
-
-
     }
-
 
     .show {
 
@@ -30,10 +27,7 @@
         <li class="breadcrumb-item active" aria-current="page">Cadastro</li>
     </ol>
 </nav>
-<!-- Back-end -->
-<div id="response" class="alert alert-success">
-<h5> Cadastrado com Sucesso &nbsp; <i style="font-size:25px" class="fa fa-check" aria-hidden="true"></i></h5>
-</div>
+
 <?= $this->include('formularios/cadastroForm.php') ?>
 
 <?= $this->endSection() ?>
@@ -41,6 +35,27 @@
 <?= $this->section('script') ?>
 <!-- Script CEP -->
 <script>
+    
+    // $('#cadastrar').on('click', function(e){
+    //     e.preventDefault();
+    //     alert('chegou até aqui!')
+
+    //     $.ajax({
+    //         type:'POST',
+    //         url: '<?= base_url('public/atendimento/cadastro') ?>',
+    //         dataType: 'Json',
+    //         data: new FormData(this),
+    //         success: function(){
+    //             alert('Success')
+    //         },
+    //         error: function(){
+    //             alert('error')
+    //         }
+    //     })
+    // })
+    
+    
+    
     const cep = document.querySelector("#cep")
 
     const mostraDados = (resultado) => {
@@ -118,7 +133,7 @@
     // Confirmação de envio
 </script>
 
-<script>
+<!-- <script>
     const form = document.querySelector('#form');
     const successMessage = document.querySelector('#response');
     form.addEventListener('submit', (e) => {
@@ -127,10 +142,10 @@
 
         successMessage.classList.add('show');
 
-        setTimeout(() => form.submit(), 2000 ); 
+        setTimeout(() => form.submit(), 1000 ); 
         
         
 
     });
-</script>
+</script> -->
 <?= $this->endSection() ?>

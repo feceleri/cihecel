@@ -5,7 +5,7 @@ namespace App\Models;
 use CodeIgniter\Model;
 
 class Paciente extends Model
-{    
+{
     protected $table            = 'paciente';
     protected $primaryKey       = 'id';
     protected $useAutoIncrement = true;
@@ -13,7 +13,7 @@ class Paciente extends Model
     protected $returnType       = 'object';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['nome', 'cpf', 'rg', 'dataNascimento', 'sexo', 'telefone1', 'telefone2','nomeMae','cep','logradouro','numeroCasa','complementoCasa','cidade','bairro'];
+    protected $allowedFields    = ['nome', 'cpf', 'rg', 'dataNascimento', 'sexo', 'telefone1', 'telefone2', 'nomeMae', 'cep', 'logradouro', 'numeroCasa', 'complementoCasa', 'cidade', 'bairro'];
 
     // Validation
     protected $validationRules      = [];
@@ -34,18 +34,24 @@ class Paciente extends Model
 
     public function getAll()
     {
-    $result = $this->findAll();
-       return $result;
+        $result = $this->findAll();
+        return $result;
     }
 
-    public function getUser($id){
+    public function getUser($id)
+    {
         $result = $this->find($id);
         return $result;
     }
 
-    public function deleteUser($id){
-        $result = $this->where('id', $id)->delete();
-        return $result;        
+    public function deleteUser($id)
+    {
+        $result = $this->find($id);
+        if ($result == true) {
+            $this->delete($id);
+            return true;
+        } else {
+            return false;
+        }        
     }
-
 }
