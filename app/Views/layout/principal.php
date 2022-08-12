@@ -23,7 +23,7 @@
     <div class="main-wrappe" >
         <div class="header">
             <div class="header-left">
-                <a href="#" class="logo">
+                <a href="<?= base_url('public/atendimento') ?>" class="logo">
                     <img src="<?= base_url('public/resources/img/logoGrande.png') ?>" id='logoGrande' class="logoPrincipal show" alt="logo cihecel">
                     <img src="<?= base_url('public/resources/img/logoGrandeCortada.png') ?>"  id='logoPequeno' class="logoPrincipal" alt="logo cihecel">
                 </a>
@@ -65,22 +65,10 @@
                         <li class="submenu">
                             <a href="#"><i class="fa fa-search"></i> <span> Consulta</span> <span class="menu-arrow"></span></a>
                             <ul style="display: none;">
-
-                                <li><a href="<?=base_url('public/atendimento/listarPerfil') ?>">x</a></li>
-                                <li><a href="leaves.html">Consulta 2</a></li>
-                                <li><a href="<?=base_url('public/atendimento/listarPerfil') ?>">Listar Perfil</a></li>
-                                <li><a href="<?=base_url('public/atendimento/pesquisaCPF') ?>">Pesquisa por CPF</a></li>
-<<<<<<< HEAD
-
-                                <li><a href="holidays.html">Consulta 3</a></li>
-=======
                                 <li><a href="<?=base_url('public/atendimento/consultaEstoque') ?>">Estoque de Medicamentos</a></li>
-<<<<<<< HEAD
                                 <li><a href="<?=base_url('public/atendimento/listagem') ?>">Retiradas (Listagem)</a></li>
-=======
->>>>>>> 33563c710e2d4a382a3c87ff5773a4de67ace831
-                                <li><a href="holidays.html">Consulta 4</a></li>
->>>>>>> 29957ec4d97de9a36bf58baf3e891f01a5eda7dc
+                                <li><a href="holidays.html">Funcionários</a></li>
+
                             </ul>
                         </li>
                     </ul>

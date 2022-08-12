@@ -1,10 +1,10 @@
 <div class="card-block">
     <h5 class="text-bold card-title">Estoque</h5>
     <div class="table-responsive">
-        <table class="table table-striped mb-0">
+        <table class="table table-striped mb-0 " id="ajaxTable">
             <thead>
                 <tr>
-                    <th>Nome</th>
+                    <th>Medicamento</th>
                     <th>ID</th>
                     <th>Quantidade</th>
                     <th>Observação</th>
@@ -14,7 +14,6 @@
             <tbody>
                     <?php
                     foreach ($resultado as $key => $medicamento) {
-                        
                         echo "<tr>";
                         echo    "<td><a href='". base_url('public/atendimento/estoque/'. $medicamento->id  ) . "'>" . $medicamento->nomeMed . "</a></td>";
                         echo    "<td>" . $medicamento->idMedicamento . "</td>";

@@ -87,7 +87,6 @@ class  Atendimento extends BaseController
         ];
         return view('layout/listarPerfil', $data);
     }
-<<<<<<< HEAD
 
     public function pesquisaCPF()
     {
@@ -123,7 +122,31 @@ class  Atendimento extends BaseController
     
         return view('layout/listarEstoque',$data);
     }
+
+    public function novoMedicamento()
+    {
+        $medicamentos =  new Medicamento();
+
+        $post = $this->request->getPost();
+        if(!empty($post)){
+            $dadosBD = [
+                    "id" => $post["id"],
+                    "idMedicamento" => $post["idMed"],
+                    "idControle" => $post["idCont"],
+                    "quantidade" => $post["quantid"],
+                    "nomeMed" => $post["medicamento"],
+                    "observacao"     => $post["obs"],
+                    "dosagem" => $post["dosagem"],
+                    "tarja" => $post["tarja"]
+                ];
+            $medicamentos->save($dadosBD);
+            
+            return view('layout/novoMed');
+            
     
-=======
->>>>>>> 29957ec4d97de9a36bf58baf3e891f01a5eda7dc
+        }
+        
+        return view('layout/novoMed');      
+    }
+    
 }
