@@ -42,11 +42,11 @@
 <?= $this->endSection() ?>
 
 <?= $this->section('conteudo') ?>
-<nav aria-label="breadcrumb">
+<!-- <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item active" aria-current="page">Paciente</li>
     </ol>
-</nav>
+</nav> -->
 <a class="btn btn-success mb-3" href="<?= base_url('public/atendimento/cadastro') ?>" style="float:right;top:5px"><i class="fa fa-user-plus" aria-hidden="true"></i></a>
 <?= $this->include('tabelas/tabelaPrincipal.php') ?>
 
