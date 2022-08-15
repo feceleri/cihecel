@@ -14,7 +14,7 @@
         </div>
     </div>
     <div class="text-right">
-        <button type="submit" class="btn btn-secondary float-start">Esqueci a senha</button>
+        <a class="btn btn-secondary float-start" href="<?= base_url('public/login/recuperarSenha')?>">Esqueci a senha</a>
         <button type="submit" class="btn btn-primary float-end">Login</button>
         <p><br></p>
     </div>

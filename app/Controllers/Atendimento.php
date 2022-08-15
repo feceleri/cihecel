@@ -6,17 +6,6 @@ use App\Models\Paciente;
 
 class  Atendimento extends BaseController
 {
-    
-    public function loguin()
-    {
-        echo view('formularios/formLoguin');
-    }
-
-    public function recuperarSenha()
-    {
-        echo view('formularios/formRecuperaSenha');
-    }
-
     public function index()
     {
         $paciente =  new Paciente();
