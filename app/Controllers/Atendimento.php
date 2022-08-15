@@ -53,6 +53,7 @@ class  Atendimento extends BaseController
             
     
     }
+
         
         return view('layout/cadastro');      
     }
@@ -142,11 +143,19 @@ class  Atendimento extends BaseController
             $medicamentos->save($dadosBD);
             
             return view('layout/novoMed');
-            
-    
         }
         
-        return view('layout/novoMed');      
+        echo view('layout/novoMed');      
+    }
+
+    public function listagem(){
+        $remedios =  new Medicamento();
+        $resultado = $remedios->getAll();
+        $data = [
+            'resultado' => $resultado
+        ];
+    
+        return view('layout/listagem');
     }
     
 }

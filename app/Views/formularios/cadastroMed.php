@@ -4,7 +4,7 @@
                     <div class="card-box">
                         <h4 class="card-title">Formulário de cadastro de medicamento</h4>
                         <h4 class="card-title">Informações</h4>
-                        <form action="<?= base_url('public/atendimento/novoMedicamento')?>" method="POST" name="datesCadastro" id='form'>
+                        <form action="<?php echo base_url('public/atendimento/novoMedicamento')?>" method="POST" name="datesCadastroMed" id='form'>
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group row">
@@ -34,7 +34,7 @@
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label for="medicamento" class="col-md-3 col-form-label">Nome Med</label>
+                                        <label for="medicamento" class="col-md-3 col-form-label">Nome Medicamento</label>
                                         <div class="col-md-9">
                                             <input required type="text" class="form-control" id="medicamento" name="medicamento">
                                         </div>

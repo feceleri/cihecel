@@ -4,8 +4,6 @@
 <!-- Style -->
 <?= $this->endSection() ?>
 
-
-<?= $this->section('conteudo') ?>
 <!-- Conteudo -->
 <?= $this->section('conteudo') ?>
 <nav aria-label="breadcrumb">
@@ -16,7 +14,7 @@
 </nav>
 <!-- Back-end -->
 
-<?= $this->include('formularios/cadastroForm.php') ?>
+<?= $this->include('formularios/cadastroMed.php') ?>
 
 <?= $this->endSection() ?>
 
