@@ -19,7 +19,7 @@
     <div class="main-wrappe">
         <div class="header">
             <div class="header-left">
-                <a href="#" class="logo">
+                <a href="<?= base_url('public/atendimento') ?>" class="logo">
                     <img src="<?= base_url('public/resources/img/logoGrande.png') ?>" id='logoGrande' class="logoPrincipal show" alt="logo cihecel">
                     <img src="<?= base_url('public/resources/img/logoGrandeCortada.png') ?>" id='logoPequeno' class="logoPrincipal" alt="logo cihecel">
                 </a>
