@@ -3,7 +3,6 @@
 namespace App\Controllers;
 
 use App\Models\Paciente;
-use App\Libraries\Teste;
 use App\Models\Cadastro;
 use App\Models\Medicamento;
 
@@ -42,12 +41,18 @@ class  Atendimento extends BaseController
                 "cidade" => $post["localidade"],
                 "bairro" => $post["bairro"]
             ];
-        
+            
+            $mensagem = [
+                'mensagem' => 'Cadastrado com sucesso!',
+                'tipo' => 'alert-success',
+            ];
             if($cadastros->save($dadosBD)){                
-                $this->session->setFlashdata('mensagem', true);
+                $this->session->setFlashdata('mensagem', $mensagem);
             }
             else{
-                $this->session->setFlashdata('mensagem', false);
+                $mensagem['mensagem'] = 'Não foi possível cadastrar o paciente!';
+                $mensagem['tipo'] = 'alert-danger'; 
+                $this->session->setFlashdata('mensagem', $mensagem);
             }
             return redirect()->to(base_url('/public'));
         }

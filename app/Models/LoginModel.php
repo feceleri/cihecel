@@ -4,10 +4,10 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class Login extends Model
+class LoginModel extends Model
 {
     protected $DBGroup          = 'default';
-    protected $table            = 'funcionarios';
+    protected $table            = 'login';
     protected $primaryKey       = 'id';
     protected $useAutoIncrement = true;
     protected $insertID         = 0;
@@ -39,4 +39,18 @@ class Login extends Model
     protected $afterFind      = [];
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
+
+    public function exists($user, $password)
+    {
+        if ($this->where('user', $user)
+            ->where('password', $password)
+            ->find()
+        ) {
+            $result = true;
+        } else {
+            $result = false;
+        }
+
+        return  $result;
+    }
 }

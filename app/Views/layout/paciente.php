@@ -182,23 +182,14 @@
             ],
         });
     });
-    <?php
-    if (session('mensagem')) {
-        $certo = session('mensagem');
-        if ($certo) {
-            echo "msg = document.querySelector('#msgInfo');
-        alerta = document.querySelector('#alerta');
-        alerta.classList.add('alert-success');
-        msg.textContent = 'Paciente cadastrado com sucesso!';
-        new bootstrap.Toast(document.querySelector('#basicToast')).show();";
-        } else {
-            echo "msg = document.querySelector('#msgInfo');
-        alerta = document.querySelector('#alerta');
-        alerta.classList.add('alert-danger');
-        msg.textContent = 'Não foi possível cadastrar!';
-        new bootstrap.Toast(document.querySelector('#basicToast')).show();";
-        }
-    }
+    <?php         
+         if (isset($_SESSION['mensagem'])) {
+             echo "msg = document.querySelector('#msgInfo');
+             alerta = document.querySelector('#alerta');
+             alerta.classList.add('".$_SESSION['mensagem']['tipo']."');
+             msg.textContent = '".$_SESSION['mensagem']['mensagem']."';
+             new bootstrap.Toast(document.querySelector('#basicToast')).show();";
+         }
     ?>
 </script>
 
