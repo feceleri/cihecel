@@ -2,13 +2,10 @@
 
 namespace App\Controllers;
 
-<<<<<<< HEAD
 use App\Models\Paciente;
-=======
 use App\Libraries\Teste;
 use App\Models\Cadastro;
 use App\Models\Medicamento;
->>>>>>> 075b7e7a9e594c996a9849052ce905956a5b1674
 
 class  Atendimento extends BaseController
 {
@@ -24,38 +21,7 @@ class  Atendimento extends BaseController
 
     public function cadastro()
     {
-<<<<<<< HEAD
         $cadastros =  new Paciente();
-=======
-        $cadastros =  new Cadastro();
-
-        $post = $this->request->getPost();
-        if(!empty($post)){
-
-        $dadosBD = [
-                    "nome" => $post["nomeCompleto"],
-                    "cpf" => $post["cpf"],
-                    "rg" => $post["rg"],
-                    "dataNascimento" => $post["dtNasc"],
-                    "sexo" => $post["sexo"],
-                    "nomeMae"     => $post["nomeDaMae"],
-                    "telefone1" => $post["tel1"],
-                    "telefone2" => $post["tel2"],
-                    "cep" => $post["cep"],
-                    "logradouro" => $post["logradouro"],
-                    "numeroCasa" => $post["numero"],
-                    "complementoCasa" => $post["complemento"],
-                    "cidade" => $post["localidade"],
-                    "bairro" => $post["bairro"]
-                ];
-            $cadastros->save($dadosBD);
-            $response['info'] = "Essa é uma msg de info";
-            return view('layout/cadastro',$response);
-            
-    
-    }
-
->>>>>>> 075b7e7a9e594c996a9849052ce905956a5b1674
         
         $post = $this->request->getPost();
         if (!empty($post)) {
@@ -137,7 +103,6 @@ class  Atendimento extends BaseController
         }
     }
 
-<<<<<<< HEAD
     public function deletar()
     {
         if ($this->request->isAJAX()) {
@@ -148,10 +113,9 @@ class  Atendimento extends BaseController
         }
     }
 
-=======
     public function pesquisaCPF()
     {
-        $cadastros = new  Cadastro();
+      
         // $cpf = $this->request->getPost($cpf);
         // $resultado = $cadastros->getCPF($id);
         // $cpf = $this->request->getPost($cpf);
@@ -218,5 +182,4 @@ class  Atendimento extends BaseController
         return view('layout/listagem');
     }
     
->>>>>>> 075b7e7a9e594c996a9849052ce905956a5b1674
 }

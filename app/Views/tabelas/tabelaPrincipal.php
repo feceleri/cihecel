@@ -4,7 +4,7 @@
             <h4 class="card-title" style="display: initial;">Pacientes</h4>
             <a class="btn btn-success mb-3" href="<?= base_url('public/atendimento/cadastro') ?>" style="float:right;top:5px"><i class="fa fa-user-plus" aria-hidden="true"></i></a>
             <div class="table-responsive" style="width: 100%;">
-                
+
                 <table class="table mb-0 table-sm align-middle" id="ajaxTable">
                     <thead>
                         <tr>
@@ -34,23 +34,5 @@
                 </table>
             </div>
         </div>
-            </thead>
-            <tbody>
-                    <?php
-                    foreach ($resultado as $key => $paciente) {
-                        echo "<tr>";
-                        echo    "<td><a href='". base_url('public/atendimento/perfil/'. $paciente->id  ) . "'>" . $paciente->nome . "</a></td>";
-                        echo    "<td>" . $paciente->cpf . "</td>";
-                        $oldData = $paciente->dataNascimento;
-                        $orgDate = $oldData;  
-                        $date = str_replace('-"', '/', $orgDate);  
-                        $newDate = date("d/m/Y", strtotime($date));  
-                        echo "<td>" .$newDate. "</td>";       
-                        echo    "<td> <div><a class='pencil' href=''><span><i class='fa fa-pencil' aria-hidden='true'></i> </span></a><a class='eraser' href=''><span><i class='fa fa-eraser' aria-hidden='true'></i> </span></a></div> </td>";
-                        echo "</tr>";
-                    }; ?>
-                    
-            </tbody>
-        </table>
     </div>
 </div>

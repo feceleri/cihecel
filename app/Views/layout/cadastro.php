@@ -35,28 +35,7 @@
 <?= $this->section('script') ?>
 <!-- Script CEP -->
 <script>
-    
-    // $('#cadastrar').on('click', function(e){
-    //     e.preventDefault();
-    //     alert('chegou até aqui!')
-
-    //     $.ajax({
-    //         type:'POST',
-    //         url: '<?= base_url('public/atendimento/cadastro') ?>',
-    //         dataType: 'Json',
-    //         data: new FormData(this),
-    //         success: function(){
-    //             alert('Success')
-    //         },
-    //         error: function(){
-    //             alert('error')
-    //         }
-    //     })
-    // })
-    
-    
-    
-    const cep = document.querySelector("#cep")
+        const cep = document.querySelector("#cep")
 
     const mostraDados = (resultado) => {
         for (const campo in resultado) {
@@ -133,19 +112,4 @@
     // Confirmação de envio
 </script>
 
-<!-- <script>
-    const form = document.querySelector('#form');
-    const successMessage = document.querySelector('#response');
-    form.addEventListener('submit', (e) => {
-
-        e.preventDefault();
-
-        successMessage.classList.add('show');
-
-        setTimeout(() => form.submit(), 1000 ); 
-        
-        
-
-    });
-</script> -->
 <?= $this->endSection() ?>

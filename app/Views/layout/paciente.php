@@ -74,7 +74,6 @@
             </div>
         </div>
     </div>
-    
 </div>
 
 <div class="toast-container position-fixed bottom-0 end-0 p-3" style="top: 10px; right: 10px; z-index: 9999;">
