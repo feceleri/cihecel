@@ -22,6 +22,7 @@ class Login extends BaseController
                 'tipo' => 'alert-success',
             ];
             if ($db->exists($user, $password)) {
+                $this->session->set('logado','logado');
                 $this->session->set('user', $user);
                 $mensagem['mensagem'] = 'Bem vindo '.$user.'!';
                 $this->session->setFlashdata('mensagem', $mensagem);
@@ -38,6 +39,18 @@ class Login extends BaseController
 
     public function recuperarSenha()
     {
+
+        $post = $this->request->getPost();
+        if (!empty($post)) {
+            // var_dump($post);
+        }
+
         echo view('formularios/formRecuperaSenha');
+    }
+
+    public function logout(){
+         session()->destroy();
+
+         return redirect()->to(base_url('public/login'));
     }
 }

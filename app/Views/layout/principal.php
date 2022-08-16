@@ -13,6 +13,18 @@
     <link rel="stylesheet" type="text/css" href="<?= base_url('public/resources') ?>/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="<?= base_url('public/resources') ?>/css/style.css">
     <?= $this->renderSection("css"); ?>
+
+    <style>
+        a {
+            text-decoration: none;
+        }
+        a.btn.btn-secondary.dropdown-toggle {
+            background: white;
+            color: black;
+            border: none;
+        }
+    </style>
+
 </head>
 
 <body>
@@ -26,27 +38,15 @@
             </div>
             <a id="toggle_btn" href="javascript:void(0);"><i class="fa fa-bars"></i></a>
             <a id="mobile_btn" class="mobile_btn float-left" href="#sidebar"><i class="fa fa-bars"></i></a>
-            <ul class="nav user-menu float-end">
-                <li class="nav-item dropdown has-arrow">
-                    <a href="#" class="dropdown-toggle nav-link user-link" data-toggle="dropdown">
-                        <span> <?= session()->user?> </span>
-                    </a>
-                    <div class="dropdown-menu">
-                        <a class="dropdown-item" href="profile.html">Meu Perfil</a>
-                        <a class="dropdown-item" href="edit-profile.html">Editar Perfil</a>
-                        <a class="dropdown-item" href="settings.html">Configurações</a>
-                        <a class="dropdown-item" href="login.html">Logout</a>
-                    </div>
-                </li>
-            </ul>
-            <div class="dropdown mobile-user-menu float-end">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
-                <div class="dropdown-menu dropdown-menu-right">
-                    <a class="dropdown-item" href="profile.html">Meu Perfil</a>
-                    <a class="dropdown-item" href="edit-profile.html">Editar Perfil</a>
-                    <a class="dropdown-item" href="settings.html">Configurações</a>
-                    <a class="dropdown-item" href="login.html">Logout</a>
-                </div>
+            <div class="dropdown float-end m-3">
+                <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <span style="font-size: 15px; padding:3px;"> <?= session()->user ?></span> <i class="fa fa-caret-down" aria-hidden="true"></i>
+                </a>
+
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="#">Configurações<i class="fa fa-cog float-end" aria-hidden="true"></i></a> </li>
+                    <li><a class="dropdown-item" href="<?= base_url('public/login/logout')?>">Logout<i class="fa fa-sign-out float-end" aria-hidden="true"></i></a></li>
+                </ul>
             </div>
         </div>
         <div class="sidebar" id="sidebar">
@@ -65,7 +65,7 @@
                                 <li><a href="<?= base_url('public/atendimento/listarPerfil') ?>">x</a></li>
                                 <li><a href="leaves.html">Consulta 2</a></li>
                                 <li><a href="<?= base_url('public/atendimento/listarPerfil') ?>">Listar Perfil</a></li>
-                                <li><a href="<?= base_url('public/atendimento/pesquisaCPF') ?>">Pesquisa por CPF</a></li>          
+                                <li><a href="<?= base_url('public/atendimento/pesquisaCPF') ?>">Pesquisa por CPF</a></li>
                                 <li><a href="holidays.html">Consulta 3</a></li>
                                 <li><a href="<?= base_url('public/atendimento/consultaEstoque') ?>">Estoque de Medicamentos</a></li>
                                 <li><a href="holidays.html">Consulta 4</a></li>

@@ -16,6 +16,7 @@
     <li class="breadcrumb-item"><a href="<?= base_url('public') ?>">Paciente</a></li>
     <li class="breadcrumb-item active" aria-current="page">Perfil - <?= $resultado->nome ?></li>
 </ol>
+<div class="card-box">
 <div class="row">
     <div class="block col-6" style="padding: 20px;">    
         <ul class="list-group">
@@ -57,6 +58,7 @@
         <div class="row-6">1</div>
         <div class="row-6">2</div>
     </div>
+</div>
 </div>
 <?= $this->endSection() ?>
 
