@@ -27,7 +27,7 @@
 <?= $this->section('conteudo') ?>
 <!-- Conteudo -->
 
-<a class="btn btn-success mb-3" href="<?= base_url('public/atendimento/novoMedicamento') ?>" style="float:right;top:5px"><i class="fa fa-plus" aria-hidden="true"></i></a>
+<a class="btn btn-success mb-3" href="<?= base_url('public/estoque/novoMedicamento') ?>" style="float:right;top:5px"><i class="fa fa-plus" aria-hidden="true"></i></a>
 <?= $this->include('tabelas/tabelaMedicamentos.php') ?>
 
 

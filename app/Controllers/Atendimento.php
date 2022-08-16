@@ -132,27 +132,6 @@ class  Atendimento extends BaseController
         return view('layout/pesquisaCPF');
     }
     
-    public function consultaEstoque()
-    {
-        $remedios =  new Medicamento();
-        $resultado = $remedios->getAll();
-        $data = [
-             'resultado' => $resultado
-        ];
-        return view('layout/estoque', $data);
-    }
-
-    public function estoque(int $id)
-    {
-        $remedios =  new Medicamento();
-        $resultado = $remedios->getAll();
-        $data = [
-            'resultado' => $resultado
-        ];
-    
-        return view('layout/listarEstoque',$data);
-    }
-
     public function novoMedicamento()
     {
         $medicamentos =  new Medicamento();
@@ -176,15 +155,4 @@ class  Atendimento extends BaseController
         
         echo view('layout/novoMed');      
     }
-
-    public function listagem(){
-        $remedios =  new Medicamento();
-        $resultado = $remedios->getAll();
-        $data = [
-            'resultado' => $resultado
-        ];
-    
-        return view('layout/listagem');
-    }
-    
 }

@@ -4,7 +4,7 @@
                     <div class="card-box">
                         <h4 class="card-title">Formulário de cadastro de medicamento</h4>
                         <h4 class="card-title">Informações</h4>
-                        <form action="<?php echo base_url('public/atendimento/novoMedicamento')?>" method="POST" name="datesCadastroMed" id='form'>
+                        <form action="<?php echo base_url('public/estoque/novoMedicamento')?>" method="POST" name="datesCadastroMed" id='form'>
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group row">
