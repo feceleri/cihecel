@@ -29,7 +29,7 @@
             <ul class="nav user-menu float-end">
                 <li class="nav-item dropdown has-arrow">
                     <a href="#" class="dropdown-toggle nav-link user-link" data-toggle="dropdown">
-                        <span>Ana Marques</span>
+                        <span> <?= session()->user?> </span>
                     </a>
                     <div class="dropdown-menu">
                         <a class="dropdown-item" href="profile.html">Meu Perfil</a>
