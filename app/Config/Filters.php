@@ -39,7 +39,8 @@ class Filters extends BaseConfig
             // 'csrf',
             // 'invalidchars',
             'login' => ['except' => [
-                'login'
+                'login',
+                'login/recuperarSenha',
             ]
         ],
         ],

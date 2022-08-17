@@ -25,7 +25,7 @@ class ProtectCihesel implements FilterInterface
      */
     public function before(RequestInterface $request, $arguments = null)
     {
-        if(!session('logado', 'logado') == true){
+        if(!session('logado', true) == true){
             return redirect()->to(base_url('public/login'));
         }
     }

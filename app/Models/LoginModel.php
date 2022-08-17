@@ -46,11 +46,28 @@ class LoginModel extends Model
             ->where('password', $password)
             ->find()
         ) {
-            $result = true;
+            $query = $this->query("SELECT * FROM login where user='".$user."'  ");
+            $row = $query->getRow();
+            $result = [
+                'true'=>true,
+                'user'=> $row,
+            ];
         } else {
             $result = false;
         }
 
         return  $result;
+    }
+
+    public function getAll()
+    {
+        $result = $this->findAll();
+        return $result;
+    }
+
+    public function getUser($id)
+    {
+        $result = $this->find($id);
+        return $result;
     }
 }

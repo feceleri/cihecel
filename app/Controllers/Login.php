@@ -22,13 +22,15 @@ class Login extends BaseController
                 'tipo' => 'alert-success',
             ];
             if ($db->exists($user, $password)) {
-                $this->session->set('logado','logado');
+                $query=$db->exists($user, $password);
+                $this->session->set('usuario',$query);
+                $this->session->set('logado',true);
                 $this->session->set('user', $user);
-                $mensagem['mensagem'] = 'Bem vindo '.$user.'!';
+                $mensagem['mensagem'] = 'Bem vindo '.$_SESSION['usuario']['user']->nome.'!';
                 $this->session->setFlashdata('mensagem', $mensagem);
                 return redirect()->to(base_url('/public'));
             } else {
-                $mensagem['mensagem'] = 'Não existe';
+                $mensagem['mensagem'] = 'User ou Password incorretos!';
                 $mensagem['tipo'] = 'alert-danger';                
             }
             $this->session->setFlashdata('mensagem', $mensagem);
@@ -52,5 +54,16 @@ class Login extends BaseController
          session()->destroy();
 
          return redirect()->to(base_url('public/login'));
+    }
+
+    public function settings(){
+        $db =  new LoginModel();
+
+
+        $date=[
+            'user' => 'a',
+        ];
+
+        echo view('layout/settings',$date);
     }
 }

@@ -76,16 +76,6 @@
     </div>
 </div>
 
-<div class="toast-container position-fixed bottom-0 end-0 p-3" style="top: 10px; right: 10px; z-index: 9999;">
-    <div id="basicToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-bs-delay="1000">
-        <div class="alert" style="margin-bottom: 0;" id="alerta">
-            <span id="msgInfo"></span>
-            <button type="button" class="btn-close btn-close-black float-end" data-bs-dismiss="toast" aria-label="Close"></button>
-        </div>
-    </div>
-</div>
-
-
 <?= $this->endSection() ?>
 
 <?= $this->section('script') ?>

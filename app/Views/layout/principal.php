@@ -18,6 +18,7 @@
         a {
             text-decoration: none;
         }
+
         a.btn.btn-secondary.dropdown-toggle {
             background: white;
             color: black;
@@ -40,12 +41,12 @@
             <a id="mobile_btn" class="mobile_btn float-left" href="#sidebar"><i class="fa fa-bars"></i></a>
             <div class="dropdown float-end m-3">
                 <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    <span style="font-size: 15px; padding:3px;"> <?= session()->user ?></span> <i class="fa fa-caret-down" aria-hidden="true"></i>
+                    <span style="font-size: 15px; padding:3px; text-transform: capitalize;"> <?= $_SESSION['usuario']['user']->nome;?></span> <i class="fa fa-caret-down" aria-hidden="true"></i>
                 </a>
 
                 <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="#">Configurações<i class="fa fa-cog float-end" aria-hidden="true"></i></a> </li>
-                    <li><a class="dropdown-item" href="<?= base_url('public/login/logout')?>">Logout<i class="fa fa-sign-out float-end" aria-hidden="true"></i></a></li>
+                    <li><a class="dropdown-item" href="<?= base_url('public/login/settings') ?>">Configurações<i class="fa fa-cog float-end" aria-hidden="true"></i></a> </li>
+                    <li><a class="dropdown-item" href="<?= base_url('public/login/logout') ?>">Logout<i class="fa fa-sign-out float-end" aria-hidden="true"></i></a></li>
                 </ul>
             </div>
         </div>
@@ -75,6 +76,16 @@
                 </div>
             </div>
         </div>
+
+        <div class="toast-container position-fixed bottom-0 end-0 p-3" style="top: 10px; right: 10px; z-index: 9999;">
+            <div id="basicToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-bs-delay="1000">
+                <div class="alert" style="margin-bottom: 0;" id="alerta">
+                    <span id="msgInfo" style="text-transform: capitalize;"></span>
+                    <button type="button" class="btn-close btn-close-black float-end" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+            </div>
+        </div>
+
         <div class="page-wrapper" style="padding: 100px 50px;">
             <!-- Conteudo -->
             <?= $this->renderSection("conteudo"); ?>
