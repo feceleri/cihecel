@@ -1032,12 +1032,12 @@ textarea.form-control {
 
 .sidebar-menu li a:hover {
 	color: #000000;
-}
-
-.sidebar-menu li.active a {
-	color: #000000;
 	background-color: #f3f3f3;
 }
+
+/* .sidebar-menu li.active a {
+	
+} */
 
 .menu-title {
 	color: #333;

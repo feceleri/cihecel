@@ -57,13 +57,23 @@ class Login extends BaseController
     }
 
     public function settings(){
+      
+        echo view('layout/settings');
+    }
+
+    public function editar(){
+
+        echo view('layout/editUser');
+    }
+
+    public function resetPassword(){
         $db =  new LoginModel();
-
-
-        $date=[
-            'user' => 'a',
-        ];
-
-        echo view('layout/settings',$date);
+        $_SESSION['usuario']['user']->user;
+        $post = $this->request->getPost();
+        if (!empty($post)) {
+            $mensagem=$db->resetPassword($_SESSION['usuario']['user']->user,$post['oldPassword'],$post['newPassword'],$post['confirmPassword']);
+            $this->session->setFlashdata('mensagem', $mensagem);
+            return redirect()->to(base_url('public/login/editar'));
+        }
     }
 }

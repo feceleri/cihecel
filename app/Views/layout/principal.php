@@ -58,6 +58,11 @@
                         <li class="active">
                             <a href="<?= base_url('public') ?>"><i class="fa fa-user"></i> <span>Pacientes</span></a>
                         </li>
+                        <li class="active">
+                            <a href="<?= base_url('public/estoque/consultaEstoque') ?>"><i class="fa fa-archive" aria-hidden="true"></i> </i> <span>Estoque</span></a>
+                        </li>
+
+
 
                         <li class="submenu">
                             <a href="#"><i class="fa fa-search"></i> <span> Consulta</span> <span class="menu-arrow"></span></a>

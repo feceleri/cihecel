@@ -70,4 +70,42 @@ class LoginModel extends Model
         $result = $this->find($id);
         return $result;
     }
+
+    public function resetPassword($user,$old,$new,$confirm){
+        $query = $this->query("SELECT * FROM login where user='".$user."'  ");
+            $row = $query->getRow();
+        
+     
+        if( $new  != $confirm){
+            
+            $date=[
+                'mensagem' => 'A senhas não conferem!',
+                'tipo' =>'alert-danger',
+            ];
+
+            return $date;   
+        }
+        elseif($new == $confirm &&  $old == $row->password){
+            
+            $data = [
+                'password' => $new,
+            ];
+            $this->update($row->id,$data);
+
+            $date=[
+                'mensagem' => 'Senha redefinida com sucesso!',
+                'tipo' =>'alert-success',
+            ];
+
+            return $date;   
+        }else {
+           
+            $date=[
+                'mensagem' => 'A senha atual está incorreta.',
+                'tipo' =>'alert-danger',
+            ];
+           
+            return $date;
+        }
+    }
 }
