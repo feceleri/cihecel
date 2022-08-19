@@ -82,6 +82,14 @@ class Login extends BaseController
         echo view('layout/editEmail');
     }
 
-
-
+    public function editNome(){
+        $post = $this->request->getPost();
+        if (!empty($post)) {
+            $db =  new LoginModel();
+            $mensagem=$db->resetName($_SESSION['usuario']['user']->user,$post['password'],$post['Pnome'],$post['Snome']);
+            $this->session->setFlashdata('mensagem', $mensagem);
+        }
+        
+        echo view('layout/EditNome');
+    }
 }

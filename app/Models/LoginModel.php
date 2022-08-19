@@ -14,7 +14,7 @@ class LoginModel extends Model
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['password','email'];
+    protected $allowedFields    = ['password','email','nome','sobrenome'];
 
     // Dates
     protected $useTimestamps = false;
@@ -132,6 +132,30 @@ class LoginModel extends Model
          else {
             $date = [
                 'mensagem' => 'A senha atual está incorreta.',
+                'tipo' => 'alert-danger',
+            ];
+            return $date;
+        }
+    }
+
+    public function resetName($user,$password,$Pnome,$Snome){
+        $query = $this->query("SELECT * FROM login where user='" . $user . "'  ");
+        $row = $query->getRow();
+
+        if( $password == $row->password ){
+            $data = [
+                'nome' => $Pnome,
+                'sobrenome' => $Snome
+            ];
+            $this->update($row->id,$data);
+            $date = [
+                'mensagem' => 'Nome redefinido com sucesso!',
+                'tipo' => 'alert-success',
+            ];
+            return $date;
+        }else{
+            $date = [
+                'mensagem' => 'Senha atual está incorreta!',
                 'tipo' => 'alert-danger',
             ];
             return $date;

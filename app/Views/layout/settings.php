@@ -34,10 +34,7 @@
                 <ul class="dropdown-menu">
                     <li><a class="dropdown-item" href="<?= base_url('public/login/editSenha') ?>">Mudar Senha</a></li>
                     <li><a class="dropdown-item" href="<?= base_url('public/login/editEmail') ?>">Mudar E-mail</a></li>
-                    <li>
-                        <hr class="dropdown-divider">
-                    </li>
-                    <li><a class="dropdown-item" href="<?= base_url('public/') ?>">Voltar</a></li>
+                    <li><a class="dropdown-item" href="<?= base_url('public/login/editNome') ?>">Mudar Nome</a></li>
                 </ul>
             </div>
         </div>
