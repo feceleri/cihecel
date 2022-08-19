@@ -14,7 +14,7 @@ class LoginModel extends Model
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['password'];
+    protected $allowedFields    = ['password','email'];
 
     // Dates
     protected $useTimestamps = false;
@@ -46,11 +46,11 @@ class LoginModel extends Model
             ->where('password', $password)
             ->find()
         ) {
-            $query = $this->query("SELECT * FROM login where user='".$user."'  ");
+            $query = $this->query("SELECT * FROM login where user='" . $user . "'  ");
             $row = $query->getRow();
             $result = [
-                'true'=>true,
-                'user'=> $row,
+                'true' => true,
+                'user' => $row,
             ];
         } else {
             $result = false;
@@ -71,40 +71,69 @@ class LoginModel extends Model
         return $result;
     }
 
-    public function resetPassword($user,$old,$new,$confirm){
-        $query = $this->query("SELECT * FROM login where user='".$user."'  ");
-            $row = $query->getRow();
-        
-     
-        if( $new  != $confirm){
-            
-            $date=[
+    public function resetPassword($user, $old, $new, $confirm)
+    {
+        $query = $this->query("SELECT * FROM login where user='" . $user . "'  ");
+        $row = $query->getRow();
+        if ($new  != $confirm) {
+            $date = [
                 'mensagem' => 'A senhas não conferem!',
-                'tipo' =>'alert-danger',
+                'tipo' => 'alert-danger',
             ];
-
-            return $date;   
-        }
-        elseif($new == $confirm &&  $old == $row->password){
-            
+            return $date;
+        } elseif ($new == $confirm &&  $old == $row->password) {
             $data = [
                 'password' => $new,
             ];
-            $this->update($row->id,$data);
-
-            $date=[
+            $this->update($row->id, $data);
+            $date = [
                 'mensagem' => 'Senha redefinida com sucesso!',
-                'tipo' =>'alert-success',
+                'tipo' => 'alert-success',
             ];
-
-            return $date;   
-        }else {
-           
-            $date=[
+            return $date;
+        } else {
+            $date = [
                 'mensagem' => 'A senha atual está incorreta.',
-                'tipo' =>'alert-danger',
+                'tipo' => 'alert-danger',
             ];
-           
+            return $date;
+        }
+    }
+
+    public function resetEmail($user, $password, $new, $confirm)
+    {
+        $query = $this->query("SELECT * FROM login where user='" . $user . "'  ");
+        $row = $query->getRow();
+        $query1 = $this->query(" SELECT * from login where email='" . $new . "'  ");
+        $row1 = $query1->getRow();
+        if ($new  != $confirm) {
+            $date = [
+                'mensagem' => 'Os e-mails não conferem!',
+                'tipo' => 'alert-danger',
+            ];
+            return $date;
+        } elseif ($new == $confirm &&  $password == $row->password && $row1 == null) {
+            $data = [
+                'email' => $new,
+            ];
+            $this->update($row->id,$data);
+            $date = [
+                'mensagem' => 'E-mail redefinido com sucesso!',
+                'tipo' => 'alert-success',
+            ];
+            return $date;
+        } elseif($row1->email == $new && $password == $row->password ){
+            $date = [
+                'mensagem' => 'O E-mail já existe no sistema.',
+                'tipo' => 'alert-danger',
+            ];
+            return $date;
+        }
+         else {
+            $date = [
+                'mensagem' => 'A senha atual está incorreta.',
+                'tipo' => 'alert-danger',
+            ];
             return $date;
         }
     }

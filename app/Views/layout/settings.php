@@ -16,7 +16,7 @@
 </nav>
 
 <div class="card-box row">
-    <div class="col">
+    <div class="col-4">
         <div class="block">
 
             <h5><?= $_SESSION['usuario']['user']->nome; ?>&nbsp;<?= $_SESSION['usuario']['user']->sobrenome; ?></h5>
@@ -25,7 +25,21 @@
             <p class="card-text">E-mail: <?= $_SESSION['usuario']['user']->email; ?></p>
             <p class="card-text">Permissão: <?= $_SESSION['usuario']['user']->tipo; ?> </p>
 
-            <a class="btn btn-primary" href="<?= base_url('public/login/editar') ?>">Editar</a>
+            <!-- <a class="btn btn-primary" href="<?= base_url('public/login/editSenha') ?>">Editar</a> -->
+            <a class="btn btn-secondary" href="<?= base_url('public/') ?>">Voltar</a>
+            <div class="btn-group" style="margin-left: 45px;">
+                <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                    Editar
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="<?= base_url('public/login/editSenha') ?>">Mudar Senha</a></li>
+                    <li><a class="dropdown-item" href="<?= base_url('public/login/editEmail') ?>">Mudar E-mail</a></li>
+                    <li>
+                        <hr class="dropdown-divider">
+                    </li>
+                    <li><a class="dropdown-item" href="<?= base_url('public/') ?>">Voltar</a></li>
+                </ul>
+            </div>
         </div>
     </div>
 </div>

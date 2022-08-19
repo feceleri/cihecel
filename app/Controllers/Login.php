@@ -61,19 +61,27 @@ class Login extends BaseController
         echo view('layout/settings');
     }
 
-    public function editar(){
-
-        echo view('layout/editUser');
-    }
-
-    public function resetPassword(){
-        $db =  new LoginModel();
-        $_SESSION['usuario']['user']->user;
+    public function editSenha(){
         $post = $this->request->getPost();
         if (!empty($post)) {
+            $db =  new LoginModel();
             $mensagem=$db->resetPassword($_SESSION['usuario']['user']->user,$post['oldPassword'],$post['newPassword'],$post['confirmPassword']);
             $this->session->setFlashdata('mensagem', $mensagem);
-            return redirect()->to(base_url('public/login/editar'));
         }
+
+        echo view('layout/editPassword');
     }
+
+    public function editEmail(){
+        $post = $this->request->getPost();
+        if (!empty($post)) {
+            $db =  new LoginModel();
+            $mensagem=$db->resetEmail($_SESSION['usuario']['user']->user,$post['password'],$post['newEmail'],$post['confirmEmail']);
+            $this->session->setFlashdata('mensagem', $mensagem);
+        }
+        echo view('layout/editEmail');
+    }
+
+
+
 }

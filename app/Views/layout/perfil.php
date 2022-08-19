@@ -48,14 +48,16 @@
             </li>            
         </ul>
         <br>
-        <input class="btn btn-primary" type="file" id="anexo_documentos" name="anexo_documentos[]" multiple="" onchange="validaFiles(this);" accept="application/pdf, image/jpeg">
 
     </div>
 
 
 
     <div class="col-6">
-        <div class="row-6">1</div>
+        <div class="row-6">
+        <span id="date"></span>
+         
+        </div>
         <div class="row-6">2</div>
     </div>
 </div>
@@ -64,4 +66,14 @@
 
 <?= $this->section('script') ?>
 <!-- Script -->
+<script>
+    let data= new Date();
+    function formatData(data){
+        let newDate = new Date(data);
+        return `${newDate.getDate()}/${newDate.getMonth()+1}`;
+    }
+    console.log(data);
+    console.log(formatData(data));
+   
+</script>
 <?= $this->endSection() ?>
