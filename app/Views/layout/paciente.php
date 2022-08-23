@@ -84,14 +84,20 @@
 
 
 <script>
+
+
+    function editUser(id){
+        alert(id);
+    }
+
     function preencherModalDelete(id) {
         modal = document.getElementById("deleteModal");
         btnExcluir = modal.getElementsByClassName("btn-danger")[0];
-        btnExcluir.setAttribute('data-target', id);
+        btnExcluir.setAttribute('dado-alvo', id);
     }
 
     $('#btnDeletar').on('click', function() {
-        var id = btnExcluir.getAttribute('data-target', id);
+        var id = btnExcluir.getAttribute('dado-alvo', id);
         // id = 3;
         $.ajax({
             url: '<?= base_url('public/atendimento/deletar') ?>',

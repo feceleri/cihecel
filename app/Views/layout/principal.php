@@ -59,23 +59,7 @@
                             <a href="<?= base_url('public') ?>"><i class="fa fa-user"></i> <span>Pacientes</span></a>
                         </li>
                         <li class="active">
-                            <a href="<?= base_url('public/estoque/consultaEstoque') ?>"><i class="fa fa-archive" aria-hidden="true"></i> </i> <span>Estoque</span></a>
-                        </li>
-
-
-
-                        <li class="submenu">
-                            <a href="#"><i class="fa fa-search"></i> <span> Consulta</span> <span class="menu-arrow"></span></a>
-                            <ul style="display: none;">
-
-                                <li><a href="<?= base_url('public/atendimento/listarPerfil') ?>">x</a></li>
-                                <li><a href="leaves.html">Consulta 2</a></li>
-                                <li><a href="<?= base_url('public/atendimento/listarPerfil') ?>">Listar Perfil</a></li>
-                                <li><a href="<?= base_url('public/atendimento/pesquisaCPF') ?>">Pesquisa por CPF</a></li>
-                                <li><a href="holidays.html">Consulta 3</a></li>
-                                <li><a href="<?= base_url('public/estoque/consultaEstoque') ?>">Estoque de Medicamentos</a></li>
-                                <li><a href="holidays.html">Consulta 4</a></li>
-                            </ul>
+                            <a href="<?= base_url('public/atendimento/listagem') ?>"><i class="fa fa-address-book" aria-hidden="true"></i><span>Listagem</span></a>
                         </li>
                     </ul>
                 </div>

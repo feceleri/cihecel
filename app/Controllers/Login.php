@@ -30,7 +30,7 @@ class Login extends BaseController
                 $this->session->setFlashdata('mensagem', $mensagem);
                 return redirect()->to(base_url('/public'));
             } else {
-                $mensagem['mensagem'] = 'User ou Password incorretos!';
+                $mensagem['mensagem'] = 'Usuário ou senha !';
                 $mensagem['tipo'] = 'alert-danger';                
             }
             $this->session->setFlashdata('mensagem', $mensagem);
@@ -41,11 +41,21 @@ class Login extends BaseController
 
     public function recuperarSenha()
     {
+        // $post = $this->request->getPost();
+        // if (!empty($post)) {
+        //     $email = \Config\Services::email();
+        //     $email->setFrom('guifoxlokaum@gmail.com', 'Guilherme');
+        //     $email->setTo($post['email']);
 
-        $post = $this->request->getPost();
-        if (!empty($post)) {
-            // var_dump($post);
-        }
+        //     $email->setSubject('Email Test');
+        //     $email->setMessage('sua nova senha.');
+        //     $email->send(false);
+        //     // if($email->send()){
+        //     //     echo 'email enviado';
+        //     // }else{
+        //     //     echo 'falho';
+        //     // }
+        // }
 
         echo view('formularios/formRecuperaSenha');
     }

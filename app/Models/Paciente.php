@@ -46,8 +46,7 @@ class Paciente extends Model
 
     public function deleteUser($id)
     {
-        $result = $this->find($id);
-        if ($result == true) {
+        if ($this->find($id)) {
             $this->delete($id);
             return true;
         } else {

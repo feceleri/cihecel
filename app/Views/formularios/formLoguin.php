@@ -2,20 +2,20 @@
 <?= $this->section('conteudo') ?>
 <form action="<?= base_url('public/login')?>" method="POST" name="formLogin" id='formLogin'>
     <div class="form-group row">
-        <label class="col-md-3 col-form-label">User</label>
+        <label class="col-md-3 col-form-label">Usuário</label>
         <div class="col-md-9">
             <input type="text" name="user" class="form-control">
         </div>
     </div>
     <div class="form-group row">
-        <label class="col-md-3 col-form-label">Password</label>
+        <label class="col-md-3 col-form-label">Senha</label>
         <div class="col-md-9">
             <input type="password" name="password" class="form-control">
         </div>
     </div>
     <div class="text-right">
         <a class="btn btn-secondary float-start" href="<?= base_url('public/login/recuperarSenha')?>">Esqueci a senha</a>
-        <button type="submit" class="btn btn-primary float-end">Login</button>
+        <button type="submit" class="btn btn-primary float-end">Entrar</button>
         <p><br></p>
     </div>
   

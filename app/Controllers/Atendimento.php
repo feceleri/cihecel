@@ -85,8 +85,9 @@ class  Atendimento extends BaseController
     {
         $cadastros =  new Paciente();
 
-        $post = $this->request->getPost();
+        $post = $this->request->isAJAX();
         if (!empty($post)) {
+            echo 'Ajax recebido';var_dump($post);die;
 
             $dadosBD = [
                 "nome" => $post["nomeCompleto"],
@@ -104,15 +105,17 @@ class  Atendimento extends BaseController
                 "cidade" => $post["localidade"],
                 "bairro" => $post["bairro"]
             ];
-            $cadastros->save($dadosBD);
+            $cadastros->update($id,$dadosBD);
         }
+        
     }
 
     public function deletar()
     {
         if ($this->request->isAJAX()) {
             $id = $this->request->getPost('id');
-            $paciente =  new Paciente();            
+           
+            $paciente =  new Paciente();    
             return $this->response->setJSON($paciente->deleteUser($id));
             exit;
         }
@@ -155,4 +158,10 @@ class  Atendimento extends BaseController
         
         echo view('layout/novoMed');      
     }
+
+    public function listagem(){
+       
+       
+        echo view('layout/listagem');
+    } 
 }
