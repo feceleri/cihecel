@@ -9,7 +9,7 @@
         justify-content: center;
         align-items: center;
         height: 50px;
-        width: auto; 
+        width: auto;
     }
 
     .show {
@@ -24,7 +24,13 @@
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="<?= base_url('public') ?>">Paciente</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Cadastro</li>
+        <?php if (isset($editar)) {
+            echo '<li class="breadcrumb-item active" aria-current="page">Edição</li>';
+        } else {
+            echo '<li class="breadcrumb-item active" aria-current="page">Cadastro</li>';
+        }
+        ?>
+
     </ol>
 </nav>
 
@@ -35,7 +41,7 @@
 <?= $this->section('script') ?>
 <!-- Script CEP -->
 <script>
-        const cep = document.querySelector("#cep")
+    const cep = document.querySelector("#cep")
 
     const mostraDados = (resultado) => {
         for (const campo in resultado) {

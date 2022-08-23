@@ -13,17 +13,22 @@ class  Atendimento extends BaseController
         $paciente =  new Paciente();
         $resultado = $paciente->getAll();
         $data = [
-            'resultado' => $resultado     
+            'resultado' => $resultado
         ];
         echo view('layout/paciente', $data);
     }
 
-    public function cadastro()
+    public function salvar()
     {
-        $cadastros =  new Paciente();
-        
+        $paciente =  new Paciente();
+
         $post = $this->request->getPost();
         if (!empty($post)) {
+
+            $mensagem = [
+                'mensagem' => 'Cadastrado com sucesso!',
+                'tipo' => 'alert-success',
+            ];
 
             $dadosBD = [
                 "nome" => $post["nomeCompleto"],
@@ -41,17 +46,17 @@ class  Atendimento extends BaseController
                 "cidade" => $post["localidade"],
                 "bairro" => $post["bairro"]
             ];
-            
-            $mensagem = [
-                'mensagem' => 'Cadastrado com sucesso!',
-                'tipo' => 'alert-success',
-            ];
-            if($cadastros->save($dadosBD)){                
+
+            if (isset($post["id"])) {
+                $dadosBD["id"] = $post["id"];
+                $mensagem["mensagem" ] =  'Alterado com sucesso!';
+            }           
+
+            if ($paciente->save($dadosBD)) {
                 $this->session->setFlashdata('mensagem', $mensagem);
-            }
-            else{
+            } else {
                 $mensagem['mensagem'] = 'Não foi possível cadastrar o paciente!';
-                $mensagem['tipo'] = 'alert-danger'; 
+                $mensagem['tipo'] = 'alert-danger';
                 $this->session->setFlashdata('mensagem', $mensagem);
             }
             return redirect()->to(base_url('/public'));
@@ -81,41 +86,23 @@ class  Atendimento extends BaseController
         echo view('layout/perfil', $data);
     }
 
-    public function editar()
+    public function editar(int $id)
     {
         $cadastros =  new Paciente();
-
-        $post = $this->request->isAJAX();
-        if (!empty($post)) {
-            echo 'Ajax recebido';var_dump($post);die;
-
-            $dadosBD = [
-                "nome" => $post["nomeCompleto"],
-                "cpf" => $post["cpf"],
-                "rg" => $post["rg"],
-                "dataNascimento" => $post["dtNasc"],
-                "sexo" => $post["sexo"],
-                "nomeMae"     => $post["nomeDaMae"],
-                "telefone1" => $post["tel1"],
-                "telefone2" => $post["tel2"],
-                "cep" => $post["cep"],
-                "logradouro" => $post["logradouro"],
-                "numeroCasa" => $post["numero"],
-                "complementoCasa" => $post["complemento"],
-                "cidade" => $post["localidade"],
-                "bairro" => $post["bairro"]
-            ];
-            $cadastros->update($id,$dadosBD);
-        }
-        
+        $resultado = $cadastros->getUser($id);
+        $data = [
+            'resultado' => $resultado,
+            'editar' => true
+        ];
+        echo view('layout/cadastro', $data);
     }
 
     public function deletar()
     {
         if ($this->request->isAJAX()) {
             $id = $this->request->getPost('id');
-           
-            $paciente =  new Paciente();    
+
+            $paciente =  new Paciente();
             return $this->response->setJSON($paciente->deleteUser($id));
             exit;
         }
@@ -123,45 +110,46 @@ class  Atendimento extends BaseController
 
     public function pesquisaCPF()
     {
-      
+
         // $cpf = $this->request->getPost($cpf);
         // $resultado = $cadastros->getCPF($id);
         // $cpf = $this->request->getPost($cpf);
 
-        
+
         //  $data = [
         //      'resultado' => $resultado
         //  ];
         return view('layout/pesquisaCPF');
     }
-    
+
     public function novoMedicamento()
     {
         $medicamentos =  new Medicamento();
 
         $post = $this->request->getPost();
-        if(!empty($post)){
+        if (!empty($post)) {
             $dadosBD = [
-                    "id" => $post["id"],
-                    "idMedicamento" => $post["idMed"],
-                    "idControle" => $post["idCont"],
-                    "quantidade" => $post["quantid"],
-                    "nomeMed" => $post["medicamento"],
-                    "observacao"     => $post["obs"],
-                    "dosagem" => $post["dosagem"],
-                    "tarja" => $post["tarja"]
-                ];
+                "id" => $post["id"],
+                "idMedicamento" => $post["idMed"],
+                "idControle" => $post["idCont"],
+                "quantidade" => $post["quantid"],
+                "nomeMed" => $post["medicamento"],
+                "observacao"     => $post["obs"],
+                "dosagem" => $post["dosagem"],
+                "tarja" => $post["tarja"]
+            ];
             $medicamentos->save($dadosBD);
-            
+
             return view('layout/novoMed');
         }
-        
-        echo view('layout/novoMed');      
+
+        echo view('layout/novoMed');
     }
 
-    public function listagem(){
-       
-       
+    public function listagem()
+    {
+
+
         echo view('layout/listagem');
-    } 
+    }
 }

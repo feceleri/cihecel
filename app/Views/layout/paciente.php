@@ -8,26 +8,22 @@
         align-items: center;
     }
 
-    a.pencil {
-        margin: 0 5px;
+    #ajaxTable button, #ajaxTable a{
         font-size: 16px;
         line-height: 30px;
     }
 
-    a.pencil:hover {
-        font-size: 20px;
-        margin-right: 1.6px;
-    }
-
-    button.eraser {
-        /* color:red; */
-        font-size: 16px;
-        line-height: 30px;
-    }
-
-    button.eraser:hover {
+    #ajaxTable button:hover, #ajaxTable a:hover{
         font-size: 20px;
         color: #009ce7;
+    }
+
+    a.pencil {
+        margin: 0 5px;       
+    }
+
+    a.pencil:hover {     
+        margin-right: 1.6px;    
     }
 
     button {
@@ -84,12 +80,6 @@
 
 
 <script>
-
-
-    function editUser(id){
-        alert(id);
-    }
-
     function preencherModalDelete(id) {
         modal = document.getElementById("deleteModal");
         btnExcluir = modal.getElementsByClassName("btn-danger")[0];
@@ -178,6 +168,8 @@
             ],
         });
     });
+
+
     <?php         
          if (isset($_SESSION['mensagem'])) {
              echo "msg = document.querySelector('#msgInfo');
