@@ -30,7 +30,7 @@ class Login extends BaseController
                 $this->session->setFlashdata('mensagem', $mensagem);
                 return redirect()->to(base_url('/public'));
             } else {
-                $mensagem['mensagem'] = 'Usuário ou senha !';
+                $mensagem['mensagem'] = 'Usuário ou senha inválido!';
                 $mensagem['tipo'] = 'alert-danger';                
             }
             $this->session->setFlashdata('mensagem', $mensagem);
