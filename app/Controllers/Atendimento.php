@@ -101,6 +101,7 @@ class  Atendimento extends BaseController
     {
         if ($this->request->isAJAX()) {
             $id = $this->request->getPost('id');
+            
 
             $paciente =  new Paciente();
             return $this->response->setJSON($paciente->deleteUser($id));
