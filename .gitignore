@@ -13,3 +13,4 @@ writable/uploads/*
 writable/debugbar/*
 .env
 
+.env

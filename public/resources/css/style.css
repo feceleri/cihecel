@@ -832,7 +832,7 @@ textarea.form-control {
 -----------------------*/
 
 .header {
-	background:url('/public/resources/img/fundoHeader.jpg');
+	background:url('../img/fundoHeader.jpg');
 	left: 0;
 	position: fixed;
 	right: 0;
