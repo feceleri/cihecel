@@ -18,6 +18,7 @@
         <div class="row align-items-center" style="height:80vh">
             <div class="col-12 align-items-center " style="text-align: -webkit-center;">
                 <div style="width: fit-content;border:1px solid black;padding: 12px;background: white;">
+                <h3>TESTE</h3>
                     <div><img src="<?= base_url('public/resources/img/logoGrande.png') ?>" height="75px"class="mb-5" alt="logo cihecel"></div>
                     <?= $this->include('formularios/formLoguin.php') ?>               
                 </div>
