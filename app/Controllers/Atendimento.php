@@ -49,8 +49,8 @@ class  Atendimento extends BaseController
 
             if (isset($post["id"])) {
                 $dadosBD["id"] = $post["id"];
-                $mensagem["mensagem" ] =  'Alterado com sucesso!';
-            }           
+                $mensagem["mensagem"] =  'Alterado com sucesso!';
+            }
 
             if ($paciente->save($dadosBD)) {
                 $this->session->setFlashdata('mensagem', $mensagem);
@@ -101,9 +101,11 @@ class  Atendimento extends BaseController
     {
         if ($this->request->isAJAX()) {
             $id = $this->request->getPost('id');
-            
+
 
             $paciente =  new Paciente();
+            // return 'Chegou até aqui '.$id;
+            // return $paciente->deleteUser($id);
             return $this->response->setJSON($paciente->deleteUser($id));
             exit;
         }
@@ -150,7 +152,38 @@ class  Atendimento extends BaseController
     public function listagem()
     {
 
-
         echo view('layout/listagem');
     }
+
+    public function salvarListagem()
+    {
+        $pessoas =  new Paciente();
+        $resultado = $pessoas->getAll();
+        $date = [
+            'pessoa' => $resultado,
+        ];
+        echo view('layout/cadastroListagem', $date);
+    }
+
+    public function autoComplete()
+    {
+        if ($this->request->isAJAX()) {
+            $people =  new Paciente();
+            $cpf = $this->request->getPost('valor');
+            $result = $people->like('cpf', $cpf)->find();
+           
+            return $this->response->setJSON($result);
+        }
+    }
+
+    public function getCpf(){
+        if ($this->request->isAJAX()) {
+            $cpf = $this->request->getPost('cpf');
+            $people =  new Paciente();
+            $result = $people->where('cpf', $cpf)->find();
+            
+            return $this->response->setJSON($result);
+        }
+    }
+  
 }

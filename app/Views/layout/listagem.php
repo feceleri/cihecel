@@ -6,8 +6,12 @@
 <style>
     div.table-responsive>div.dataTables_wrapper>div.row {
         margin: 0;
-        margin-top: 16px;
     }
+
+    i.fa.fa-book{
+        font-size: 17px;
+    }
+   
 </style>
 <?= $this->endSection() ?>
 
@@ -29,6 +33,8 @@
 <!-- Script -->
 <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.12.1/datatables.min.js"></script>
 <script>
+
+
     $(document).ready(function() {
         const DATATABLE_PTBR = {
             "sEmptyTable": "Nenhum registro encontrado",

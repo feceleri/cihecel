@@ -2,7 +2,7 @@
     <div class="col-md-12">
         <div class="card-box">
             <h4 class="card-title" style="display: initial;">Pacientes</h4>
-            <a class="btn btn-success mb-3" href="<?= base_url('public/atendimento/salvar') ?>" style="float:right;top:5px"><i class="fa fa-user-plus" aria-hidden="true"></i></a>
+            <a class="btn btn-success mb-3" href="<?= base_url('public/atendimento/salvar') ?>" style="float:right;top:5px"><i class="fa fa-user-plus" aria-hidden="true" style="font-size: 17px;"></i></a>
             <div class="table-responsive" style="width: 100%;">
 
                 <table class="table mb-0 table-sm align-middle" id="ajaxTable">

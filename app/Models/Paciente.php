@@ -49,8 +49,10 @@ class Paciente extends Model
         if ($this->find($id)) {
             $this->delete($id);
             return true;
+            // return 'ACHOU!';
         } else {
             return false;
-        }        
+            // return 'FKIHJDES';
+        }
     }
 }

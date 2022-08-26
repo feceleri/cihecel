@@ -14,7 +14,7 @@
     <?= $this->renderSection("css"); ?>
 </head>
 
-<body style="background: url('/public/resources/img/fundoHeader.jpg'); background-size: cover;">
+<body style="background:url('<?= base_url('public/resources/img/fundoHeader.jpg')?>'); background-size: cover;">
     <div class="container">
         <div class="row align-items-center" style="height:80vh">
             <div class="col-12 align-items-center " style="text-align: -webkit-center;">
