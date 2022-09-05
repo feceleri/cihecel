@@ -4,16 +4,17 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class Medicamento extends Model
+class Listagem extends Model
 {    
-    protected $table            = 'estoque';
+    protected $table            = 'listagem';
     protected $primaryKey       = 'id';
-    protected $useAutoIncrement = false;
+    protected $useAutoIncrement = true;
     protected $insertID         = 0;
     protected $returnType       = 'object';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['id', 'idMedicamento', 'quantidade', 'nome', 'observacao'];
+    protected $allowedFields    = ['senha', 'cpfResponsavel', 'qtdReceitaResponsavel', 'idsAdicional', 'saida'];
+
 
 
 

@@ -55,4 +55,11 @@ class Paciente extends Model
             // return 'FKIHJDES';
         }
     }
+
+    public function findCpf($cpf){
+        $teste=$this->where('cpf', $cpf)
+            ->find();
+        return $teste[0]->nome;
+            // var_dump($teste[0]->nome);exit;
+    }
 }

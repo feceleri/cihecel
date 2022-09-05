@@ -2,16 +2,31 @@
 
 <?= $this->section('css') ?>
 <!-- Style -->
+
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.12.1/datatables.min.css" />
 <style>
     div.table-responsive>div.dataTables_wrapper>div.row {
         margin: 0;
     }
 
-    i.fa.fa-book{
+    td {
+        height: 30px;
+    }
+    i.fa.fa-book {
         font-size: 17px;
     }
-   
+
+    .table.dataTable td a#check {
+        font-size: 20px;
+    }
+    .table.dataTable td a#check:hover {
+        font-size: 20px;
+        cursor: pointer;
+        color: #55ce63;
+    }
+    table tbody td.sorting_1 a:hover {
+        font-size: 20px;
+    }
 </style>
 <?= $this->endSection() ?>
 
@@ -33,14 +48,12 @@
 <!-- Script -->
 <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.12.1/datatables.min.js"></script>
 <script>
-
-
     $(document).ready(function() {
         const DATATABLE_PTBR = {
             "sEmptyTable": "Nenhum registro encontrado",
-            "sInfo": "Mostrando de _START_ até _END_ de _TOTAL_ pacientes",
-            "sInfoEmpty": "Mostrando 0 até 0 de 0 pacientes",
-            "sInfoFiltered": "(Filtrados de _MAX_ pacientes)",
+            "sInfo": "Mostrando de _START_ até _END_ de _TOTAL_ registro",
+            "sInfoEmpty": "Mostrando 0 até 0 de 0 registro",
+            "sInfoFiltered": "(Filtrados de _MAX_ registro)",
             "sInfoPostFix": "",
             "sInfoThousands": ".",
             "sLengthMenu": "_MENU_ resultados por página",
@@ -73,7 +86,7 @@
                     data: 'Senha'
                 },
                 {
-                    data: 'Nome'
+                    data: 'Responsável'
                 },
                 {
                     data: 'CPF'
@@ -88,5 +101,15 @@
             ],
         });
     });
+
+    <?php         
+         if (isset($_SESSION['mensagem'])) {
+             echo "msg = document.querySelector('#msgInfo');
+             alerta = document.querySelector('#alerta');
+             alerta.classList.add('".$_SESSION['mensagem']['tipo']."');
+             msg.textContent = '".$_SESSION['mensagem']['mensagem']."';
+             new bootstrap.Toast(document.querySelector('#basicToast')).show();";
+         }
+    ?>
 </script>
 <?= $this->endSection() ?>

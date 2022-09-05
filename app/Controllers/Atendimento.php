@@ -5,6 +5,7 @@ namespace App\Controllers;
 use App\Models\Paciente;
 use App\Models\Cadastro;
 use App\Models\Medicamento;
+use App\Models\Listagem;
 
 class  Atendimento extends BaseController
 {
@@ -111,52 +112,46 @@ class  Atendimento extends BaseController
         }
     }
 
-    public function pesquisaCPF()
-    {
-
-        // $cpf = $this->request->getPost($cpf);
-        // $resultado = $cadastros->getCPF($id);
-        // $cpf = $this->request->getPost($cpf);
-
-
-        //  $data = [
-        //      'resultado' => $resultado
-        //  ];
-        return view('layout/pesquisaCPF');
-    }
-
-    public function novoMedicamento()
-    {
-        $medicamentos =  new Medicamento();
-
-        $post = $this->request->getPost();
-        if (!empty($post)) {
-            $dadosBD = [
-                "id" => $post["id"],
-                "idMedicamento" => $post["idMed"],
-                "idControle" => $post["idCont"],
-                "quantidade" => $post["quantid"],
-                "nomeMed" => $post["medicamento"],
-                "observacao"     => $post["obs"],
-                "dosagem" => $post["dosagem"],
-                "tarja" => $post["tarja"]
-            ];
-            $medicamentos->save($dadosBD);
-
-            return view('layout/novoMed');
-        }
-
-        echo view('layout/novoMed');
-    }
 
     public function listagem()
     {
+        $listagem =  new Listagem();
+        $bdDate = $listagem->select('listagem.id,paciente.id as "idPaciente", paciente.cpf,paciente.nome, listagem.senha, listagem.entrada, listagem.saida')->join('paciente', 'paciente.cpf = listagem.cpfResponsavel')->findAll();
+        // $bdDate=$listagem->findAll();
+        $arrayBd = [
+            'date' => $bdDate,
+        ];
 
-        echo view('layout/listagem');
+        // var_dump($bdDate);exit;
+        echo view('layout/listagem', $arrayBd);
     }
 
     public function salvarListagem()
     {
+        $post = $this->request->getPost();
+        if (!empty($post)) {
+            $listagem =  new Listagem();
+
+            $dadosBD = [
+                "cpfResponsavel" => $post["cpfResp"],
+                "senha" => $post["senha"],
+                "qtdReceitaResponsavel" => $post["receitasResponsavel"],
+                "idsAdicional" => $post["idsAdicional"],
+            ];
+
+            if ($listagem->save($dadosBD)) {
+                $mensagem['mensagem'] = 'Listagem registrada com successo!';
+                $mensagem['tipo'] = 'alert-success';
+                $this->session->setFlashdata('mensagem', $mensagem);
+                return redirect()->to(base_url('public/atendimento/listagem'));
+            } else {
+                $mensagem['mensagem'] = 'Houve um erro no cadastramento, tente novamente!';
+                $mensagem['tipo'] = 'alert-danger';
+                return redirect()->to(base_url('public/atendimento/listagem'));
+            }
+        }
+
+
         $pessoas =  new Paciente();
         $resultado = $pessoas->getAll();
         $date = [
@@ -171,19 +166,64 @@ class  Atendimento extends BaseController
             $people =  new Paciente();
             $cpf = $this->request->getPost('valor');
             $result = $people->like('cpf', $cpf)->find();
-           
+
             return $this->response->setJSON($result);
         }
     }
 
-    public function getCpf(){
+    public function getCpf()
+    {
         if ($this->request->isAJAX()) {
             $cpf = $this->request->getPost('cpf');
             $people =  new Paciente();
             $result = $people->where('cpf', $cpf)->find();
-            
-            return $this->response->setJSON($result);
+            if (!isset($result)) {
+                return $this->response->setJSON(false);
+            } else {
+                return $this->response->setJSON($result);
+            }
         }
     }
-  
+
+    public function senha($id)
+    {
+        $bdListagem = new listagem();
+        $bdPaciente = new paciente();
+        $bdListagem->find($id);
+        $people = $bdListagem->select('paciente.cpf,paciente.nome,paciente.telefone1,paciente.telefone2,qtdReceitaResponsavel,idsAdicional,listagem.id,listagem.senha,listagem.entrada,listagem.saida')->join('paciente', 'paciente.cpf = listagem.cpfResponsavel')->findAll();
+        foreach ($people as $value) {
+            if ($value->id == $id) {
+                $responsavel = $value;
+                if (($responsavel->idsAdicional != '0')) {
+                    $idsAdicional = json_decode($responsavel->idsAdicional);
+                    $adicionais = [];
+                    foreach ($idsAdicional as $idAdicional) {
+                        $item = $bdPaciente->find($idAdicional->id);
+                        $item->qtd = $idAdicional->qtd;                        
+                        array_push($adicionais, $item);
+                    }
+                    $date=[
+                        'responsavel' => $responsavel,
+                        'adicionais' => $adicionais,
+                    ];
+                    echo view('layout/senha', $date);
+                }else{
+                    $date=[
+                        'responsavel' => $responsavel,
+                    ];
+                    echo view('layout/senha', $date);
+                }
+            }
+        }
+    }
+
+    public function saidaListagem($id){
+        $bd = new listagem;
+        $data = [
+            'saida' => date("Y/m/d")
+        ];
+        $bd->update($id,$data);
+        return redirect()->to(base_url('public/atendimento/listagem'));
+
+    }
 }

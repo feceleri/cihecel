@@ -2,6 +2,20 @@
 
 <?= $this->section('css') ?>
 <!-- Style -->
+<style>
+    #dtPessoas {
+        font: 14px Verdana;
+    }
+
+    #tbPessoas {
+        font: 14px Verdana;
+
+    }
+
+    table tr td {
+        width: 100em;
+    }
+</style>
 <?= $this->endSection() ?>
 
 
@@ -20,6 +34,8 @@
 <?= $this->section('script') ?>
 <!-- Script -->
 <script>
+    pacientes = [];
+
     function mascaraCPF(cpf) {
         cpf = cpf.replace(/\D/g, "").slice(0, 11);
         cpf = cpf.replace(/(\d{3})(\d)/, "$1.$2");
@@ -176,20 +192,89 @@
         if (document.getElementById("cpfResp").value.length == 14) {
             $.ajax({
                 method: "POST",
-                url: "<?= base_url('public/atendimento/getCpf')?>",
+                url: "<?= base_url('public/atendimento/getCpf') ?>",
                 data: {
                     cpf: document.getElementById("cpfResp").value
                 },
-                success:function($row){
-                    document.getElementById("responsavel").value  = $row[0]['nome'];
+                success: function($row) {
+                    if ($row == false) {
+                        document.getElementById("responsavel").value = 'CPF inválido ou não existe no sistema.';
+                    } else {
+                        document.getElementById("responsavel").value = $row[0]['nome'];
+                    }
                 },
-                error: function(){
+                error: function() {
                     console.log('Error');
                 }
             })
         }
-
-        // document.getElementById("responsavel").value  = "Felipé";
     });
+
+    document.getElementById("cpfAdicional").addEventListener("focusout", function() {
+        if (document.getElementById("cpfAdicional").value.length == 14) {
+            $.ajax({
+                method: "POST",
+                url: "<?= base_url('public/atendimento/getCpf') ?>",
+                data: {
+                    cpf: document.getElementById("cpfAdicional").value
+                },
+                success: function($row) {
+                    if ($row == false) {
+                        document.getElementById("nomeAdicional").value = 'CPF inválido ou não existe no sistema.';
+                    } else {
+                        document.getElementById("nomeAdicional").value = $row[0]['nome'];
+                        document.getElementById("idAdicional").value = $row[0]['id'];
+                    }
+                },
+                error: function() {
+                    console.log('Error');
+                }
+            })
+        }
+    });
+
+    function adicional(nomeAdicional, cpfAdicional, qtdAdicional) {
+        if (cpfAdicional.length == 14 & nomeAdicional !== 'CPF inválido ou não existe no sistema.') {
+            var idPaciente = document.getElementById("idAdicional").value;
+           
+            const paciente = pacientes.find(element => {
+                if (element.id === parseInt(idPaciente)) {
+                    return true;
+                }
+                return false;
+            });
+
+            if (!paciente) {
+                var tb = document.querySelector("#tbPessoas");
+                var qtdLinhas = tb.rows.length;
+                var linha = tb.insertRow(qtdLinhas);
+                var cellNome = linha.insertCell(0);
+                var cellCpf = linha.insertCell(1);
+                var cellQtd = linha.insertCell(2);
+
+                var item = {
+                    id: parseInt(idPaciente),
+                    qtd: qtdAdicional
+                };
+
+                pacientes.push(item);
+
+                cellNome.innerHTML = nomeAdicional;
+                cellCpf.innerHTML = cpfAdicional;
+                cellQtd.innerHTML = qtdAdicional;
+                document.getElementById("idsAdicional").value = JSON.stringify(pacientes);
+                
+                document.getElementById("cpfAdicional").value = null;
+                document.getElementById("qtdAdicional").value = null;
+                document.getElementById("nomeAdicional").value = null;
+
+            } else {
+                alert("Esse paciente já foi listado");
+            }
+
+        } else {
+            alert('CPF inválido ou campos preenchidos incorretamente!')
+        }
+    }
 </script>
 <?= $this->endSection() ?>

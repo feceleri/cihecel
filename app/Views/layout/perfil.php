@@ -58,7 +58,7 @@
         <span id="date"></span>
          
         </div>
-        <div class="row-6">2</div>
+        <div class="row-6"></div>
     </div>
 </div>
 </div>
