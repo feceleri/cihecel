@@ -8,6 +8,7 @@
                 <table class="table mb-0 table-sm align-middle" id="ajaxTable">
                     <thead>
                         <tr>
+                            <th>ID</th>
                             <th>Nome</th>
                             <th>CPF</th>
                             <th>Data de nascimento</th>
@@ -19,6 +20,7 @@
                         <?php
                         foreach ($resultado as $key => $paciente) {
                             echo "<tr id='tr" . $paciente->id . "'>";
+                            echo "<td>".$paciente->id."</td>";
                             echo    "<td><a href='" . base_url('public/atendimento/perfil/' . $paciente->id) . "'>" . $paciente->nome . "</a></td>";
                             echo    "<td>" . $paciente->cpf . "</td>";
                             $oldData = $paciente->dataNascimento;

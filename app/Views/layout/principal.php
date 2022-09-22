@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="    https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="<?= base_url('public/resources') ?>/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="<?= base_url('public/resources') ?>/css/style.css">
+    <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
     <?= $this->renderSection("css"); ?>
 
     <style>
@@ -30,7 +31,7 @@
 
 <body>
     <div class="main-wrappe">
-        <div class="header">
+        <div class="header print">
             <div class="header-left">
                 <a href="<?= base_url('public/atendimento') ?>" class="logo">
                     <img src="<?= base_url('public/resources/img/logoGrande.png') ?>" id='logoGrande' class="logoPrincipal show" alt="logo cihecel">
@@ -50,7 +51,7 @@
                 </ul>
             </div>
         </div>
-        <div class="sidebar" id="sidebar">
+        <div class="sidebar print" id="sidebar">
             <div class="sidebar-inner slimscroll">
                 <div id="sidebar-menu" class="sidebar-menu">
                     <ul>
@@ -61,13 +62,16 @@
                         <li class="active">
                             <a href="<?= base_url('public/atendimento/listagem') ?>"><i class="fa fa-address-book" aria-hidden="true"></i><span>Listagem</span></a>
                         </li>
+                        <!-- <li class="active">
+                        <a href=""><i class="fa fa-line-chart" aria-hidden="true"></i><span>Novos</span></a>
+                        </li> -->
                     </ul>
                 </div>
             </div>
         </div>
 
         <div class="toast-container position-fixed bottom-0 end-0 p-3" style="top: 10px; right: 10px; z-index: 9999;">
-            <div id="basicToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-bs-delay="1000">
+            <div id="basicToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-bs-delay="3000">
                 <div class="alert" style="margin-bottom: 0;" id="alerta">
                     <span id="msgInfo" style="text-transform: capitalize;"></span>
                     <button type="button" class="btn-close btn-close-black float-end" data-bs-dismiss="toast" aria-label="Close"></button>

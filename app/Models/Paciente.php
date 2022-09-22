@@ -13,7 +13,15 @@ class Paciente extends Model
     protected $returnType       = 'object';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['nome', 'cpf', 'rg', 'dataNascimento', 'sexo', 'telefone1', 'telefone2', 'nomeMae', 'cep', 'logradouro', 'numeroCasa', 'complementoCasa', 'cidade', 'bairro'];
+    protected $allowedFields    = ['nome', 'cpf', 'rg', 'dataNascimento', 'sexo', 'telefone1', 'telefone2', 'nomeMae', 'cep', 'logradouro', 'numeroCasa', 'complementoCasa', 'cidade', 'bairro','obs'];
+
+
+      // Dates
+      protected $useTimestamps = true;
+    //   protected $dateFormat    = 'datetime';
+      protected $createdField  = 'created_at';
+      protected $updatedField  = 'updated_at';
+      protected $deletedField  = 'deleted_at';
 
     // Validation
     protected $validationRules      = [];

@@ -102,16 +102,10 @@ class  Atendimento extends BaseController
     {
         if ($this->request->isAJAX()) {
             $id = $this->request->getPost('id');
-
-
             $paciente =  new Paciente();
-            // return 'Chegou até aqui '.$id;
-            // return $paciente->deleteUser($id);
             return $this->response->setJSON($paciente->deleteUser($id));
-            exit;
         }
     }
-
 
     public function listagem()
     {
@@ -147,10 +141,10 @@ class  Atendimento extends BaseController
             } else {
                 $mensagem['mensagem'] = 'Houve um erro no cadastramento, tente novamente!';
                 $mensagem['tipo'] = 'alert-danger';
+                $this->session->setFlashdata('mensagem', $mensagem);
                 return redirect()->to(base_url('public/atendimento/listagem'));
             }
         }
-
 
         $pessoas =  new Paciente();
         $resultado = $pessoas->getAll();
@@ -218,12 +212,76 @@ class  Atendimento extends BaseController
     }
 
     public function saidaListagem($id){
-        $bd = new listagem;
-        $data = [
-            'saida' => date("Y/m/d")
-        ];
-        $bd->update($id,$data);
-        return redirect()->to(base_url('public/atendimento/listagem'));
-
+            $bd = new listagem;
+            $data = [
+                'saida' => date("Y/m/d")
+            ];
+            if($bd->update($id,$data)){
+                $mensagem['tipo'] = 'alert-success';
+                $mensagem['mensagem'] = 'Saída registrada com successo!';
+                session()->setFlashdata('mensagem',$mensagem);
+                return redirect()->to(base_url('public/atendimento/listagem'));
+            }else{
+                $mensagem['tipo'] = 'alert-danger';
+                $mensagem['mensagem'] = 'Não foi possível regitrar, tente novamente!';
+                session()->setFlashdata('mensagem',$mensagem);
+            }
     }
+
+    public function saidaListagemManual(){
+        if($this->request->getPost()){
+            $bd = new listagem;
+            $post=$this->request->getPost();
+            if($post['saida'] > date("Y-m-d")){
+                $mensagem['tipo'] = 'alert-danger';
+                $mensagem['mensagem'] = 'A data foi inserida incorretamente!';
+                session()->setFlashdata('mensagem',$mensagem);
+                return redirect()->to(base_url('public/atendimento/listagem'));
+            }
+            $id=$post['id'];
+            $date=[
+                'saida' => $post['saida'],
+            ];
+            if($bd->update($id,$date)){
+                $mensagem['tipo'] = 'alert-success';
+                $mensagem['mensagem'] = 'Saída registrada com successo!';
+                session()->setFlashdata('mensagem',$mensagem);
+                return redirect()->to(base_url('public/atendimento/listagem'));
+            }
+            else{
+                $mensagem['tipo'] = 'alert-danger';
+                $mensagem['mensagem'] = 'Não foi possível regitrar, tente novamente!';
+                session()->setFlashdata('mensagem',$mensagem);
+                return redirect()->to(base_url('public/atendimento/listagem'));
+            }
+        }
+    }
+
+    public function obs(){
+        if($this->request->getPost()){
+            $post=$this->request->getPost();
+            $date=[
+                'obs' => $post['obs'],
+            ];
+            $id=$post['id'];
+            $bd = new paciente;
+            if($bd->update($id,$date)){
+                $mensagem['tipo'] = 'alert-success';
+                $mensagem['mensagem'] = 'Observação registrada com successo!';
+                session()->setFlashdata('mensagem',$mensagem);
+                return redirect()->to(base_url('public/atendimento/perfil/'.$id));
+            }
+            else{
+                $mensagem['tipo'] = 'alert-danger';
+                $mensagem['mensagem'] = 'Não foi possível regitrar, tente novamente!';
+                session()->setFlashdata('mensagem',$mensagem);
+                return redirect()->to(base_url('public/atendimento/perfil/'.$id));
+            }
+        }
+    }
+
+    public function novos(){
+        return view('layout/novos');
+    }
+
 }

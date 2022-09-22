@@ -50,7 +50,14 @@
         <li class="breadcrumb-item active" aria-current="page">Paciente</li>
     </ol>
 </nav>
-
+<p>Foram cadastradas <?php $cadastros = 0; 
+foreach ($resultado as $data) {
+    if($data->created_at == date("Y-m-d")){
+        $cadastros = $cadastros +1;
+    }
+}
+echo $cadastros;
+?> novas pessoas hoje.</p>
 <?= $this->include('tabelas/tabelaPrincipal.php') ?>
 
 <!-- Modal -->
@@ -71,6 +78,7 @@
         </div>
     </div>
 </div>
+
 
 <?= $this->endSection() ?>
 
@@ -152,6 +160,9 @@
             "oLanguage": DATATABLE_PTBR,
             ajax: '',
             columns: [{
+                    data: 'ID'
+                },
+                {
                     data: 'Nome'
                 },
                 {

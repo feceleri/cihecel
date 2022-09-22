@@ -16,6 +16,10 @@ class Listagem extends Model
     protected $allowedFields    = ['senha', 'cpfResponsavel', 'qtdReceitaResponsavel', 'idsAdicional', 'saida'];
 
 
+    protected $useTimestamps = true;
+    protected $createdField  = 'entrada';
+    protected $updatedField  = 'ultimaListagem';
+    protected $deletedField  = 'deletado';
 
 
     // Validation
