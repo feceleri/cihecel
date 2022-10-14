@@ -11,24 +11,20 @@
     #ajaxTable button, #ajaxTable a{
         font-size: 16px;
         line-height: 30px;
+        text-transform: capitalize
     }
 
     #ajaxTable button:hover, #ajaxTable a:hover{
-        font-size: 20px;
         color: #009ce7;
-    }
-
-    a.pencil {
-        margin: 0 5px;       
-    }
-
-    a.pencil:hover {     
-        margin-right: 1.6px;    
     }
 
     button {
         border: none;
         background-color: transparent;
+    }
+
+    table.dataTable.table-sm>thead>tr>th:not(.sorting_disabled){
+        padding: none !important;
     }
 </style>
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.12.1/datatables.min.css" />
@@ -38,7 +34,8 @@
     }
 
     div.dataTables_length select {
-        width: 65px !important;
+        width: 60px !important;
+        text-align: center;
     }
 </style>
 <?= $this->endSection() ?>

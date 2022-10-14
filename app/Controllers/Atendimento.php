@@ -76,26 +76,31 @@ class  Atendimento extends BaseController
         echo view('layout/novoAtendimento1', $data);
     }
 
-    public function perfil(int $id)
+    public function perfil($id)
     {
+        $id = base64_decode($id);
         $cadastros = new  Paciente();
-
         $resultado = $cadastros->getUser($id);
+
+        $listagemModel =  new Listagem();
+        $listagens = $listagemModel->select('listagem.id, listagem.senha, listagem.entrada, listagem.saida')->join('paciente', 'paciente.cpf = listagem.cpfResponsavel')->where('paciente.id = ' . $id)->findAll();
         $data = [
-            'resultado' => $resultado
+            'resultado' => $resultado,
+            'listagens' => $listagens,
         ];
-        echo view('layout/perfil', $data);
+        return view('layout/perfil', $data);
     }
 
-    public function editar(int $id)
+    public function editar($id)
     {
+        $id = base64_decode($id);
         $cadastros =  new Paciente();
         $resultado = $cadastros->getUser($id);
         $data = [
             'resultado' => $resultado,
             'editar' => true
         ];
-        echo view('layout/cadastro', $data);
+        return view('layout/cadastro', $data);
     }
 
     public function deletar()
@@ -110,13 +115,10 @@ class  Atendimento extends BaseController
     public function listagem()
     {
         $listagem =  new Listagem();
-        $bdDate = $listagem->select('listagem.id,paciente.id as "idPaciente", paciente.cpf,paciente.nome, listagem.senha, listagem.entrada, listagem.saida')->join('paciente', 'paciente.cpf = listagem.cpfResponsavel')->findAll();
-        // $bdDate=$listagem->findAll();
+        $bdDate = $listagem->select('listagem.id,paciente.id as "idPaciente", paciente.cpf,paciente.nome, listagem.senha, listagem.entrada, listagem.saida,paciente.telefone1')->join('paciente', 'paciente.cpf = listagem.cpfResponsavel')->findAll();
         $arrayBd = [
             'date' => $bdDate,
         ];
-
-        // var_dump($bdDate);exit;
         echo view('layout/listagem', $arrayBd);
     }
 
@@ -154,17 +156,6 @@ class  Atendimento extends BaseController
         echo view('layout/cadastroListagem', $date);
     }
 
-    public function autoComplete()
-    {
-        if ($this->request->isAJAX()) {
-            $people =  new Paciente();
-            $cpf = $this->request->getPost('valor');
-            $result = $people->like('cpf', $cpf)->find();
-
-            return $this->response->setJSON($result);
-        }
-    }
-
     public function getCpf()
     {
         if ($this->request->isAJAX()) {
@@ -181,6 +172,7 @@ class  Atendimento extends BaseController
 
     public function senha($id)
     {
+        $id = base64_decode($id);
         $bdListagem = new listagem();
         $bdPaciente = new paciente();
         $bdListagem->find($id);
@@ -193,16 +185,16 @@ class  Atendimento extends BaseController
                     $adicionais = [];
                     foreach ($idsAdicional as $idAdicional) {
                         $item = $bdPaciente->find($idAdicional->id);
-                        $item->qtd = $idAdicional->qtd;                        
+                        $item->qtd = $idAdicional->qtd;
                         array_push($adicionais, $item);
                     }
-                    $date=[
+                    $date = [
                         'responsavel' => $responsavel,
                         'adicionais' => $adicionais,
                     ];
                     echo view('layout/senha', $date);
-                }else{
-                    $date=[
+                } else {
+                    $date = [
                         'responsavel' => $responsavel,
                     ];
                     echo view('layout/senha', $date);
@@ -211,77 +203,124 @@ class  Atendimento extends BaseController
         }
     }
 
-    public function saidaListagem($id){
-            $bd = new listagem;
-            $data = [
-                'saida' => date("Y/m/d")
-            ];
-            if($bd->update($id,$data)){
-                $mensagem['tipo'] = 'alert-success';
-                $mensagem['mensagem'] = 'Saída registrada com successo!';
-                session()->setFlashdata('mensagem',$mensagem);
-                return redirect()->to(base_url('public/atendimento/listagem'));
-            }else{
-                $mensagem['tipo'] = 'alert-danger';
-                $mensagem['mensagem'] = 'Não foi possível regitrar, tente novamente!';
-                session()->setFlashdata('mensagem',$mensagem);
-            }
+    public function saidaListagem($id)
+    {
+        $id = base64_decode($id);
+        $bd = new listagem;
+        $data = [
+            'saida' => date("Y/m/d")
+        ];
+        if ($bd->update($id, $data)) {
+            $mensagem['tipo'] = 'alert-success';
+            $mensagem['mensagem'] = 'Saída registrada com successo!';
+            session()->setFlashdata('mensagem', $mensagem);
+            return redirect()->to(base_url('public/atendimento/listagem'));
+        } else {
+            $mensagem['tipo'] = 'alert-danger';
+            $mensagem['mensagem'] = 'Não foi possível regitrar, tente novamente!';
+            session()->setFlashdata('mensagem', $mensagem);
+        }
     }
 
-    public function saidaListagemManual(){
-        if($this->request->getPost()){
+    public function saidaListagemManual()
+    {
+        if ($this->request->getPost()) {
             $bd = new listagem;
-            $post=$this->request->getPost();
-            if($post['saida'] > date("Y-m-d")){
+            $post = $this->request->getPost();
+            if ($post['saida'] > date("Y-m-d")) {
                 $mensagem['tipo'] = 'alert-danger';
                 $mensagem['mensagem'] = 'A data foi inserida incorretamente!';
-                session()->setFlashdata('mensagem',$mensagem);
+                session()->setFlashdata('mensagem', $mensagem);
                 return redirect()->to(base_url('public/atendimento/listagem'));
             }
-            $id=$post['id'];
-            $date=[
+            $id = $post['id'];
+            $date = [
                 'saida' => $post['saida'],
             ];
-            if($bd->update($id,$date)){
+            if ($bd->update($id, $date)) {
                 $mensagem['tipo'] = 'alert-success';
                 $mensagem['mensagem'] = 'Saída registrada com successo!';
-                session()->setFlashdata('mensagem',$mensagem);
+                session()->setFlashdata('mensagem', $mensagem);
                 return redirect()->to(base_url('public/atendimento/listagem'));
-            }
-            else{
+            } else {
                 $mensagem['tipo'] = 'alert-danger';
                 $mensagem['mensagem'] = 'Não foi possível regitrar, tente novamente!';
-                session()->setFlashdata('mensagem',$mensagem);
+                session()->setFlashdata('mensagem', $mensagem);
                 return redirect()->to(base_url('public/atendimento/listagem'));
             }
         }
     }
 
-    public function obs(){
-        if($this->request->getPost()){
-            $post=$this->request->getPost();
-            $date=[
+    public function obs()
+    {
+        if ($this->request->getPost()) {
+            $post = $this->request->getPost();
+            $date = [
                 'obs' => $post['obs'],
             ];
-            $id=$post['id'];
+            $id = base64_decode($post['id']);
             $bd = new paciente;
-            if($bd->update($id,$date)){
+            if ($bd->update($id, $date)) {
                 $mensagem['tipo'] = 'alert-success';
                 $mensagem['mensagem'] = 'Observação registrada com successo!';
-                session()->setFlashdata('mensagem',$mensagem);
-                return redirect()->to(base_url('public/atendimento/perfil/'.$id));
-            }
-            else{
+                session()->setFlashdata('mensagem', $mensagem);
+                return redirect()->to(base_url('public/atendimento/perfil/' . base64_encode($id)));
+            } else {
                 $mensagem['tipo'] = 'alert-danger';
                 $mensagem['mensagem'] = 'Não foi possível regitrar, tente novamente!';
-                session()->setFlashdata('mensagem',$mensagem);
-                return redirect()->to(base_url('public/atendimento/perfil/'.$id));
+                session()->setFlashdata('mensagem', $mensagem);
+                return redirect()->to(base_url('public/atendimento/perfil/' . base64_encode($id)));
             }
         }
     }
 
-    public function novos(){
-        return view('layout/novos');
+    public function novos()
+    {
+
+        if ($this->request->getPost()) {
+            $dataPesquisa = $this->request->getPost();
+
+            if (isset($dataPesquisa['dataPaciente'])) {
+                echo 'true';
+                $bd = new paciente;
+                function Reversedates($oldData)
+                {
+                    $orgDate = $oldData;
+                    $date = str_replace('/', '-', $orgDate);
+                    $newDate = date("Y-m-d", strtotime($date));
+                    return $newDate;
+                }
+                $date=Reversedates($dataPesquisa['dataPaciente']);
+                $pacientes = $bd->where('created_at', $date)
+                    ->findAll();
+                $dados = [
+                    'paciente' => $pacientes,
+                ];
+                 return view('layout/novos',$dados);
+            } else {
+                $bd = new listagem;
+                function Reversedates($oldData)
+                {
+                    $orgDate = $oldData;
+                    $date = str_replace('/', '-', $orgDate);
+                    $newDate = date("Y-m-d", strtotime($date));
+                    return $newDate;
+                }
+                $date=ReverseDates($dataPesquisa['dataListagem']);
+                $listagem = $bd->where('entrada', $date)
+                    ->findAll();
+                $dados = [
+                    'listagem' => $listagem,
+                ];
+                 return view('layout/novosListagem',$dados);
+
+            }
+        }
+
+        echo view('layout/novos');
     }
 
+    public function novosListagem(){
+        return view('layout/novosListagem');
+    }
 }

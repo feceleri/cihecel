@@ -1,5 +1,5 @@
 <div class="row align-items-center">
-    <div class="col-md-8">
+    <div class="col-md-12">
         <div class="card-box">
             <h4 class="card-title">Cadastro de Listagem</h4>
                 <form action="<?= base_url('public/atendimento/salvarListagem')?>" method="POST" name="formListagem" id="form">
@@ -53,8 +53,10 @@
                        </table>
                     </div>
                     
-                    <div class="mt-5">
-                        <button type="submit" class="btn btn-primary" style="margin-left: 40em;;">Cadastrar</button>
+                    <div class="row">
+                    <div class="mt-2 col-12">
+                        <button class="float-end btn btn-primary" type="submit" class="btn btn-primary">Cadastrar</button>
+                    </div>
                     </div>
                 </form>
             </h4>

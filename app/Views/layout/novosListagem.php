@@ -13,6 +13,9 @@ $resources = new Resource;
         color: #009ce7;
     }
 
+    .show{
+        display:block;
+    }
 </style>
 <?= $this->endSection() ?>
 
@@ -26,42 +29,39 @@ $resources = new Resource;
         <li class="breadcrumb-item active" aria-current="page">Relátorio</li>
     </ol>
 </nav>
-
-
 <div class="card-box row">
-    <!-- Pacientes -->
-    <div id="paciente">
+   <!-- Listagem -->
+   <div id="listagem">
         <div class="row">
-           <div class="col-6"><h3>Pesquisa Pacientes</h3></div>
-            <div class="col-6 text-end"> <a class="btn btn-primary" href="<?=base_url('public/atendimento/novosListagem')?>">Listagem</a> </div>
+            <div class="col-6"><h3>Pesquisa Listagem</h3></div>
+            <div class="col-6 text-end"> <a class="btn btn-primary" href="<?=base_url('public/atendimento/novos')?>">Pacientes</a> </div>
         </div>
         <form action="<?= base_url('public/atendimento/novos') ?>" method="post">
             <div class="row">
                 <div class="col-4"><label for="dataPaciente">Digite uma data:</label>
-                    <input type="date" name="dataPaciente">
+                    <input type="date" name="dataListagem">
                     <button style="border:none; background:none;" type="submit"><i class="fa fa-search"></i>
                 </div>
-
             </div>
         </form>
         <br>
         <table class="table">
             <thead>
                 <tr>
-                    <th>Registrado em</th>
-                    <th>NC</th>
-                    <th>Nome</th>
+                    <th>Criado em</th>
+                    <th>CPF</th>
+                    <th style="text-align: center;">Senha</th>
                 </tr>
             </thead>
             <tbody>
                 <?php
-                if (isset($paciente)) {
-                    echo  "Total de " . sizeof($paciente) . " registros.";
-                    foreach ($paciente as $value) {
+                if (isset($listagem)) {
+                    echo  "Total de " . sizeof($listagem) . " registros.";
+                    foreach ($listagem as $value) {
                         echo "<tr>";
-                        echo "<td>" . $resources->dates($value->created_at) . "</td>";
-                        echo "<td>" . $value->id . "</td>";
-                        echo "<td style='text-transform:capitalize;'><a href='" . base_url('public/atendimento/perfil/' . base64_encode($value->id)) . "'>" . $value->nome . "</a></td>";
+                        echo "<td>" . $resources->dates($value->entrada) . "</td>";
+                        echo "<td>" . $value->cpfResponsavel . "</td>";
+                        echo  "<td style='text-align:center;'> <a href='" . base_url('public/atendimento/senha/' . base64_encode($value->id)) . "'> " . $value->senha . "</a></td>";
                         echo "</tr>";
                     }
                 } else {
@@ -79,14 +79,4 @@ $resources = new Resource;
 
 <?= $this->section('script') ?>
 <!-- Script -->
-<script>
-    function hiddenShow(){
-        let tablePaciente = document.getElementById('paciente');
-        tablePaciente.classList.add('hidden');
-
-        let tableListagem = document.getElementById('listagem');
-        tableListagem.classList.remove('hidden');
-        tableListagem.classList.add('show');
-    }
-</script>
 <?= $this->endSection() ?>

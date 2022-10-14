@@ -126,7 +126,7 @@
                     data: 'Responsável'
                 },
                 {
-                    data: 'CPF'
+                    data: 'Telefone'
                 },
                 {
                     data: 'Entrada'
@@ -134,13 +134,15 @@
                 {
                     data: 'Saída'
                 },
+                {
+                    data: 'Retorno'
+                },
+                {
+                    data: 'Recomendação'
+                },
 
             ],
         });
-
-        // $('.sorting').each(function() {
-        //     $(this).removeAttr("style"); 
-        // });
     });
 
     function dateManual(id) {
@@ -193,4 +195,5 @@
     }
     ?>
 </script>
+
 <?= $this->endSection() ?>

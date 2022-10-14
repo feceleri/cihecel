@@ -8,7 +8,7 @@
                         <div class="form-group row">
                             <label for="nomeCompleto" class="col-md-3 col-form-label">Nome Completo</label>
                             <div class="col-md-9">
-                                <input type="text" class="form-control" id="nomeCompleto" name="nomeCompleto" required minlength="3" value="<?= (isset($resultado->nome))?$resultado->nome:''; ?>">
+                                <input style="text-transform: lowercase;" type="text" class="form-control" id="nomeCompleto" name="nomeCompleto" required minlength="3" value="<?= (isset($resultado->nome))?$resultado->nome:''; ?>">
                             </div>
                         </div>
                         <div class="form-group row">
@@ -36,8 +36,8 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="dtNasc" class="col-md-3 col-form-label" value="<?= (isset($resultado->nome))?$resultado->nome:''; ?>">Data de Nascimento</label>
-                            <div class="col-md-4">
+                            <label for="dtNasc" class="col-md-4 col-form-label" value="<?= (isset($resultado->nome))?$resultado->nome:''; ?>">Data de Nascimento</label>
+                            <div class="col-md-5">
                                 <input required type="date" class="form-control" id="dtNasc" name="dtNasc" value="<?= (isset($resultado))? $resultado->dataNascimento:''; ?>">
                             </div>
                         </div>
@@ -94,7 +94,7 @@
                     <div class="col-md-6">
                         <div class="form-group row">
                             <label for="complemento" class="col-md-3 col-form-label">Complemento</label>
-                            <div class="col-md-9">
+                            <div class="col-md-7">
                                 <input type="text" class="form-control" id="complemento" name="complemento" value="<?= (isset($resultado))? $resultado->complementoCasa:''; ?>">
                             </div>
                         </div>
@@ -114,6 +114,7 @@
                 </div>
                 <div class="text-right">
                     <?php if (isset($editar)) {
+                        
                         echo '<input type="hidden"  id="id" name="id" value="'.$resultado->id.'" />';
                         echo '<button type="submit" class="btn btn-primary float-end" id="cadastrar">Editar</button>';
                     } else {

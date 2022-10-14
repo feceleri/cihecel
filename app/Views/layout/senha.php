@@ -7,72 +7,73 @@
         .print {
             display: none;
         }
+
+        .ajuste {
+            margin-right: 150em;
+        }
     }
-        .row{
-            margin-right: -40px;
-        }
-        h3{
-            font-size: 13px;
-        }
 
-        .table{
-            width: 29em;
-        }
+    .row {
+        margin-right: -40px;
+    }
 
+    h3 {
+        font-size: 13px;
+    }
+
+    .table {
+        width: 29em;
+    }
 </style>
 <?= $this->endSection() ?>
 
 
 <?= $this->section('conteudo') ?>
 <!-- Conteudo -->
+
+<?php function dates($oldData)
+{
+    // $oldData = $value->entrada;
+    $orgDate = $oldData;
+    $date = str_replace('-', '/', $orgDate);
+    $newDate = date("d/m/Y", strtotime($date));
+    return $newDate;
+}
+
+function Reversedates($oldData)
+{
+    // $oldData = $value->entrada;
+    $orgDate = $oldData;
+    $date = str_replace('/', '-', $orgDate);
+    $newDate = date("d-m-Y", strtotime($date));
+    return $newDate;
+} ?>
+
 <ol class="breadcrumb print">
     <li class="breadcrumb-item"><a href="<?= base_url('public/atendimento/listagem') ?>">Listagem</a></li>
-    <li class="breadcrumb-item active" aria-current="page">Listagem senha : <?= $responsavel->senha ?> Responsável - <?= $responsavel->nome ?></li>
+    <li class="breadcrumb-item active" aria-current="page">Listagem senha : <?= $responsavel->senha ?>   Responsável - <?= $responsavel->nome ?></li>
 </ol>
 
-<div class="card-box" style="width:455px">
-    <div class="row">
-        <div class="col-3">
-            <h3>Senha: <?= $responsavel->senha ?> </h3>
-        </div>
-        <div class="col-4">
-            <?php
-            $entradaData = $responsavel->saida;
-            $entradaData = date('d/m/Y');
-            ?>
-            <h3>Entrada: <?= $entradaData ?> </h3>
-        </div>
-        <div class="col-4">
-
-            <h3>Saída:&nbsp;<?php if (isset($responsavel->saida)) {
-                                $saida = $responsavel->saida;
-                                $saida = date('d/m/Y');
-                                echo $saida;
-                            } else {
-                                echo 'Não foi registrado a saída.';
-                            } ?> </h3>
-        </div>
-    </div>
+<div class="card-box ajuste" style="width:455px">
+    <h2>Informações</h2>
     <table class="table">
         <thead>
             <tr>
                 <th>Nome</th>
-                <th>CPF</th>
                 <th>QTD Receitas</th>
             </tr>
         </thead>
         <tbody>
             <tr>
-                <td><?= $responsavel->nome ?></td>
-                <td><?= $responsavel->cpf ?></td>
+                <td style="text-transform: capitalize;"><?= $responsavel->nome ?></td>
                 <td><?= $responsavel->qtdReceitaResponsavel ?></td>
             </tr>
             <?php
             if (($responsavel->idsAdicional != '0')) {
                 foreach ($adicionais as $adicional) {
                     echo '<tr>';
-                    echo "<td>" . $adicional->nome . "</td>";
-                    echo "<td>" . $adicional->cpf . "</td>";
+                    echo "<td style='text-transform: capitalize;'>" . $adicional->nome . "</td>";
+
                     echo "<td>" . $adicional->qtd . "<td>";
                     echo '</tr>';
                 }
@@ -81,8 +82,43 @@
         </tbody>
     </table>
     <br>
+    <h2>Datas</h2>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Entrada</th>
+                <th>Saída</th>
+                <th>Retorno</th>
+                <th>Recomendação</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php
+           echo "<tr>";
+           echo "<td>" . dates($responsavel->entrada). "</td>" ;
+           echo "<td>" . ($responsavel->saida == null ) ? "<td><i class='fa fa-times' aria-hidden='true'></i></td>" : dates($responsavel->saida) ."</td>" ;
+            $retorno = 0;
+            if ($responsavel->saida == null) {
+                $retorno = "<i class='fa fa-times' aria-hidden='true'></i>";
+            } else {
+                $retorno =  date("d/m/Y", strtotime("+1 month", strtotime($responsavel->saida)));
+            }
+            echo "<td style='text-align:center;'>$retorno</td>";
+            if ($retorno != 0) {
+
+                $recomendacao = date('d/m/Y', strtotime('-4 days', strtotime(Reversedates($retorno))));
+            } else {
+                $recomendacao = "<i class='fa fa-times' aria-hidden='true'></i>";
+            }
+            echo "<td style='text-align:center;'>$recomendacao</td>";
+            echo "</tr>";
+
+            ?>
+        </tbody>
+    </table>
+    <br>
     <div>
-        <h5>Números do responsável <?= $responsavel->nome ?>: </h5>
+        <h5>Números do responsável <span style='text-transform:capitalize'> <?= $responsavel->nome ?>: </span> </h5>
         <p>Telefone 1:&nbsp;<?php
                             if ($responsavel->telefone1 != null) {
                                 echo $responsavel->telefone1;

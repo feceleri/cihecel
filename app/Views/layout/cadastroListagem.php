@@ -72,9 +72,6 @@
                         pessoas.indexOf(pessoa.cpf) === -1 ? pessoas.push(pessoa.cpf) : "";
                     });
                 },
-                error: function() {
-                    alert('error');
-                }
             })
 
         }
@@ -95,9 +92,6 @@
                         document.getElementById("responsavel").value = $row[0]['nome'];
                     }
                 },
-                error: function() {
-                    console.log('Error');
-                }
             })
         }
     });

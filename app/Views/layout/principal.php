@@ -29,13 +29,13 @@
 
 </head>
 
-<body>
+<body class="mini-sidebar">
     <div class="main-wrappe">
         <div class="header print">
             <div class="header-left">
                 <a href="<?= base_url('public/atendimento') ?>" class="logo">
-                    <img src="<?= base_url('public/resources/img/logoGrande.png') ?>" id='logoGrande' class="logoPrincipal show" alt="logo cihecel">
-                    <img src="<?= base_url('public/resources/img/logoGrandeCortada.png') ?>" id='logoPequeno' class="logoPrincipal" alt="logo cihecel">
+                    <img src="<?= base_url('public/resources/img/logoGrande.png') ?>" id='logoGrande' class="logoPrincipal" alt="logo cihecel">
+                    <img src="<?= base_url('public/resources/img/logoGrandeCortada.png') ?>" id='logoPequeno' class="logoPrincipal  show" alt="logo cihecel">
                 </a>
             </div>
             <a id="toggle_btn" href="javascript:void(0);"><i class="fa fa-bars"></i></a>
@@ -62,9 +62,9 @@
                         <li class="active">
                             <a href="<?= base_url('public/atendimento/listagem') ?>"><i class="fa fa-address-book" aria-hidden="true"></i><span>Listagem</span></a>
                         </li>
-                        <!-- <li class="active">
-                        <a href=""><i class="fa fa-line-chart" aria-hidden="true"></i><span>Novos</span></a>
-                        </li> -->
+                        <li class="active">
+                        <a href="<?= base_url('public/atendimento/novos') ?>"><i class="fa fa-line-chart" aria-hidden="true"></i><span>Relátorio</span></a>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -79,7 +79,7 @@
             </div>
         </div>
 
-        <div class="page-wrapper" style="padding: 100px 50px;">
+        <div class="page-wrapper ajuste" style="padding: 100px 18px;" >
             <!-- Conteudo -->
             <?= $this->renderSection("conteudo"); ?>
         </div>
