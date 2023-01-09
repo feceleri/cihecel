@@ -2,7 +2,7 @@
     <div class="col-md-12">
         <div class="card-box">
             <h4 class="card-title">Cadastro de Listagem</h4>
-                <form action="<?= base_url('public/atendimento/salvarListagem')?>" method="POST" name="formListagem" id="form">
+                <form action="<?= base_url('atendimento/salvarListagem')?>" method="POST" name="formListagem" id="form">
                     <div class="form-group">
                         <label>CPF</label>
                         <input type="text" maxlength="14"  id="cpfResp" name="cpfResp" class="form-control" required  onkeyup="searchPeople(this.value)">

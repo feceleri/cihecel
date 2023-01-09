@@ -25,16 +25,16 @@
             <p class="card-text">E-mail: <?= $_SESSION['usuario']['user']->email; ?></p>
             <p class="card-text">Permissão: <?= $_SESSION['usuario']['user']->tipo; ?> </p>
 
-            <!-- <a class="btn btn-primary" href="<?= base_url('public/login/editSenha') ?>">Editar</a> -->
-            <a class="btn btn-secondary" href="<?= base_url('public/') ?>">Voltar</a>
+            <!-- <a class="btn btn-primary" href="<?= base_url('login/editSenha') ?>">Editar</a> -->
+            <a class="btn btn-secondary" href="<?= base_url('') ?>">Voltar</a>
             <div class="btn-group" style="margin-left: 45px;">
                 <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                     Editar
                 </button>
                 <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="<?= base_url('public/login/editSenha') ?>">Mudar Senha</a></li>
-                    <li><a class="dropdown-item" href="<?= base_url('public/login/editEmail') ?>">Mudar E-mail</a></li>
-                    <li><a class="dropdown-item" href="<?= base_url('public/login/editNome') ?>">Mudar Nome</a></li>
+                    <li><a class="dropdown-item" href="<?= base_url('login/editSenha') ?>">Mudar Senha</a></li>
+                    <li><a class="dropdown-item" href="<?= base_url('login/editEmail') ?>">Mudar E-mail</a></li>
+                    <li><a class="dropdown-item" href="<?= base_url('login/editNome') ?>">Mudar Nome</a></li>
                 </ul>
             </div>
         </div>

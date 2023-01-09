@@ -50,8 +50,8 @@ function Reversedates($oldData)
 } ?>
 
 <ol class="breadcrumb print">
-    <li class="breadcrumb-item"><a href="<?= base_url('public/atendimento/listagem') ?>">Listagem</a></li>
-    <li class="breadcrumb-item active" aria-current="page">Listagem senha : <?= $responsavel->senha ?>   Responsável - <?= $responsavel->nome ?></li>
+    <li class="breadcrumb-item"><a href="<?= base_url('atendimento/listagem') ?>">Listagem</a></li>
+    <li  style='text-transform:capitalize' class="breadcrumb-item active" aria-current="page">Listagem senha : <?= $responsavel->senha ?>   Responsável - <?= $responsavel->nome ?></li>
 </ol>
 
 <div class="card-box ajuste" style="width:455px">
@@ -96,7 +96,8 @@ function Reversedates($oldData)
             <?php
            echo "<tr>";
            echo "<td>" . dates($responsavel->entrada). "</td>" ;
-           echo "<td>" . ($responsavel->saida == null ) ? "<td><i class='fa fa-times' aria-hidden='true'></i></td>" : dates($responsavel->saida) ."</td>" ;
+
+           echo   $responsavel->saida == null ? "<td> <i class='fa fa-times' aria-hidden='true'></i> </td> " : "<td>".dates($responsavel->saida)."</td>" ;
             $retorno = 0;
             if ($responsavel->saida == null) {
                 $retorno = "<i class='fa fa-times' aria-hidden='true'></i>";

@@ -28,7 +28,7 @@ class Login extends BaseController
                 $this->session->set('user', $user);
                 $mensagem['mensagem'] = 'Bem vindo '.$_SESSION['usuario']['user']->nome.'!';
                 $this->session->setFlashdata('mensagem', $mensagem);
-                return redirect()->to(base_url('/public'));
+                return redirect()->to(base_url('/'));
             } else {
                 $mensagem['mensagem'] = 'Usuário ou senha inválido!';
                 $mensagem['tipo'] = 'alert-danger';                
@@ -63,7 +63,7 @@ class Login extends BaseController
     public function logout(){
          session()->destroy();
 
-         return redirect()->to(base_url('public/login'));
+         return redirect()->to(base_url('login'));
     }
 
     public function settings(){

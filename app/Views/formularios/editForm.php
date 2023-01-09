@@ -4,7 +4,7 @@
                     <div class="card-box">
                         <h4 class="card-title">Formulário de cadastro</h4>
                         <h4 class="card-title">Informações Pessoais</h4>
-                        <form action="<?= base_url('public/atendimento/cadastro')?>" method="POST" name="datesCadastro" id='form'>
+                        <form action="<?= base_url('atendimento/cadastro')?>" method="POST" name="datesCadastro" id='form'>
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group row">

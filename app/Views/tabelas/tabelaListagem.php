@@ -18,7 +18,7 @@
     <div class="col-md-12">
         <div class="card-box">
             <h4 class="card-title" style="display: initial;">Listagem</h4>
-            <a class="btn btn-success mb-3" href="<?= base_url('public/atendimento/salvarListagem') ?>" style="float:right;top:5px"><i class="fa fa-book" aria-hidden="true"></i></a>
+            <a class="btn btn-success mb-3" href="<?= base_url('atendimento/salvarListagem') ?>" style="float:right;top:5px"><i class="fa fa-book" aria-hidden="true"></i></a>
             <div class="table-responsive" style="width: 100%;">
                 <table class="table table-sm table-striped" id="ajaxTableListagem" style="width:100% !important">
                     <thead>
@@ -36,7 +36,7 @@
                         <?php
                         foreach ($date as $key => $value) {
                             echo "<tr>";
-                            echo  "<td style='text-align:center;'> <a href='" . base_url('public/atendimento/senha/' . base64_encode($value->id)) . "'> " . $value->senha . "</a></td>";
+                            echo  "<td style='text-align:center;'> <a href='" . base_url('atendimento/senha/' . base64_encode($value->id)) . "'> " . $value->senha . "</a></td>";
                             echo  "<td style='text-transform: capitalize; width:20%;'> " . $value->nome . "</td>";
                             (!empty($value->telefone1)) ? $tel = $value->telefone1 : $tel = ' Não cadastrado!';
                             echo  "<td style='width:17%;'> $tel</td>";
@@ -50,10 +50,10 @@
                                         <a id='manual_" . $value->id . "' onclick='dateManual(" . $value->id . ")' class='showbutton' style='margin: 20px;' href='#'>
                                             <i class='fa fa-calendar' aria-hidden='true'></i>
                                         </a>
-                                        <a class='showbutton' id='automatico_" . $value->id . "' href='" . base_url('public/atendimento/saidaListagem/' . base64_encode($value->id)) . "' id='check'>
+                                        <a class='showbutton' id='automatico_" . $value->id . "' href='" . base_url('atendimento/saidaListagem/' . base64_encode($value->id)) . "' id='check'>
                                             <i class='fa fa-check-square' aria-hidden='true'></i>
                                         </a>
-                                        <form action='" . base_url('public/atendimento/saidaListagemManual') . "' method='post'>
+                                        <form action='" . base_url('atendimento/saidaListagemManual') . "' method='post'>
                                             <input name='saida'style='width: 113px;' id='inputManual_" . $value->id . "' class='hiddenbutton' type='date' required>
                                             <input style='display:none;' name='id' value='" . $value->id . "' >
                                                 <button id='buttonManual_" . $value->id . "' class='hiddenbutton showbutton' style='border:none;background:none;margin:-7px;' type='submit'><i class='fa fa-check' aria-hidden='true'></i></button>

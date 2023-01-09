@@ -12,10 +12,43 @@ class  Atendimento extends BaseController
     public function index()
     {
         $paciente =  new Paciente();
-        $resultado = $paciente->getAll();
-        $data = [
-            'resultado' => $resultado
-        ];
+        $post = $this->request->getPost();
+
+        if (!empty($post)) {
+            $busca = $post['search'];
+            $nc = strpos($busca, "nc:"); 
+            $cpf = strpos($busca, "cpf:");           
+           
+            if (!$nc){                       
+                $data = [
+                    'resultado' => $paciente->orderBy('nome')->like('nome', $busca)->findAll(),
+                    'pager' => $paciente->pager
+                ];               
+            }
+            if(is_int($nc))
+            {                
+                $busca=str_replace("nc:","",$busca);
+                $data = [
+                    'resultado' => $paciente->orderBy('nome')->where('id', $busca)->findAll(),
+                    'pager' => $paciente->pager
+                ];
+            }
+            if(is_int($cpf)){
+                $busca=str_replace("cpf:","",$busca);
+                $data = [
+                    'resultado' => $paciente->orderBy('nome')->like('cpf', $busca)->findAll(),
+                    'pager' => $paciente->pager
+                ];  
+            }
+            
+
+                
+        } else {
+            $data = [
+                'resultado' => $paciente->orderBy('id')->paginate(10),
+                'pager' => $paciente->pager
+            ];
+        }
         echo view('layout/paciente', $data);
     }
 
@@ -24,6 +57,7 @@ class  Atendimento extends BaseController
         $paciente =  new Paciente();
 
         $post = $this->request->getPost();
+
         if (!empty($post)) {
 
             $mensagem = [
@@ -50,17 +84,28 @@ class  Atendimento extends BaseController
 
             if (isset($post["id"])) {
                 $dadosBD["id"] = $post["id"];
-                $mensagem["mensagem"] =  'Alterado com sucesso!';
+                if ($this->validaCPF($dadosBD["cpf"])) {
+                    $paciente->save($dadosBD);
+                    $mensagem["mensagem"] =  'Alterado com sucesso!';
+                    $this->session->setFlashdata('mensagem', $mensagem);
+                    return redirect()->to(base_url('/public'));
+                } else {
+                    $mensagem["mensagem"] =  'CPF Inválido';
+                    $mensagem['tipo'] = 'alert-danger';
+                    // $dadosBD["cpf"] = "123";
+                    // die;
+                }
             }
 
-            if ($paciente->save($dadosBD)) {
+            if ($this->validaCPF($dadosBD["cpf"])) {
+                $paciente->save($dadosBD);
                 $this->session->setFlashdata('mensagem', $mensagem);
+                return redirect()->to(base_url('/public'));
             } else {
-                $mensagem['mensagem'] = 'Não foi possível cadastrar o paciente!';
+                $mensagem['mensagem'] = 'Não foi possível cadastrar o paciente! CPF Duplicado! ';
                 $mensagem['tipo'] = 'alert-danger';
                 $this->session->setFlashdata('mensagem', $mensagem);
             }
-            return redirect()->to(base_url('/public'));
         }
 
         echo view('layout/cadastro');
@@ -139,12 +184,12 @@ class  Atendimento extends BaseController
                 $mensagem['mensagem'] = 'Listagem registrada com successo!';
                 $mensagem['tipo'] = 'alert-success';
                 $this->session->setFlashdata('mensagem', $mensagem);
-                return redirect()->to(base_url('public/atendimento/listagem'));
+                return redirect()->to(base_url('atendimento/listagem'));
             } else {
                 $mensagem['mensagem'] = 'Houve um erro no cadastramento, tente novamente!';
                 $mensagem['tipo'] = 'alert-danger';
                 $this->session->setFlashdata('mensagem', $mensagem);
-                return redirect()->to(base_url('public/atendimento/listagem'));
+                return redirect()->to(base_url('atendimento/listagem'));
             }
         }
 
@@ -214,7 +259,7 @@ class  Atendimento extends BaseController
             $mensagem['tipo'] = 'alert-success';
             $mensagem['mensagem'] = 'Saída registrada com successo!';
             session()->setFlashdata('mensagem', $mensagem);
-            return redirect()->to(base_url('public/atendimento/listagem'));
+            return redirect()->to(base_url('atendimento/listagem'));
         } else {
             $mensagem['tipo'] = 'alert-danger';
             $mensagem['mensagem'] = 'Não foi possível regitrar, tente novamente!';
@@ -231,7 +276,7 @@ class  Atendimento extends BaseController
                 $mensagem['tipo'] = 'alert-danger';
                 $mensagem['mensagem'] = 'A data foi inserida incorretamente!';
                 session()->setFlashdata('mensagem', $mensagem);
-                return redirect()->to(base_url('public/atendimento/listagem'));
+                return redirect()->to(base_url('atendimento/listagem'));
             }
             $id = $post['id'];
             $date = [
@@ -241,12 +286,12 @@ class  Atendimento extends BaseController
                 $mensagem['tipo'] = 'alert-success';
                 $mensagem['mensagem'] = 'Saída registrada com successo!';
                 session()->setFlashdata('mensagem', $mensagem);
-                return redirect()->to(base_url('public/atendimento/listagem'));
+                return redirect()->to(base_url('atendimento/listagem'));
             } else {
                 $mensagem['tipo'] = 'alert-danger';
                 $mensagem['mensagem'] = 'Não foi possível regitrar, tente novamente!';
                 session()->setFlashdata('mensagem', $mensagem);
-                return redirect()->to(base_url('public/atendimento/listagem'));
+                return redirect()->to(base_url('atendimento/listagem'));
             }
         }
     }
@@ -264,12 +309,12 @@ class  Atendimento extends BaseController
                 $mensagem['tipo'] = 'alert-success';
                 $mensagem['mensagem'] = 'Observação registrada com successo!';
                 session()->setFlashdata('mensagem', $mensagem);
-                return redirect()->to(base_url('public/atendimento/perfil/' . base64_encode($id)));
+                return redirect()->to(base_url('atendimento/perfil/' . base64_encode($id)));
             } else {
                 $mensagem['tipo'] = 'alert-danger';
                 $mensagem['mensagem'] = 'Não foi possível regitrar, tente novamente!';
                 session()->setFlashdata('mensagem', $mensagem);
-                return redirect()->to(base_url('public/atendimento/perfil/' . base64_encode($id)));
+                return redirect()->to(base_url('atendimento/perfil/' . base64_encode($id)));
             }
         }
     }
@@ -290,13 +335,13 @@ class  Atendimento extends BaseController
                     $newDate = date("Y-m-d", strtotime($date));
                     return $newDate;
                 }
-                $date=Reversedates($dataPesquisa['dataPaciente']);
+                $date = Reversedates($dataPesquisa['dataPaciente']);
                 $pacientes = $bd->where('created_at', $date)
                     ->findAll();
                 $dados = [
                     'paciente' => $pacientes,
                 ];
-                 return view('layout/novos',$dados);
+                return view('layout/novos', $dados);
             } else {
                 $bd = new listagem;
                 function Reversedates($oldData)
@@ -306,21 +351,74 @@ class  Atendimento extends BaseController
                     $newDate = date("Y-m-d", strtotime($date));
                     return $newDate;
                 }
-                $date=ReverseDates($dataPesquisa['dataListagem']);
+                $date = ReverseDates($dataPesquisa['dataListagem']);
                 $listagem = $bd->where('entrada', $date)
                     ->findAll();
                 $dados = [
                     'listagem' => $listagem,
                 ];
-                 return view('layout/novosListagem',$dados);
-
+                return view('layout/novosListagem', $dados);
             }
         }
 
         echo view('layout/novos');
     }
 
-    public function novosListagem(){
+    public function novosListagem()
+    {
         return view('layout/novosListagem');
+    }
+
+    function validaCPF($cpf)
+    {
+
+        if ($cpf == "123") {
+            return false;
+        }
+        // Extrai somente os números
+        $cpf = preg_replace('/[^0-9]/is', '', $cpf);
+
+        // Verifica se foi informado todos os digitos corretamente
+        if (strlen($cpf) != 11) {
+            return false;
+        }
+
+        // Verifica se foi informada uma sequência de digitos repetidos. Ex: 111.111.111-11
+        if (preg_match('/(\d)\1{10}/', $cpf)) {
+            return false;
+        }
+
+        // Faz o calculo para validar o CPF
+        for ($t = 9; $t < 11; $t++) {
+            for ($d = 0, $c = 0; $c < $t; $c++) {
+                $d += $cpf[$c] * (($t + 1) - $c);
+            }
+            $d = ((10 * $d) % 11) % 10;
+            if ($cpf[$c] != $d) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    //Função verifica se o CPF já está cadastrado no sistema.
+    public function verficaCpf()
+    {
+        if ($this->request->getPost()) {
+            $paciente =  new Paciente();
+            $cpf = $this->request->getPost();
+            $respostaModel = $paciente->confereCpf($cpf);
+            if ($respostaModel) {
+                return json_encode(array(
+                    'status' => 200,
+                    'message' => "Error"
+                ));
+            } else {
+                return json_encode(array(
+                    'status' => 200,
+                    'message' => "Success"
+                ));
+            };
+        }
     }
 }

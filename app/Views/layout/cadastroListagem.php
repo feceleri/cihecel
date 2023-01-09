@@ -22,7 +22,7 @@
 <?= $this->section('conteudo') ?>
 <!-- Conteudo -->
 <ol class="breadcrumb">
-    <li class="breadcrumb-item"><a href="<?= base_url('public/atendimento/listagem') ?>">Listagem</a></li>
+    <li class="breadcrumb-item"><a href="<?= base_url('atendimento/listagem') ?>">Listagem</a></li>
     <li class="breadcrumb-item active" aria-current="page">Cadastro Listagem</li>
 </ol>
 
@@ -63,7 +63,7 @@
             console.log(valor);
             $.ajax({
                 method: "POST",
-                url: "<?= base_url('public/atendimento/autoComplete') ?>",
+                url: "<?= base_url('atendimento/autoComplete') ?>",
                 data: {
                     valor: valor,
                 },
@@ -81,7 +81,7 @@
         if (document.getElementById("cpfResp").value.length == 14) {
             $.ajax({
                 method: "POST",
-                url: "<?= base_url('public/atendimento/getCpf') ?>",
+                url: "<?= base_url('atendimento/getCpf') ?>",
                 data: {
                     cpf: document.getElementById("cpfResp").value
                 },
@@ -100,7 +100,7 @@
         if (document.getElementById("cpfAdicional").value.length == 14) {
             $.ajax({
                 method: "POST",
-                url: "<?= base_url('public/atendimento/getCpf') ?>",
+                url: "<?= base_url('atendimento/getCpf') ?>",
                 data: {
                     cpf: document.getElementById("cpfAdicional").value
                 },

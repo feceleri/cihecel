@@ -2,33 +2,34 @@
     <div class="col-md-12">
         <div class="card-box">
             <h4 class="card-title">Informações Pessoais</h4>
-            <form action="<?= base_url('public/atendimento/salvar') ?>" method="POST" name="datesCadastro" id='form'>
+            <form action="<?= base_url('atendimento/salvar') ?>" method="POST" name="datesCadastro" id='form'>
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group row">
                             <label for="nomeCompleto" class="col-md-3 col-form-label">Nome Completo</label>
                             <div class="col-md-9">
-                                <input style="text-transform: lowercase;" type="text" class="form-control" id="nomeCompleto" name="nomeCompleto" required minlength="3" value="<?= (isset($resultado->nome))?$resultado->nome:''; ?>">
+                                <input style="text-transform: capitalize;" type="text" class="form-control" id="nomeCompleto" name="nomeCompleto" required minlength="3" value="<?= (isset($resultado->nome))?$resultado->nome:''; ?>">
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="cpf" class="col-md-3 col-form-label">CPF</label>
                             <div class="col-md-9">
-                                <input type="text" class="form-control" id="cpf" name="cpf" maxlength="14" required value="<?= (isset($resultado))? $resultado->cpf:''; ?>">
+                                <input type="text" class="form-control" id="cpf" name="cpf" maxlength="14" onchange="verificaCpf()" required value="<?= (isset($resultado))? $resultado->cpf:''; ?>">
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="sexo" class="col-md-3 col-form-label">Sexo</label>
                             <div class="col-md-9">
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="sexo" id="sexoMasculino" value="MASCULINO" required value="<?= (isset($resultado))? $resultado->sexo:''; ?>">
+                                    <input <?= isset($resultado) && $resultado->sexo == 'M' ? 'checked' : '' ?> class="form-check-input" type="radio" name="sexo" id="sexoMasculino" value="MASCULINO" required value="<?= (isset($resultado))? $resultado->sexo:''; ?>">
+                                    
                                     <label class="form-check-label" for="sexoMasculino">
                                         Masculino
                                     </label>
 
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="sexo" id="sexoFeminino" value="FEMININO" value="<?= (isset($resultado))? $resultado->sexo:''; ?>">
+                                    <input <?= isset($resultado) && $resultado->sexo == 'F' ? 'checked' : '' ?> class="form-check-input" type="radio" name="sexo" id="sexoFeminino" value="FEMININO" value="<?= (isset($resultado))? $resultado->sexo:''; ?>">
                                     <label class="form-check-label" for="sexoFeminino">
                                         Feminino
                                     </label>
@@ -52,13 +53,13 @@
                         <div class="form-group row">
                             <label for="rg" class="col-md-3 col-form-label">RG</label>
                             <div class="col-md-9">
-                                <input required type="text" class="form-control" id="rg" name="rg" value="<?= (isset($resultado))? $resultado->rg:''; ?>">
+                                <input type="text" class="form-control" id="rg" name="rg" value="<?= (isset($resultado))? $resultado->rg:''; ?>">
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="tel1" class="col-md-3 col-form-label">Telefone 1</label>
                             <div class="col-md-9">
-                                <input type="text" class="form-control" id="tel1" name="tel1" maxlength="15" value="<?= (isset($resultado))? $resultado->telefone1:''; ?>"> 
+                                <input required type="text" minlength="5" class="form-control" id="tel1" name="tel1" maxlength="15" value="<?= (isset($resultado))? $resultado->telefone1:''; ?>"> 
                             </div>
                         </div>
                         <div class="form-group row">
@@ -116,9 +117,9 @@
                     <?php if (isset($editar)) {
                         
                         echo '<input type="hidden"  id="id" name="id" value="'.$resultado->id.'" />';
-                        echo '<button type="submit" class="btn btn-primary float-end" id="cadastrar">Editar</button>';
+                        echo '<button id="buttonForm" type="submit" class="btn btn-primary float-end" id="cadastrar">Editar</button>';
                     } else {
-                        echo '<button type="submit" class="btn btn-primary float-end" id="cadastrar">Cadastrar</button>';
+                        echo '<button id="buttonForm" type="submit" class="btn btn-primary float-end" id="cadastrar">Cadastrar</button>';
                     }
                     ?>
 
@@ -128,3 +129,5 @@
         </div>
     </div>
 </div>
+
+    

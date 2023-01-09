@@ -53,7 +53,7 @@
  ?>
 
 <ol class="breadcrumb">
-    <li class="breadcrumb-item"><a href="<?= base_url('public') ?>">Paciente</a></li>
+    <li class="breadcrumb-item"><a href="<?= base_url('/') ?>">Paciente</a></li>
     <li class="breadcrumb-item active" aria-current="page">Perfil - <?= $resultado->nome ?></li>
 </ol>
 <div class="card-box">
@@ -105,7 +105,7 @@
                 </div>
             </div>
             <div class="col-12">
-                <form action="<?= base_url('public/atendimento/obs') ?>" id="form" class="hidden" method="post">
+                <form action="<?= base_url('atendimento/obs') ?>" id="form" class="hidden" method="post">
                     <label for="comentario">Observação:</label>
                     <textarea name="obs" id="comentario" class="form-control" name="obs" minlength="5" required><?= $resultado->obs ?></textarea>
                     <input name="id" type="text" style="display:none;" value="<?= base64_encode($resultado->id); ?>">
@@ -128,7 +128,7 @@
             <?php
             foreach ($listagens as $listagem) {
                 echo "<tr>";
-                    echo "<td> <a href='".base_url('public/atendimento/senha/'.base64_encode($listagem->id))."'> $listagem->senha </a> </td>";
+                    echo "<td> <a href='".base_url('atendimento/senha/'.base64_encode($listagem->id))."'> $listagem->senha </a> </td>";
                     echo "<td>" . dates($listagem->entrada) . "</td>";
                     if (isset($listagem->saida)) {
                         $saida = dates($listagem->saida);

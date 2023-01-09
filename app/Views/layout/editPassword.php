@@ -9,7 +9,7 @@
 <!-- Conteudo -->
 <ol class="breadcrumb">
     <li class="breadcrumb-item"><a href="<?= base_url('/public') ?>"><?= $_SESSION['usuario']['user']->nome; ?></a></li>
-    <li class="breadcrumb-item"><a href="<?= base_url('public/login/settings') ?>">Configurações</a></li>
+    <li class="breadcrumb-item"><a href="<?= base_url('login/settings') ?>">Configurações</a></li>
     <li class="breadcrumb-item active" aria-current="page">Mudar Senha</li>
 </ol>
 
@@ -17,7 +17,7 @@
 
     <div class="col-4">
         <h4 class="card-title">Redefinir Senha</h4>
-        <form action="<?= base_url('public/login/editSenha')?>" method="POST" name="resetPassword" id='form'>
+        <form action="<?= base_url('login/editSenha')?>" method="POST" name="resetPassword" id='form'>
             <div class="form-group">
                 <label>Senha atual :</label>
                 <input type="password" name="oldPassword" class="form-control" id="oldPassword" required>
@@ -34,7 +34,7 @@
                 <button type="submit" id="enviar" class="btn btn-primary">Redefinir</button>
             </div>
             <div class="text-right">
-               <a class="btn btn-secondary" href="<?= base_url('public/login/settings') ?>">Voltar</a>
+               <a class="btn btn-secondary" href="<?= base_url('login/settings') ?>">Voltar</a>
             </div>
         </form>
     </div>

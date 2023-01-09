@@ -6,12 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
     <link rel="shortcut icon" type="image/x-icon" href="/img/favicon.ico">
     <title>Cihesel</title>
-    <link rel="icon" href="<?= base_url('public/resources/img/logoPequeno.png') ?>" sizes="32x32" style="border-radius:10px;">
+    <link rel="icon" href="<?= base_url('resources/img/logoPequeno.png') ?>" sizes="32x32" style="border-radius:10px;">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <!-- <link rel="stylesheet" type="text/css" href="<?= base_url('public/resources') ?>/css/bootstrap.min.css"> -->
+    <!-- <link rel="stylesheet" type="text/css" href="<?= base_url('resources') ?>/css/bootstrap.min.css"> -->
     <link rel="stylesheet" href="    https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="<?= base_url('public/resources') ?>/css/font-awesome.min.css">
-    <link rel="stylesheet" type="text/css" href="<?= base_url('public/resources') ?>/css/style.css">
+    <link rel="stylesheet" type="text/css" href="<?= base_url('resources') ?>/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="<?= base_url('resources') ?>/css/style.css">
     <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
     <?= $this->renderSection("css"); ?>
 
@@ -33,9 +33,9 @@
     <div class="main-wrappe">
         <div class="header print">
             <div class="header-left">
-                <a href="<?= base_url('public/atendimento') ?>" class="logo">
-                    <img src="<?= base_url('public/resources/img/logoGrande.png') ?>" id='logoGrande' class="logoPrincipal" alt="logo cihecel">
-                    <img src="<?= base_url('public/resources/img/logoGrandeCortada.png') ?>" id='logoPequeno' class="logoPrincipal  show" alt="logo cihecel">
+                <a href="<?= base_url('atendimento') ?>" class="logo">
+                    <img src="<?= base_url('resources/img/logoGrande.png') ?>" id='logoGrande' class="logoPrincipal" alt="logo cihecel">
+                    <img src="<?= base_url('resources/img/logoGrandeCortada.png') ?>" id='logoPequeno' class="logoPrincipal  show" alt="logo cihecel">
                 </a>
             </div>
             <a id="toggle_btn" href="javascript:void(0);"><i class="fa fa-bars"></i></a>
@@ -46,8 +46,8 @@
                 </a>
 
                 <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="<?= base_url('public/login/settings') ?>">Configurações<i class="fa fa-cog float-end" aria-hidden="true"></i></a> </li>
-                    <li><a class="dropdown-item" href="<?= base_url('public/login/logout') ?>">Logout<i class="fa fa-sign-out float-end" aria-hidden="true"></i></a></li>
+                    <li><a class="dropdown-item" href="<?= base_url('login/settings') ?>">Configurações<i class="fa fa-cog float-end" aria-hidden="true"></i></a> </li>
+                    <li><a class="dropdown-item" href="<?= base_url('login/logout') ?>">Logout<i class="fa fa-sign-out float-end" aria-hidden="true"></i></a></li>
                 </ul>
             </div>
         </div>
@@ -57,13 +57,13 @@
                     <ul>
                         <li class="menu-title">Menu</li>
                         <li class="active">
-                            <a href="<?= base_url('public') ?>"><i class="fa fa-user"></i> <span>Pacientes</span></a>
+                            <a href="<?= base_url('') ?>"><i class="fa fa-user"></i> <span>Pacientes</span></a>
                         </li>
                         <li class="active">
-                            <a href="<?= base_url('public/atendimento/listagem') ?>"><i class="fa fa-address-book" aria-hidden="true"></i><span>Listagem</span></a>
+                            <a href="<?= base_url('atendimento/listagem') ?>"><i class="fa fa-address-book" aria-hidden="true"></i><span>Listagem</span></a>
                         </li>
                         <li class="active">
-                        <a href="<?= base_url('public/atendimento/novos') ?>"><i class="fa fa-line-chart" aria-hidden="true"></i><span>Relátorio</span></a>
+                        <a href="<?= base_url('atendimento/novos') ?>"><i class="fa fa-line-chart" aria-hidden="true"></i><span>Relátorio</span></a>
                         </li>
                     </ul>
                 </div>

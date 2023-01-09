@@ -13,7 +13,6 @@
     }
 
     .show {
-
         display: flex !important;
         text-align: center;
     }
@@ -50,9 +49,6 @@
             }
         }
     }
-
-
-
 
     cep.addEventListener("blur", (e) => {
         let search = cep.value.replace("-", "")
@@ -116,6 +112,116 @@
         }
     });
     // Confirmação de envio
+
+    var buttonForm = document.getElementById('buttonForm');
+    var cpf = document.querySelector('#cpf');
+
+    function verificaCpf() {
+        if (TestaCPF(cpf.value)) {
+            if (confereCPF(cpf.value)) {
+                cpf.style.backgroundColor = "white";
+                buttonForm.disabled = false;
+            }
+        } else {
+            msg = document.querySelector('#msgInfo');
+            alerta = document.querySelector('#alerta');
+            alerta.classList.add('alert-danger');
+            alerta.style.width = "100%";
+            msg.textContent = 'CPF INVÁLIDO';
+            new bootstrap.Toast(document.querySelector('#basicToast')).show();
+            cpf.style.backgroundColor = "#ff7373";
+            buttonForm.disabled = true;
+        }
+    }
+
+    //requisição para o controller para saber se o cpf está duplicado.
+    function confereCPF(cpf) {
+        $.ajax({
+            method: "POST",
+            url: "<?= base_url('atendimento/verficaCpf') ?>",
+            data: {
+                cpf: cpf
+            },
+            success: function(response) {
+                var data = $.parseJSON(response);
+                if (data.message == 'Success') {
+                    var buttonForm = document.getElementById('buttonForm');
+                    var cpf = document.querySelector('#cpf')
+                    cpf.style.backgroundColor = "white";
+                    buttonForm.disabled = false;
+                } else if (data.message == 'Error') {
+                    var buttonForm = document.getElementById('buttonForm');
+                    var cpf = document.querySelector('#cpf');
+                    cpf.style.backgroundColor = "#ff7373";
+                    buttonForm.disabled = true;
+
+                    msg = document.querySelector('#msgInfo');
+                    alerta = document.querySelector('#alerta');
+                    alerta.classList.add('alert-danger');
+                    alerta.style.width = "100%";
+                    msg.textContent = 'CPF JÁ CADASTRADO';
+                    new bootstrap.Toast(document.querySelector('#basicToast')).show();
+                }
+            },
+            error: function(xhr, ajaxOptions, thrownError) {
+
+            }
+        })
+    }
+
+
+    function TestaCPF(cpf) {
+        cpf = cpf.replace(/[^\d]+/g, '');
+        if (cpf == '') return false;
+        // Elimina CPFs invalidos conhecidos	
+        if (cpf.length != 11 ||
+            cpf == "00000000000" ||
+            cpf == "11111111111" ||
+            cpf == "22222222222" ||
+            cpf == "33333333333" ||
+            cpf == "44444444444" ||
+            cpf == "55555555555" ||
+            cpf == "66666666666" ||
+            cpf == "77777777777" ||
+            cpf == "88888888888" ||
+            cpf == "99999999999")
+            return false;
+        // Valida 1o digito	
+        add = 0;
+        for (i = 0; i < 9; i++)
+            add += parseInt(cpf.charAt(i)) * (10 - i);
+        rev = 11 - (add % 11);
+        if (rev == 10 || rev == 11)
+            rev = 0;
+        if (rev != parseInt(cpf.charAt(9)))
+            return false;
+        // Valida 2o digito	
+        add = 0;
+        for (i = 0; i < 10; i++)
+            add += parseInt(cpf.charAt(i)) * (11 - i);
+        rev = 11 - (add % 11);
+        if (rev == 10 || rev == 11)
+            rev = 0;
+        if (rev != parseInt(cpf.charAt(10)))
+            return false;
+        return true;
+    }
+
+    // <?php
+        //      if (isset($_SESSION['mensagem'])) {
+        //          echo "msg = document.querySelector('#msgInfo');
+        //          alerta = document.querySelector('#alerta');
+        //          alerta.classList.add('".$_SESSION['mensagem']['tipo']."');
+        //          msg.textContent = '".$_SESSION['mensagem']['mensagem']."';
+        //          new bootstrap.Toast(document.querySelector('#basicToast')).show();";
+        //      }
+        // 
+        ?>
 </script>
+
+
+
+
+
 
 <?= $this->endSection() ?>

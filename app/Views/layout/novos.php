@@ -33,9 +33,9 @@ $resources = new Resource;
     <div id="paciente">
         <div class="row">
            <div class="col-6"><h3>Pesquisa Pacientes</h3></div>
-            <div class="col-6 text-end"> <a class="btn btn-primary" href="<?=base_url('public/atendimento/novosListagem')?>">Listagem</a> </div>
+            <div class="col-6 text-end"> <a class="btn btn-primary" href="<?=base_url('atendimento/novosListagem')?>">Listagem</a> </div>
         </div>
-        <form action="<?= base_url('public/atendimento/novos') ?>" method="post">
+        <form action="<?= base_url('atendimento/novos') ?>" method="post">
             <div class="row">
                 <div class="col-4"><label for="dataPaciente">Digite uma data:</label>
                     <input type="date" name="dataPaciente">
@@ -61,7 +61,7 @@ $resources = new Resource;
                         echo "<tr>";
                         echo "<td>" . $resources->dates($value->created_at) . "</td>";
                         echo "<td>" . $value->id . "</td>";
-                        echo "<td style='text-transform:capitalize;'><a href='" . base_url('public/atendimento/perfil/' . base64_encode($value->id)) . "'>" . $value->nome . "</a></td>";
+                        echo "<td style='text-transform:capitalize;'><a href='" . base_url('atendimento/perfil/' . base64_encode($value->id)) . "'>" . $value->nome . "</a></td>";
                         echo "</tr>";
                     }
                 } else {

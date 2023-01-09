@@ -27,7 +27,7 @@
         padding: none !important;
     }
 </style>
-<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.12.1/datatables.min.css" />
+<!-- <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.12.1/datatables.min.css" /> -->
 <style>
     tbody tr td a {
         color: black;
@@ -81,7 +81,7 @@ echo $cadastros;
 
 <?= $this->section('script') ?>
 <!-- Script -->
-<script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.12.1/datatables.min.js"></script>
+<!-- <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.12.1/datatables.min.js"></script> -->
 
 
 <script>
@@ -95,7 +95,7 @@ echo $cadastros;
         var id = btnExcluir.getAttribute('dado-alvo', id);
         // id = 3;
         $.ajax({
-            url: '<?= base_url('public/atendimento/deletar') ?>',
+            url: '<?= base_url('atendimento/deletar') ?>',
             type: 'post',
             dataType: 'json',
 
@@ -122,60 +122,31 @@ echo $cadastros;
     });
 
 
-    $(document).ready(function() {
-        const DATATABLE_PTBR = {
-            "sEmptyTable": "Nenhum registro encontrado",
-            "sInfo": "Mostrando de _START_ até _END_ de _TOTAL_ pacientes",
-            "sInfoEmpty": "Mostrando 0 até 0 de 0 pacientes",
-            "sInfoFiltered": "(Filtrados de _MAX_ pacientes)",
-            "sInfoPostFix": "",
-            "sInfoThousands": ".",
-            "sLengthMenu": "_MENU_ resultados por página",
-            "sLoadingRecords": "Carregando...",
-            "sProcessing": "Processando...",
-            "sZeroRecords": "Nenhum registro encontrado",
-            "sSearch": "Pesquisar",
-            "oPaginate": {
-                "sNext": "Próximo",
-                "sPrevious": "Anterior",
-                "sFirst": "Primeiro",
-                "sLast": "Último"
-            },
-            "oAria": {
-                "sSortAscending": ": Ordenar colunas de forma ascendente",
-                "sSortDescending": ": Ordenar colunas de forma descendente"
-            },
-            "select": {
-                "rows": {
-                    "_": "Selecionado %d linhas",
-                    "0": "Nenhuma linha selecionada",
-                    "1": "Selecionado 1 linha"
-                }
-            }
-        }
-        $('#ajaxTable').DataTable({
-            "oLanguage": DATATABLE_PTBR,
-            ajax: '',
-            columns: [{
-                    data: 'ID'
-                },
-                {
-                    data: 'Nome'
-                },
-                {
-                    data: 'CPF'
-                },
-                {
-                    data: 'Data de nascimento'
-                },
-                {
-                    data: 'status'
-                },
+    window.onload =  function resetAllCpf(cpf){
+        cpf=document.getElementById('tdCpf');
+        console.log(cpf)
+        
+        cpf.value.replace(/\D/g, '')
+
+        cpf = cpf.replace(/\D/g, "").slice(0, 11);
+        cpf = cpf.replace(/(\d{3})(\d)/, "$1.$2");
+        cpf = cpf.replace(/^(\d{3}\.\d{3})(\d)/, "$1.$2");
+        cpf = cpf.replace(/(.{11})(\d)/, "$1-$2");
+        return cpf;
+    }
+    
+    // function RetiraMascara(ObjCPF) {
+    // return ObjCPF.value.replace(/\D/g, '');
+    // }
 
 
-            ],
-        });
-    });
+    // function mascaraCPF(cpf) {
+    //     cpf = cpf.replace(/\D/g, "").slice(0, 11);
+    //     cpf = cpf.replace(/(\d{3})(\d)/, "$1.$2");
+    //     cpf = cpf.replace(/^(\d{3}\.\d{3})(\d)/, "$1.$2");
+    //     cpf = cpf.replace(/(.{11})(\d)/, "$1-$2");
+    //     return cpf;
+    // } // 12345678910 -> 123.456.789-10
 
 
     <?php         

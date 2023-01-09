@@ -13,15 +13,15 @@ class Paciente extends Model
     protected $returnType       = 'object';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['nome', 'cpf', 'rg', 'dataNascimento', 'sexo', 'telefone1', 'telefone2', 'nomeMae', 'cep', 'logradouro', 'numeroCasa', 'complementoCasa', 'cidade', 'bairro','obs'];
+    protected $allowedFields    = ['nome', 'cpf', 'rg', 'dataNascimento', 'sexo', 'telefone1', 'telefone2', 'nomeMae', 'cep', 'logradouro', 'numeroCasa', 'complementoCasa', 'cidade', 'bairro', 'obs'];
 
 
-      // Dates
-      protected $useTimestamps = true;
+    // Dates
+    protected $useTimestamps = true;
     //   protected $dateFormat    = 'datetime';
-      protected $createdField  = 'created_at';
-      protected $updatedField  = 'updated_at';
-      protected $deletedField  = 'deleted_at';
+    protected $createdField  = 'created_at';
+    protected $updatedField  = 'updated_at';
+    protected $deletedField  = 'deleted_at';
 
     // Validation
     protected $validationRules      = [];
@@ -42,7 +42,7 @@ class Paciente extends Model
 
     public function getAll()
     {
-        $result = $this->findAll();
+        $result = $this->orderBy('nome')->findAll();
         return $result;
     }
 
@@ -64,10 +64,23 @@ class Paciente extends Model
         }
     }
 
-    public function findCpf($cpf){
-        $teste=$this->where('cpf', $cpf)
+    public function findCpf($cpf)
+    {
+        $people = $this->where('cpf', $cpf)
             ->find();
-        return $teste[0]->nome;
-            // var_dump($teste[0]->nome);exit;
+        return $people[0]->nome;
+        // var_dump($teste[0]->nome);exit;
+    }
+
+    public function confereCpf($cpf)
+    {
+        $arrayCPF = $this->findColumn('cpf');
+        $valido = false;
+        foreach ($arrayCPF as $cpfs) {                       
+            if ($cpfs == $cpf['cpf']) {                
+                $valido = true;
+            } 
+        }
+        return $valido;
     }
 }
