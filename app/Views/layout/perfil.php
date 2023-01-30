@@ -99,7 +99,7 @@
                     <p class="card-text"><?php if (isset($resultado->obs)) {
                                                 echo $resultado->obs;
                                             } else {
-                                                echo 'Não á nenhuma observação registrada.';
+                                                echo 'Não há nenhuma observação registrada.';
                                             }
                                             ?></p>
                 </div>

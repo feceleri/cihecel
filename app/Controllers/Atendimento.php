@@ -421,4 +421,48 @@ class  Atendimento extends BaseController
             };
         }
     }
+
+    public function incompletos()
+    {
+        $paciente =  new Paciente();
+        $post = $this->request->getPost();
+
+        if (!empty($post)) {
+            // $busca = $post['search'];
+            // $nc = strpos($busca, "nc:"); 
+            // $cpf = strpos($busca, "cpf:");           
+           
+            // if (!$nc){                       
+            //     $data = [
+            //         'resultado' => $paciente->orderBy('nome')->like('nome', $busca)->findAll(),
+            //         'pager' => $paciente->pager
+            //     ];               
+            // }
+            // if(is_int($nc))
+            // {                
+            //     $busca=str_replace("nc:","",$busca);
+            //     $data = [
+            //         'resultado' => $paciente->orderBy('nome')->where('id', $busca)->findAll(),
+            //         'pager' => $paciente->pager
+            //     ];
+            // }
+            // if(is_int($cpf)){
+            //     $busca=str_replace("cpf:","",$busca);
+            //     $data = [
+            //         'resultado' => $paciente->orderBy('nome')->like('cpf', '')->findAll(),
+            //         'pager' => $paciente->pager
+            //     ];  
+            // }
+            
+
+                
+        } else {
+            $data = [
+                'resultado' => $paciente->orderBy('id')->where('cpf', "")->paginate(10),
+                'pager' => $paciente->pager
+            ];
+        }
+        echo view('layout/incompletos', $data);
+    }
+
 }

@@ -23,7 +23,7 @@ $resources = new Resource;
 
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
-        <li class="breadcrumb-item active" aria-current="page">Relátorio</li>
+        <li class="breadcrumb-item active" aria-current="page">Relatório</li>
     </ol>
 </nav>
 
