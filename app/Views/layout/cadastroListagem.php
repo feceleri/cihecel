@@ -149,7 +149,6 @@
                 cellCpf.innerHTML = cpfAdicional;
                 cellQtd.innerHTML = qtdAdicional;
                 document.getElementById("idsAdicional").value = JSON.stringify(pacientes);
-                
                 document.getElementById("cpfAdicional").value = null;
                 document.getElementById("qtdAdicional").value = null;
                 document.getElementById("nomeAdicional").value = null;

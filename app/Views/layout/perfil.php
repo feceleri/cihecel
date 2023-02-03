@@ -1,6 +1,7 @@
 <?= $this->extend('layout/principal') ?>
 
 <?= $this->section('css') ?>
+
 <!-- Style -->
 <style>
     div.row div ul li span {
@@ -127,6 +128,34 @@
             </tr>
             <?php
             foreach ($listagens as $listagem) {
+                echo "<tr>";
+                    echo "<td> <a href='".base_url('atendimento/senha/'.base64_encode($listagem->id))."'> $listagem->senha </a> </td>";
+                    echo "<td>" . dates($listagem->entrada) . "</td>";
+                    if (isset($listagem->saida)) {
+                        $saida = dates($listagem->saida);
+                    } else {
+                    }
+                    echo  (isset($listagem->saida))? '<td>'.dates($listagem->saida).'</td>': ' <td>Não foi registrado saída</td>' ;
+                    
+
+                    $retorno=0;
+                    if ($listagem->saida == null) {
+                        $retorno = "<i class='fa fa-times' aria-hidden='true'></i>";
+                    } else {
+                        $retorno =  date("d/m/Y", strtotime("+1 month",strtotime($listagem->saida)));
+                    }
+                    echo "<td>$retorno</td>";
+                    if($retorno != 0){
+
+                        $recomendacao= date('d/m/Y', strtotime('-4 days', strtotime(reverseDates($retorno))));
+                    }else{
+                        $recomendacao="<i class='fa fa-times' aria-hidden='true'></i>";
+                    }
+                    echo "<td>$recomendacao</td>";
+                    echo "</tr>";
+            } ?>
+            <?php
+            foreach ($listagensAdicionais as $listagem) {
                 echo "<tr>";
                     echo "<td> <a href='".base_url('atendimento/senha/'.base64_encode($listagem->id))."'> $listagem->senha </a> </td>";
                     echo "<td>" . dates($listagem->entrada) . "</td>";
