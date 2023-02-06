@@ -58,6 +58,14 @@
 </ol>
 <div class="card-box">
     <div class="row">
+        <!-- <div class="col" style="padding:1em;">
+            <?php
+            //echo ($_SESSION['usuario']['user']->tipo == '1') ? "<td> <div><a class='pencil' href='" . base_url('atendimento/editar/' . base64_encode($paciente->id)) . "'><span><i class='fa fa-pencil' aria-hidden='true'></i> </span></a><button class='eraser' data-bs-target='#deleteModal' data-bs-toggle='modal' onclick='preencherModalDelete(" . $paciente->id . ")' ><span><i class='fa fa-eraser' aria-hidden='true'></i> </span></button></div> </td>" : '';
+                            
+             ?>
+        </div>
+    </div>
+    <div class="row"> -->
         <div class="block col-12" style="padding:0.5 1em;">
             <ul class="list-group">
                 <li class="col-12 list-group-item">

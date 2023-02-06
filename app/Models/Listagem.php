@@ -52,4 +52,27 @@ class Listagem extends Model
     }
 
 
+    public function pdf($id){
+        $data = $this->db->get('listagem');
+        $output = '<table width="100%">';
+        foreach($data->result() as $row)
+        {
+            $output .= '
+            <tr>
+                <td width="75%">'.$row->senha.'</td>
+                <td width="75%">'.$row->cpfResponsavel.'</td>
+                <td width="75%">'.$row->entrada.'</td>
+                <td width="75%">'.$row->saida.'</td>
+            </tr>
+            ';
+        }
+        // $output .= '
+        //     <tr>
+        //     <td colspan="2" align="center"><a href="'.base_url().'htmltopdf" class="btn btn-primary">Back</a></td>
+        //     </tr>
+        // ';
+        $output .= '</table>';
+        return $output;
+
+    }
 }
