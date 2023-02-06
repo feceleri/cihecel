@@ -133,10 +133,12 @@ class  Atendimento extends BaseController
         $resultado = $cadastros->getUser($id);
 
         $listagemModel =  new Listagem();
-        $listagens = $listagemModel->select('listagem.id, listagem.senha, listagem.entrada, listagem.saida')->join('paciente', 'paciente.cpf = listagem.cpfResponsavel')->where('paciente.id = ' . $id)->findAll();
+        $listagens = $listagemModel->select('listagem.id, listagem.senha, listagem.entrada, listagem.saida')->join('paciente', 'paciente.cpf = listagem.cpfResponsavel', 'listagem.idsAdicional->>"id"=' . $id)->where('paciente.id = ' . $id)->findAll();
+        $listagensAdicional = $listagemModel->select('listagem.id, listagem.senha, listagem.entrada, listagem.saida')->join('paciente', 'paciente.cpf = listagem.cpfResponsavel', 'listagem.idsAdicional->>"id"=' . $id)->where("JSON_CONTAINS(idsAdicional, '{\"id\": $id }')")->findAll();
         $data = [
             'resultado' => $resultado,
             'listagens' => $listagens,
+            'listagensAdicionais' => $listagensAdicional
         ];
         return view('layout/perfil', $data);
     }
@@ -183,6 +185,7 @@ class  Atendimento extends BaseController
                 "senha" => $post["senha"],
                 "qtdReceitaResponsavel" => $post["receitasResponsavel"],
                 "idsAdicional" => $post["idsAdicional"],
+                "idAdicionalTeste" => $post["idsAdicional"]
             ];
 
             if ($listagem->save($dadosBD)) {
@@ -267,7 +270,7 @@ class  Atendimento extends BaseController
             return redirect()->to(base_url('atendimento/listagem'));
         } else {
             $mensagem['tipo'] = 'alert-danger';
-            $mensagem['mensagem'] = 'Não foi possível regitrar, tente novamente!';
+            $mensagem['mensagem'] = 'Não foi possível registrar, tente novamente!';
             session()->setFlashdata('mensagem', $mensagem);
         }
     }
