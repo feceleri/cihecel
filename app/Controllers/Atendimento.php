@@ -6,6 +6,11 @@ use App\Models\Paciente;
 use App\Models\Cadastro;
 use App\Models\Medicamento;
 use App\Models\Listagem;
+use Dompdf\Adapter\CPDF;
+use Dompdf\Dompdf;
+use Dompdf\Exception;
+
+
 
 class  Atendimento extends BaseController
 {
@@ -503,6 +508,23 @@ class  Atendimento extends BaseController
             ];
         }
         echo view('layout/incompletos', $data);
+    }
+
+    public function listagemPDF(){
+        $listagem = new Listagem();
+        $segment =  $this->request->uri->getSegment(3);
+        $dompdf = new Dompdf();
+
+
+        if($segment)
+        {
+            $id = $segment;
+            $html_content = '<h3 align="center">Listagem Semanal</h3>';
+            $html_content .= $this->htmltopdf_model->fetch_single_details($id);
+            $dompdf->loadHtml($html_content);
+            $dompdf->render();
+            $dompdf->stream("".$id.".pdf", array("Attachment"=>0));
+        }
     }
 
 }
