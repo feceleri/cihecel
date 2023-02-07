@@ -1,3 +1,53 @@
+<style>
+    #pager a {
+        color: black !important;
+    }
+
+    #pager {
+        margin-top: 15px;
+    }
+
+    #pager li {
+        border-radius: 10px;
+    }
+
+    table a {
+        cursor: pointer;
+    }
+
+    .utilityTable {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .searchTable {
+        margin-top: 5px;
+        display: flex;
+        flex-direction: row;
+    }
+
+    form {
+        display: flex;
+    }
+
+    form button {
+        font-size: 16px;
+        background-color: white;
+        color: #009ce7;
+        width: 45px;
+        border-radius: 0 10px 10px 0;
+    }
+
+    form button:hover {
+        background-color: #009ce7;
+        color: white;
+        border-radius: 0 10px 10px 0;
+    }
+
+    .table-responsive{
+        overflow: hidden;
+    }
+</style>
 <div class="row" style="height:80vh">
     <?php function dates($oldData)
     {
@@ -6,8 +56,8 @@
         $date = str_replace('-', '/', $orgDate);
         $newDate = date("d/m/Y", strtotime($date));
         return $newDate;
-    } 
-     function Reversedates($oldData)
+    }
+    function Reversedates($oldData)
     {
         // $oldData = $value->entrada;
         $orgDate = $oldData;
@@ -18,13 +68,25 @@
     <div class="col-md-12">
         <div class="card-box">
             <h4 class="card-title" style="display: initial;">Listagem</h4>
-            <a class="btn btn-success mb-3" href="<?= base_url('atendimento/salvarListagem') ?>" style="float:right;top:5px"><i class="fa fa-book" aria-hidden="true"></i></a>
-            <div class="table-responsive" style="width: 100%;">
-                <table class="table table-sm table-striped" id="ajaxTableListagem" style="width:100% !important">
+            <div class="utilityTable">
+                <div style="top:5px">
+                    <div class="searchTable">
+                        <form action="<?= base_url('atendimento/listagem') ?>" method="post">
+                            <input name="search" class="form-control" type="search" placeholder="Pesquisar">
+                            <button type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
+                        </form>
+                    </div>
+                </div>
+                <div>
+                    <a class="btn btn-success mb-3" href="<?= base_url('atendimento/salvarListagem') ?>" style="float:right;top:5px"><i class="fa fa-book" aria-hidden="true"></i></a>
+                </div>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-sm table-striped" id="ajaxTableListagem" style="width:100% !important;">
                     <thead>
                         <tr>
                             <th>Senha</th>
-                            <th >Responsável</th>
+                            <th>Responsável</th>
                             <th>Telefone</th>
                             <th>Entrada</th>
                             <th style="text-align:center;">Saída</th>
@@ -35,10 +97,10 @@
                     <tbody>
                         <?php
                         foreach ($date as $key => $value) {
-                            echo "<tr>";
+                            echo "<tr style='font-size: 15px;'>";
                             echo  "<td style='text-align:center;'> <a href='" . base_url('atendimento/senha/' . base64_encode($value->id)) . "'> " . $value->senha . "</a></td>";
-                            echo  "<td style='text-transform: capitalize; width:20%;'> " . $value->nome . "</td>";
-                            (!empty($value->telefone1)) ? $tel = $value->telefone1 : $tel = ' Não cadastrado!';
+                            echo  "<td style='text-transform: capitalize; width:20%;'> " . $value->nomeResponsavel . "</td>";
+                            (!empty($value->telResponsavel)) ? $tel = $value->telResponsavel : $tel = ' Não cadastrado!';
                             echo  "<td style='width:17%;'> $tel</td>";
                             $entrada = dates($value->entrada);
                             echo  "<td> " . $entrada . "</td>";
@@ -61,24 +123,32 @@
                                         </form>
                                       </td>";
                             }
-                            $retorno=0;
+                            $retorno = 0;
                             if ($value->saida == null) {
                                 $retorno = "<i class='fa fa-times' aria-hidden='true'></i>";
                             } else {
-                                $retorno =  date("d/m/Y", strtotime("+1 month",strtotime($value->saida)));
+                                $retorno =  date("d/m/Y", strtotime("+1 month", strtotime($value->saida)));
                             }
                             echo "<td style='text-align:center;'>$retorno</td>";
-                            if($retorno != 0){
+                            if ($retorno != 0) {
 
-                                $recomendacao= date('d/m/Y', strtotime('-4 days', strtotime(Reversedates($retorno))));
-                            }else{
-                                $recomendacao="<i class='fa fa-times' aria-hidden='true'></i>";
+                                $recomendacao = date('d/m/Y', strtotime('-4 days', strtotime(Reversedates($retorno))));
+                            } else {
+                                $recomendacao = "<i class='fa fa-times' aria-hidden='true'></i>";
                             }
                             echo "<td style='text-align:center;'>$recomendacao</td>";
                             echo "</tr>";
                         } ?>
                     </tbody>
                 </table>
+                <div class="row" id="pager">
+                    <?php
+                    if ($pager) {
+                        echo $pager->links();
+                    }
+
+                    ?>
+                </div>
             </div>
         </div>
     </div>

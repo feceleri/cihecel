@@ -20,7 +20,7 @@
         justify-content: space-between;
     }
 
-    .serachTable {
+    .searchTable {
         margin-top: 5px;
         display: flex;
         flex-direction: row;
@@ -51,7 +51,7 @@
             <h4 class="card-title" style="display: initial;">Pacientes</h4>
             <div class="utilityTable">
                 <div style="top:5px">
-                    <div class="serachTable">
+                    <div class="searchTable">
                         <form action="<?= base_url('atendimento/index') ?>" method="post">
                             <input name="search" class="form-control" type="search" placeholder="Pesquisar">
                             <button type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>

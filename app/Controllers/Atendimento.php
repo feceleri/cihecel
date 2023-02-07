@@ -162,10 +162,43 @@ class  Atendimento extends BaseController
     public function listagem()
     {
         $listagem =  new Listagem();
-        $bdDate = $listagem->select('listagem.id,paciente.id as "idPaciente", paciente.cpf,paciente.nome, listagem.senha, listagem.entrada, listagem.saida,paciente.telefone1')->join('paciente', 'paciente.cpf = listagem.cpfResponsavel')->findAll();
-        $arrayBd = [
-            'date' => $bdDate,
-        ];
+        $post = $this->request->getPost();
+
+        if (!empty($post)) {
+            $busca = $post['search'];
+            $senha = strpos($busca, "senha:"); 
+            $nome = strpos($busca, "nome:");           
+           
+            if (!$senha){                       
+                $arrayBd = [
+                    'date' => $listagem->orderBy('id', 'desc')->like('senha', $busca)->findAll(),
+                    'pager' => $listagem->pager
+                ];               
+            }
+            if(is_int($senha))
+            {                
+                $busca=str_replace("senha:","",$busca);
+                $arrayBd = [
+                    'date' => $listagem->orderBy('id', 'desc')->where('senha', $busca)->findAll(),
+                    'pager' => $listagem->pager
+                ];
+            }
+            if(!is_int($nome)){
+                $busca=str_replace("nome:","",$busca);
+                $arrayBd = [
+                    'date' => $listagem->orderBy('id', 'desc')->like('nomeResponsavel', $busca)->findAll(),
+                    'pager' => $listagem->pager
+                ];  
+            }
+            
+
+                
+        } else {
+            $arrayBd = [
+                'date' => $listagem->orderBy('id', 'desc')->paginate(10),
+                'pager' => $listagem->pager
+            ];
+        }
         echo view('layout/listagem', $arrayBd);
     }
 
@@ -174,13 +207,17 @@ class  Atendimento extends BaseController
         $post = $this->request->getPost();
         if (!empty($post)) {
             $listagem =  new Listagem();
+            $db = db_connect();
+            $nomeTel = $db->query("SELECT nome, telefone1 FROM paciente WHERE cpf = '".$post["cpfResp"]."'")->getResult();
 
             $dadosBD = [
                 "cpfResponsavel" => $post["cpfResp"],
                 "senha" => $post["senha"],
                 "qtdReceitaResponsavel" => $post["receitasResponsavel"],
                 "idsAdicional" => $post["idsAdicional"],
-                "idAdicionalTeste" => $post["idsAdicional"]
+                "idAdicionalTeste" => $post["idsAdicional"],
+                "nomeResponsavel" => $nomeTel[0]->nome,
+                "telResponsavel" => $nomeTel[0]->telefone1
             ];
 
             if ($listagem->save($dadosBD)) {

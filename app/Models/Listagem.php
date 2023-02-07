@@ -13,7 +13,7 @@ class Listagem extends Model
     protected $returnType       = 'object';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['senha', 'cpfResponsavel', 'qtdReceitaResponsavel', 'idsAdicional', 'saida'];
+    protected $allowedFields    = ['senha', 'cpfResponsavel', 'qtdReceitaResponsavel', 'idsAdicional', 'saida', 'nomeResponsavel', 'telResponsavel'];
 
 
     protected $useTimestamps = true;
@@ -50,6 +50,7 @@ class Listagem extends Model
         $result = $this->find($id);
         return $result;
     }
+
 
 
 }

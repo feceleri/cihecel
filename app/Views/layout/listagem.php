@@ -52,6 +52,9 @@
     .showForm {
         margin: 1px;
     }
+    .pagination>.active>a{
+        background-color: #dde4e9;
+    }
 </style>
 <?= $this->endSection() ?>
 
@@ -82,68 +85,8 @@
 <?= $this->endSection() ?>
 
 <?= $this->section('script') ?>
-<!-- Script -->
-<script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.12.1/datatables.min.js"></script>
 <script>
-    $(document).ready(function() {
-        const DATATABLE_PTBR = {
-            "sEmptyTable": "Nenhum registro encontrado",
-            "sInfo": "Mostrando de _START_ até _END_ de _TOTAL_ registro",
-            "sInfoEmpty": "Mostrando 0 até 0 de 0 registro",
-            "sInfoFiltered": "(Filtrados de _MAX_ registro)",
-            "sInfoPostFix": "",
-            "sInfoThousands": ".",
-            "sLengthMenu": "_MENU_ resultados por página",
-            "sLoadingRecords": "Carregando...",
-            "sProcessing": "Processando...",
-            "sZeroRecords": "Nenhum registro encontrado",
-            "sSearch": "Pesquisar",
-            "oPaginate": {
-                "sNext": "Próximo",
-                "sPrevious": "Anterior",
-                "sFirst": "Primeiro",
-                "sLast": "Último"
-            },
-            "oAria": {
-                "sSortAscending": ": Ordenar colunas de forma ascendente",
-                "sSortDescending": ": Ordenar colunas de forma descendente"
-            },
-            "select": {
-                "rows": {
-                    "_": "Selecionado %d linhas",
-                    "0": "Nenhuma linha selecionada",
-                    "1": "Selecionado 1 linha"
-                }
-            }
-        }
-        $('#ajaxTableListagem').DataTable({
-            "oLanguage": DATATABLE_PTBR,
-            ajax: '',
-            columns: [{
-                    data: 'Senha'
-                },
-                {
-                    data: 'Responsável'
-                },
-                {
-                    data: 'Telefone'
-                },
-                {
-                    data: 'Entrada'
-                },
-                {
-                    data: 'Saída'
-                },
-                {
-                    data: 'Retorno'
-                },
-                {
-                    data: 'Recomendação'
-                },
 
-            ],
-        });
-    });
 
     function dateManual(id) {
 
