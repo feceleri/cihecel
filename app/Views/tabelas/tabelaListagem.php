@@ -69,6 +69,7 @@
         <div class="card-box">
             <h4 class="card-title" style="display: initial;">Listagem</h4>
             <a class="btn btn-success mb-3" href="<?= base_url('atendimento/salvarListagem') ?>" style="float:right;top:5px"><i class="fa fa-book" aria-hidden="true"></i></a>
+            <a class="btn btn-dark mb-3" title="Gerar PDF" href="<?= base_url('atendimento/listagemPDF') ?>" role="button" style="float:right;top:5px; margin-right:1rem;color: white;"><i class="fa fa-file" aria-hidden="true"></i></a>
             <div class="table-responsive" style="width: 100%;">
                 <table class="table table-sm table-striped" id="ajaxTableListagem" style="width:100% !important">
                     <thead>

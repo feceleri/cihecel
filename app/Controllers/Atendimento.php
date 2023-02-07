@@ -1,4 +1,5 @@
 <?php
+// require './vendor/autoload.php';
 
 namespace App\Controllers;
 
@@ -9,9 +10,6 @@ use App\Models\Listagem;
 use Dompdf\Adapter\CPDF;
 use Dompdf\Dompdf;
 use Dompdf\Exception;
-
-
-
 class  Atendimento extends BaseController
 {
     public function index()
@@ -514,6 +512,9 @@ class  Atendimento extends BaseController
         $listagem = new Listagem();
         $segment =  $this->request->uri->getSegment(3);
         $dompdf = new Dompdf();
+        $dompdf->loadHtml('gfhgf');
+        $dompdf->render();
+        $dompdf->stream("test.pdf", array("Attachment"=>1));
 
 
         if($segment)
