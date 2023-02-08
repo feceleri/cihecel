@@ -3,6 +3,7 @@
 
 namespace App\Controllers;
 
+use App\Models\Legados;
 use App\Models\Paciente;
 use App\Models\Cadastro;
 use App\Models\Medicamento;
@@ -537,6 +538,124 @@ class  Atendimento extends BaseController
             $dompdf->loadHtml($html_content);
             $dompdf->render();
             $dompdf->stream("".$id.".pdf", array("Attachment"=>0));
+        }
+    }
+
+    public function legados(){
+        $legado =  new Legados();
+        $post = $this->request->getPost();
+
+        if (!empty($post)) {
+            $busca = $post['search'];
+            $id = strpos($busca, "id:"); 
+            $senha = strpos($busca, "senha:");           
+           
+            if (!$id){                       
+                $data = [
+                    'resultado' => $legado->orderBy('id')->like('id', $busca)->findAll(),
+                    'pager' => $legado->pager
+                ];               
+            }
+            if(is_int($id))
+            {                
+                $busca=str_replace("id:","",$busca);
+                $data = [
+                    'resultado' => $legado->orderBy('id')->where('id', $busca)->findAll(),
+                    'pager' => $legado->pager
+                ];
+            }
+            if(is_int($senha)){
+                $busca=str_replace("senha:","",$busca);
+                $data = [
+                    'resultado' => $legado->orderBy('id')->like('senha', $busca)->findAll(),
+                    'pager' => $legado->pager
+                ];  
+            }
+            
+
+                
+        } else {
+            $data = [
+                'resultado' => $legado->orderBy('id')->paginate(10),
+                'pager' => $legado->pager
+            ];
+        }
+        echo view('layout/legados', $data);
+    }
+    public function editarLegados($id)
+    {
+        $id = base64_decode($id);
+        $atendimentos =  new Legados();
+        $resultado = $atendimentos->getService($id);
+        $data = [
+            'resultado' => $resultado,
+            'editar' => true
+        ];
+        return view('layout/legado', $data);
+    }
+
+    public function salvarLegado()
+    {
+        $legado =  new Legados();
+
+        $post = $this->request->getPost();
+
+        if (!empty($post)) {
+
+            $mensagem = [
+                'mensagem' => 'Cadastrado com sucesso!',
+                'tipo' => 'alert-success',
+            ];
+
+            $dadosBD = [
+                "senha" => $post["senha"],
+                "idPaciente" => $post["idPaciente"],
+                "entrada" => $post["dtEntrada"],
+                "obs"     => $post["obs"]
+            ];
+
+            if (isset($post["id"])) {
+                $dadosBD["id"] = $post["id"];
+                
+                    $legado->save($dadosBD);
+                    $mensagem["mensagem"] =  'Alterado com sucesso!';
+                    $this->session->setFlashdata('mensagem', $mensagem);
+                    return redirect()->to(base_url('/atendimento/legados'));
+                } 
+        }
+
+        echo view('layout/legado');
+    }
+
+    public function obsLegado()
+    {
+        if ($this->request->getPost()) {
+            $post = $this->request->getPost();
+            $date = [
+                'obs' => $post['obs'],
+            ];
+            $id = base64_decode($post['id']);
+            $bd = new paciente;
+            if ($bd->update($id, $date)) {
+                $mensagem['tipo'] = 'alert-success';
+                $mensagem['mensagem'] = 'Observação registrada com successo!';
+                session()->setFlashdata('mensagem', $mensagem);
+                return redirect()->to(base_url('atendimento/legados/' . base64_encode($id)));
+            } else {
+                $mensagem['tipo'] = 'alert-danger';
+                $mensagem['mensagem'] = 'Não foi possível regitrar, tente novamente!';
+                session()->setFlashdata('mensagem', $mensagem);
+                return redirect()->to(base_url('atendimento/legados/' . base64_encode($id)));
+            }
+        }
+    }
+
+    public function deletarLegado()
+    {
+        if ($this->request->isAJAX()) {
+            $id = $this->request->getPost('id');
+            $legado =  new Legados();
+            return $this->response->setJSON($legado->deleteService($id));
         }
     }
 

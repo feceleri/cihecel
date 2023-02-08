@@ -28,8 +28,20 @@
     .checkReverse {
         margin-top: 10px;
     }
+
+    .edit {
+        font-size: 30px;
+        color: black;
+        border: none;
+        background-color: rgba(0, 0, 0, 0);
+
+    }
+
+    button:hover {
+        color: red;
+    }
 </style>
-<?= $this->endSection() ?> 
+<?= $this->endSection() ?>
 
 
 <?= $this->section('conteudo') ?>
@@ -42,32 +54,47 @@
     $orgDate = $oldData;
     $date = str_replace('-', '/', $orgDate);
     $newDate = date("d/m/Y", strtotime($date));
-    return $newDate;}
+    return $newDate;
+}
 
-    function reverseDates($oldData)
-    {
-        // $oldData = $value->entrada;
-        $orgDate = $oldData;
-        $date = str_replace('/', '-', $orgDate);
-        $newDate = date("d-m-Y", strtotime($date));
-        return $newDate;
-    } 
- ?>
+function reverseDates($oldData)
+{
+    // $oldData = $value->entrada;
+    $orgDate = $oldData;
+    $date = str_replace('/', '-', $orgDate);
+    $newDate = date("d/m/Y", strtotime($date));
+    return $newDate;
+}
+?>
 
 <ol class="breadcrumb">
     <li class="breadcrumb-item"><a href="<?= base_url('/') ?>">Paciente</a></li>
     <li class="breadcrumb-item active" aria-current="page">Perfil - <?= $resultado->nome ?></li>
 </ol>
-<div class="card-box">
-    <div class="row">
-        <!-- <div class="col" style="padding:1em;">
-            <?php
-            //echo ($_SESSION['usuario']['user']->tipo == '1') ? "<td> <div><a class='pencil' href='" . base_url('atendimento/editar/' . base64_encode($paciente->id)) . "'><span><i class='fa fa-pencil' aria-hidden='true'></i> </span></a><button class='eraser' data-bs-target='#deleteModal' data-bs-toggle='modal' onclick='preencherModalDelete(" . $paciente->id . ")' ><span><i class='fa fa-eraser' aria-hidden='true'></i> </span></button></div> </td>" : '';
-                            
-             ?>
+<div class="d-flex justify-content-end">
+    <?php
+    echo ($_SESSION['usuario']['user']->tipo == '1') ? "<a class='edit me-1' href='" . base_url('atendimento/editar/' . base64_encode($resultado->id)) . "'><span><i class='fa fa-pencil' aria-hidden='true' title='Editar Cadastro'></i> </span></a><button class='edit' data-bs-target='#deleteModal' data-bs-toggle='modal' onclick='preencherModalDelete(" . $resultado->id . ")' ><span><i class='fa fa-trash' aria-hidden='true' title='Deletar Cadastro'></i> </span></button> " : '';
+    ?>
+</div>
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteModalLabel"><span class="text-danger font-weight-bold">DELETAR </span>Cadastro</h5>
+                <button type="button" id="fecharModal" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Você realmente deseja <span class="text-danger font-weight-bold">EXCLUIR</span> esse paciente do sistema?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <a class="btn btn-danger" id="btnDeletar">Excluir</a>
+            </div>
         </div>
     </div>
-    <div class="row"> -->
+</div>
+<div class="card-box">
+    <div class="row">
         <div class="block col-12" style="padding:0.5 1em;">
             <ul class="list-group">
                 <li class="col-12 list-group-item">
@@ -78,25 +105,31 @@
                 </li>
                 <li class="col-12 list-group-item">
                     <ul class="list-group list-group-horizontal row">
-                        <li class="col-6" style="list-style-type: none;"><span>CPF:</span>&nbsp;<?= $resultado->cpf ?></li></li>
-                        <li class="col-6" style="list-style-type: none;"><span>RG:</span>&nbsp;<?= (!empty($resultado->rg))? $resultado->rg: 'Não cadastrado!' ?></li></li>
-                    </ul>
+                        <li class="col-6" style="list-style-type: none;"><span>CPF:</span>&nbsp;<?= $resultado->cpf ?></li>
                 </li>
-                <li class="list-group-item" style="text-transform: Capitalize;"><span>Nome da Mãe:&nbsp;</span> <?= (!empty($resultado->nomeMae)) ? $resultado->nomeMae : ' Não cadastrado!' ?>
+                <li class="col-6" style="list-style-type: none;"><span>RG:</span>&nbsp;<?= (!empty($resultado->rg)) ? $resultado->rg : 'Não cadastrado!' ?></li>
                 </li>
-                <li class="col-12 list-group-item">
-                    <ul class="list-group list-group-horizontal row">
-                        <li class="col-6" style="list-style-type: none;"><span>Telefone 1:</span>&nbsp;<?= (!empty($resultado->telefone1)) ? $resultado->telefone1 : ' Não cadastrado!' ?></li>
-                        <li class="col-6" style="list-style-type: none;"><span>Telefone 2:</span>&nbsp;<?= (!empty($resultado->telefone2)) ? $resultado->telefone2 : ' Não cadastrado!' ?></li>
-                    </ul>
-                </li>
-                <li class="list-group-item"><span>Endereço:</span>&nbsp;<?= (!empty($resultado->logradouro)) ? $resultado->logradouro :  'Não cadastrado!' ?>, <?= $resultado->numeroCasa ?> <?= $resultado->complementoCasa ?></li>
-                <li class="col-12 list-group-item">
-                    <ul class="list-group list-group-horizontal row">
-                        <li class="col-6" style="list-style-type: none;"><span>Bairro:</span>&nbsp; <?= (!empty($resultado->bairro)) ? $resultado->bairro : ' Não cadastrado!' ?></li>
-                        <li class="col-6" style="list-style-type: none;"><span>CEP:</span>&nbsp;<?= (!empty($resultado->cep) ? $resultado->cep : ' Não cadastrado!') ?></li>
-                    </ul>
-                </li>
+            </ul>
+            </li>
+            <li class="col-12 list-group-item" style="text-transform: Capitalize;">
+                <ul class="list-group list-group-horizontal row">
+                    <li class="col-6" style="list-style-type: none;"><span>Nome da Mãe:&nbsp;</span> <?= (!empty($resultado->nomeMae)) ? $resultado->nomeMae : ' Não cadastrado!' ?></li>
+                    <li class="col-6" style="list-style-type: none;"><span>Data de Nascimento:</span> <?= (!empty($resultado->dataNascimento)) ? reverseDates($resultado->dataNascimento) : ' Não cadastrado!' ?></li>
+                </ul>
+            </li>
+            <li class="col-12 list-group-item">
+                <ul class="list-group list-group-horizontal row">
+                    <li class="col-6" style="list-style-type: none;"><span>Telefone 1:</span>&nbsp;<?= (!empty($resultado->telefone1)) ? $resultado->telefone1 : ' Não cadastrado!' ?></li>
+                    <li class="col-6" style="list-style-type: none;"><span>Telefone 2:</span>&nbsp;<?= (!empty($resultado->telefone2)) ? $resultado->telefone2 : ' Não cadastrado!' ?></li>
+                </ul>
+            </li>
+            <li class="list-group-item"><span>Endereço:</span>&nbsp;<?= (!empty($resultado->logradouro)) ? $resultado->logradouro :  'Não cadastrado!' ?>, <?= $resultado->numeroCasa ?> <?= $resultado->complementoCasa ?></li>
+            <li class="col-12 list-group-item">
+                <ul class="list-group list-group-horizontal row">
+                    <li class="col-6" style="list-style-type: none;"><span>Bairro:</span>&nbsp; <?= (!empty($resultado->bairro)) ? $resultado->bairro : ' Não cadastrado!' ?></li>
+                    <li class="col-6" style="list-style-type: none;"><span>CEP:</span>&nbsp;<?= (!empty($resultado->cep) ? $resultado->cep : ' Não cadastrado!') ?></li>
+                </ul>
+            </li>
             </ul>
             <br>
 
@@ -138,58 +171,58 @@
             <?php
             foreach ($listagens as $listagem) {
                 echo "<tr>";
-                    echo "<td> <a href='".base_url('atendimento/senha/'.base64_encode($listagem->id))."'> $listagem->senha </a> </td>";
-                    echo "<td>" . dates($listagem->entrada) . "</td>";
-                    if (isset($listagem->saida)) {
-                        $saida = dates($listagem->saida);
-                    } else {
-                    }
-                    echo  (isset($listagem->saida))? '<td>'.dates($listagem->saida).'</td>': ' <td>Não foi registrado saída</td>' ;
-                    
+                echo "<td> <a href='" . base_url('atendimento/senha/' . base64_encode($listagem->id)) . "'> $listagem->senha </a> </td>";
+                echo "<td>" . dates($listagem->entrada) . "</td>";
+                if (isset($listagem->saida)) {
+                    $saida = dates($listagem->saida);
+                } else {
+                }
+                echo (isset($listagem->saida)) ? '<td>' . dates($listagem->saida) . '</td>' : ' <td>Não foi registrado saída</td>';
 
-                    $retorno=0;
-                    if ($listagem->saida == null) {
-                        $retorno = "<i class='fa fa-times' aria-hidden='true'></i>";
-                    } else {
-                        $retorno =  date("d/m/Y", strtotime("+1 month",strtotime($listagem->saida)));
-                    }
-                    echo "<td>$retorno</td>";
-                    if($retorno != 0){
 
-                        $recomendacao= date('d/m/Y', strtotime('-4 days', strtotime(reverseDates($retorno))));
-                    }else{
-                        $recomendacao="<i class='fa fa-times' aria-hidden='true'></i>";
-                    }
-                    echo "<td>$recomendacao</td>";
-                    echo "</tr>";
+                $retorno = 0;
+                if ($listagem->saida == null) {
+                    $retorno = "<i class='fa fa-times' aria-hidden='true'></i>";
+                } else {
+                    $retorno =  date("d/m/Y", strtotime("+1 month", strtotime($listagem->saida)));
+                }
+                echo "<td>$retorno</td>";
+                if ($retorno != 0) {
+
+                    $recomendacao = date('d/m/Y', strtotime('-4 days', strtotime(reverseDates($retorno))));
+                } else {
+                    $recomendacao = "<i class='fa fa-times' aria-hidden='true'></i>";
+                }
+                echo "<td>$recomendacao</td>";
+                echo "</tr>";
             } ?>
             <?php
             foreach ($listagensAdicionais as $listagem) {
                 echo "<tr>";
-                    echo "<td> <a href='".base_url('atendimento/senha/'.base64_encode($listagem->id))."'> $listagem->senha </a> </td>";
-                    echo "<td>" . dates($listagem->entrada) . "</td>";
-                    if (isset($listagem->saida)) {
-                        $saida = dates($listagem->saida);
-                    } else {
-                    }
-                    echo  (isset($listagem->saida))? '<td>'.dates($listagem->saida).'</td>': ' <td>Não foi registrado saída</td>' ;
-                    
+                echo "<td> <a href='" . base_url('atendimento/senha/' . base64_encode($listagem->id)) . "'> $listagem->senha </a> </td>";
+                echo "<td>" . dates($listagem->entrada) . "</td>";
+                if (isset($listagem->saida)) {
+                    $saida = dates($listagem->saida);
+                } else {
+                }
+                echo (isset($listagem->saida)) ? '<td>' . dates($listagem->saida) . '</td>' : ' <td>Não foi registrado saída</td>';
 
-                    $retorno=0;
-                    if ($listagem->saida == null) {
-                        $retorno = "<i class='fa fa-times' aria-hidden='true'></i>";
-                    } else {
-                        $retorno =  date("d/m/Y", strtotime("+1 month",strtotime($listagem->saida)));
-                    }
-                    echo "<td>$retorno</td>";
-                    if($retorno != 0){
 
-                        $recomendacao= date('d/m/Y', strtotime('-4 days', strtotime(reverseDates($retorno))));
-                    }else{
-                        $recomendacao="<i class='fa fa-times' aria-hidden='true'></i>";
-                    }
-                    echo "<td>$recomendacao</td>";
-                    echo "</tr>";
+                $retorno = 0;
+                if ($listagem->saida == null) {
+                    $retorno = "<i class='fa fa-times' aria-hidden='true'></i>";
+                } else {
+                    $retorno =  date("d/m/Y", strtotime("+1 month", strtotime($listagem->saida)));
+                }
+                echo "<td>$retorno</td>";
+                if ($retorno != 0) {
+
+                    $recomendacao = date('d/m/Y', strtotime('-4 days', strtotime(reverseDates($retorno))));
+                } else {
+                    $recomendacao = "<i class='fa fa-times' aria-hidden='true'></i>";
+                }
+                echo "<td>$recomendacao</td>";
+                echo "</tr>";
             } ?>
         </table>
 
@@ -199,6 +232,46 @@
     <?= $this->section('script') ?>
     <!-- Script -->
     <script>
+        
+        function preencherModalDelete(id) {
+            modal = document.getElementById("deleteModal");
+            btnExcluir = modal.getElementsByClassName("btn-danger")[0];
+            btnExcluir.setAttribute('dado-alvo', id);
+        }
+
+        $('#btnDeletar').on('click', function() {
+            var id = btnExcluir.getAttribute('dado-alvo', id);
+            // id = 3;
+            $.ajax({
+                url: '<?= base_url('atendimento/deletar') ?>',
+                type: 'post',
+                dataType: 'json',
+
+                data: {
+                    id: id
+                },
+                success: function(data) {
+                    msg = document.querySelector('#msgInfo');
+                    alerta = document.querySelector('#alerta');
+                    if (data) {
+                        alerta.classList.add('alert-success');
+                        msg.textContent = 'Excluido com sucesso!';
+                        setTimeout(() => {
+                            window.location.href = "/cihecel/public";
+                        }, 1000)
+                    } else {
+                        alerta.classList.add('alert-danger');
+                        msg.textContent = 'Erro ao excluir o paciente!';
+                    }
+                    new bootstrap.Toast(document.querySelector('#basicToast')).show();
+                    document.querySelector('#fecharModal').click();
+                    document.querySelector('#tr' + id).remove();
+
+
+                }
+            });
+        });
+
         function Editobservacao() {
             let obs = document.getElementById('cardObs');
             obs.classList.add('hidden');

@@ -24,11 +24,12 @@
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="<?= base_url('/') ?>">Paciente</a></li>
         <?php if (isset($editar)) {
-            echo '<li class="breadcrumb-item active" aria-current="page">Edição</li>';
+            echo '<li class="breadcrumb-item active" aria-current="page">Edição - </li>';
         } else {
-            echo '<li class="breadcrumb-item active" aria-current="page">Cadastro</li>';
+            echo '<li class="breadcrumb-item active" aria-current="page">Cadastro - </li>';
         }
         ?>
+        <li aria-current="page"> <a href="<?= base_url('atendimento/perfil/' . base64_encode($resultado->id)) ?>"><?= $resultado->nome ?></a></li>
 
     </ol>
 </nav>

@@ -68,6 +68,9 @@
                         <li class="active">
                             <a href="<?= base_url('atendimento/incompletos') ?>" title="Informações Incompletas"><i class="fa fa-question-circle" aria-hidden="true"></i><span>Info Incompleta</span></a>
                         </li>
+                        <li class="active">
+                            <a href="<?= base_url('atendimento/legados') ?>" title="Atendimentos Anteriores"><i class="fa fa-clock-o" aria-hidden="true"></i><span>Atendimentos Anteriores</span></a>
+                        </li>
                     </ul>
                 </div>
             </div>
