@@ -68,6 +68,16 @@
     <div class="col-md-12">
         <div class="card-box">
             <h4 class="card-title" style="display: initial;">Listagem</h4>
+            <div class="utilityTable">
+                <div style="top:5px">
+                    <div class="searchTable">
+                        <form action="<?= base_url('atendimento/listagem') ?>" method="post">
+                            <input name="search" class="form-control" type="search" placeholder="Pesquisar">
+                            <button type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
+                        </form>
+                    </div>
+                </div>
+            </div>
             <a class="btn btn-success mb-3" href="<?= base_url('atendimento/salvarListagem') ?>" style="float:right;top:5px"><i class="fa fa-book" aria-hidden="true"></i></a>
             <div class="table-responsive" style="width: 100%;">
                 <table class="table table-sm table-striped" id="ajaxTableListagem" style="width:100% !important">

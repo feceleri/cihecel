@@ -172,11 +172,12 @@ class  Atendimento extends BaseController
         if (!empty($post)) {
             $busca = $post['search'];
             $senha = strpos($busca, "senha:"); 
-            $nome = strpos($busca, "nome:");           
+            $nome = strpos($busca, "nome:");
+            $entrada = strpos($busca, "entrada:");
            
             if (!$senha){                       
                 $arrayBd = [
-                    'date' => $listagem->orderBy('id', 'desc')->like('senha', $busca)->findAll(),
+                    'date' => $listagem->orderBy('id', 'desc')->where('senha', $busca)->findAll(),
                     'pager' => $listagem->pager
                 ];               
             }
@@ -188,7 +189,15 @@ class  Atendimento extends BaseController
                     'pager' => $listagem->pager
                 ];
             }
-            if(!is_int($nome)){
+            if(is_int($entrada))
+            {                
+                $busca=str_replace("entrada:","",$busca);
+                $arrayBd = [
+                    'date' => $listagem->orderBy('id', 'desc')->like('entrada', $busca)->findAll(),
+                    'pager' => $listagem->pager
+                ];
+            }
+            if(is_int($nome)){
                 $busca=str_replace("nome:","",$busca);
                 $arrayBd = [
                     'date' => $listagem->orderBy('id', 'desc')->like('nomeResponsavel', $busca)->findAll(),
@@ -267,6 +276,7 @@ class  Atendimento extends BaseController
         $bdPaciente = new paciente();
         $bdListagem->find($id);
         $people = $bdListagem->select('paciente.cpf,paciente.nome,paciente.telefone1,paciente.telefone2,qtdReceitaResponsavel,idsAdicional,listagem.id,listagem.senha,listagem.entrada,listagem.saida')->join('paciente', 'paciente.cpf = listagem.cpfResponsavel')->findAll();
+
         foreach ($people as $value) {
             if ($value->id == $id) {
                 $responsavel = $value;
