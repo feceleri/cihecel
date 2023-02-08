@@ -45,6 +45,25 @@
     }
 </style>
 
+<?php function dates($oldData)
+{
+    // $oldData = $value->entrada;
+    $orgDate = $oldData;
+    $date = str_replace('-', '/', $orgDate);
+    $newDate = date("d/m/Y", strtotime($date));
+    return $newDate;
+}
+
+function reverseDates($oldData)
+{
+    // $oldData = $value->entrada;
+    $orgDate = $oldData;
+    $date = str_replace('/', '-', $orgDate);
+    $newDate = date("d/m/Y", strtotime($date));
+    return $newDate;
+}
+?>
+
 <div class="row" style="height:80vh">
     <div class="col-md-12">
         <div class="card-box">
@@ -80,11 +99,7 @@
                             echo "<td style='font-size:17px;'>" . $paciente->id . "</td>";
                             echo    "<td ><a style='text-transform:uppercase;'href='" . base_url('atendimento/perfil/' . base64_encode($paciente->id)) . "'>" . $paciente->nome . "</a></td>";
                             echo    "<td id='tdCpf'>" . ($paciente->cpf) . "</td>";
-                            $oldData = $paciente->dataNascimento;
-                            $orgDate = $oldData;
-                            $date = str_replace('-"', '/', $orgDate);
-                            $newDate = date("d/m/Y", strtotime($date));
-                            echo "<td>" . $newDate . "</td>";
+                            echo    "<td>" . (!empty($paciente->dataNascimento) ? reverseDates($paciente->dataNascimento) : 'Não cadastrado!') . "</td>";
                             echo ($_SESSION['usuario']['user']->tipo == '1') ? "<td> <div><a class='pencil' href='" . base_url('atendimento/editar/' . base64_encode($paciente->id)) . "'><span><i class='fa fa-pencil' aria-hidden='true'></i> </span></a><button class='eraser' data-bs-target='#deleteModal' data-bs-toggle='modal' onclick='preencherModalDelete(" . $paciente->id . ")' ><span><i class='fa fa-eraser' aria-hidden='true'></i> </span></button></div> </td>" : '';
                             echo "</tr>";
                         }; ?>
@@ -105,5 +120,5 @@
 </div>
 
 <script>
-    
+
 </script>
