@@ -26,10 +26,10 @@
         <?php if (isset($editar)) {
             echo '<li class="breadcrumb-item active" aria-current="page">Edição - </li>';
         } else {
-            echo '<li class="breadcrumb-item active" aria-current="page">Cadastro - </li>';
+            echo '<li class="breadcrumb-item active" aria-current="page">Cadastro </li>';
         }
         ?>
-        <li aria-current="page"> <a href="<?= base_url('atendimento/perfil/' . base64_encode($resultado->id)) ?>"><?= $resultado->nome ?></a></li>
+        <li aria-current="page"> <a href="<?=(!empty($resultado->id) ? base_url('atendimento/perfil/' . base64_encode($resultado->id)) : '' ) ?>"><?= (!empty($resultado->id) ?  $resultado->nome : '' ) ?></a></li>
 
     </ol>
 </nav>
