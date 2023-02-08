@@ -191,6 +191,8 @@ class  Atendimento extends BaseController
             if(is_int($entrada))
             {                
                 $busca=str_replace("entrada:","",$busca);
+                $busca = new \DateTime($busca);
+                $busca=$busca->format('Y-d-m');
                 $arrayBd = [
                     'date' => $listagem->orderBy('id', 'desc')->like('entrada', $busca)->findAll(),
                     'pager' => $listagem->pager
