@@ -104,7 +104,7 @@ class  Atendimento extends BaseController
             if ($this->validaCPF($dadosBD["cpf"])) {
                 $paciente->save($dadosBD);
                 $this->session->setFlashdata('mensagem', $mensagem);
-                return redirect()->to(base_url('/public'));
+                return redirect()->to(base_url('/'));
             } else {
                 $mensagem['mensagem'] = 'Não foi possível cadastrar o paciente! CPF Duplicado! ';
                 $mensagem['tipo'] = 'alert-danger';
