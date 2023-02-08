@@ -71,11 +71,6 @@ function reverseDates($oldData)
     <li class="breadcrumb-item"><a href="<?= base_url('/') ?>">Paciente</a></li>
     <li class="breadcrumb-item active" aria-current="page">Perfil - <?= $resultado->nome ?></li>
 </ol>
-<div class="d-flex justify-content-end">
-    <?php
-    echo ($_SESSION['usuario']['user']->tipo == '1') ? "<a class='edit me-1' href='" . base_url('atendimento/editar/' . base64_encode($resultado->id)) . "'><span><i class='fa fa-pencil' aria-hidden='true' title='Editar Cadastro'></i> </span></a><button class='edit' data-bs-target='#deleteModal' data-bs-toggle='modal' onclick='preencherModalDelete(" . $resultado->id . ")' ><span><i class='fa fa-trash' aria-hidden='true' title='Deletar Cadastro'></i> </span></button> " : '';
-    ?>
-</div>
 <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -94,6 +89,11 @@ function reverseDates($oldData)
     </div>
 </div>
 <div class="card-box">
+    <div class="d-flex justify-content-end">
+        <?php
+        echo ($_SESSION['usuario']['user']->tipo == '1') ? "<a class='edit me-1' href='" . base_url('atendimento/editar/' . base64_encode($resultado->id)) . "'><span><i class='fa fa-pencil' aria-hidden='true' title='Editar Cadastro'></i> </span></a><button class='edit' data-bs-target='#deleteModal' data-bs-toggle='modal' onclick='preencherModalDelete(" . $resultado->id . ")' ><span><i class='fa fa-trash' aria-hidden='true' title='Deletar Cadastro'></i> </span></button> " : '';
+        ?>
+    </div>
     <div class="row">
         <div class="block col-12" style="padding:0.5 1em;">
             <ul class="list-group">
