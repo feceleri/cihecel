@@ -22,7 +22,7 @@
 <?= $this->section('conteudo') ?>
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="<?= base_url('public') ?>">Paciente</a></li>
+        <li class="breadcrumb-item"><a href="<?= base_url('/') ?>">Paciente</a></li>
         <?php if (isset($editar)) {
             echo '<li class="breadcrumb-item active" aria-current="page">Edição</li>';
         } else {

@@ -26,11 +26,8 @@
     }
 </style>
 <?= $this->endSection() ?>
-
-
 <?= $this->section('conteudo') ?>
 <!-- Conteudo -->
-
 <?php function dates($oldData)
 {
     // $oldData = $value->entrada;

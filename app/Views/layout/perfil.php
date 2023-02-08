@@ -29,11 +29,12 @@
         margin-top: 10px;
     }
 </style>
-<?= $this->endSection() ?>
+<?= $this->endSection() ?> 
 
 
 <?= $this->section('conteudo') ?>
 <!-- Conteudo -->
+
 
 <?php function dates($oldData)
 {
