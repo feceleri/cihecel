@@ -55,6 +55,7 @@
     <?php 
         $db = db_connect();
         $query = $db->query('SELECT COUNT(*) AS hoje FROM `paciente` WHERE `created_at` = CURDATE()');
+        $db->close();
         foreach ($query->getResult() as $row) {
             echo $row->hoje;
         }

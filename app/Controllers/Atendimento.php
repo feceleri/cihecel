@@ -49,12 +49,14 @@ class  Atendimento extends BaseController
 
                 
         } else {
+            
             $data = [
-                'resultado' => $paciente->orderBy('id')->paginate(10),
+                'resultado' => $paciente->orderBy('id')->where('cpf != ""')->paginate(10),
                 'pager' => $paciente->pager
             ];
         }
         echo view('layout/paciente', $data);
+        
     }
 
     public function salvar()
@@ -385,7 +387,6 @@ class  Atendimento extends BaseController
             // $dataPesquisa['dataPaciente'] = $dataPesquisa['dataPaciente']->format('Y-d-m');
             
             if (isset($dataPesquisa['dataPaciente'])) {
-                echo 'true';
                 $bd = new paciente;
                 $pacientes = $bd->where('created_at', $dataPesquisa)
                     ->findAll();
