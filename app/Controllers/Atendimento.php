@@ -13,6 +13,7 @@ use Dompdf\Dompdf;
 use Dompdf\Exception;
 class  Atendimento extends BaseController
 {
+    
     public function index()
     {
         $paciente =  new Paciente();
@@ -92,7 +93,7 @@ class  Atendimento extends BaseController
                     $paciente->save($dadosBD);
                     $mensagem["mensagem"] =  'Alterado com sucesso!';
                     $this->session->setFlashdata('mensagem', $mensagem);
-                    return redirect()->to(base_url('/public'));
+                    return redirect()->to(base_url('/'));
                 } else {
                     $mensagem["mensagem"] =  'CPF Inválido';
                     $mensagem['tipo'] = 'alert-danger';
@@ -377,22 +378,16 @@ class  Atendimento extends BaseController
 
     public function novos()
     {
-
+        
         if ($this->request->getPost()) {
             $dataPesquisa = $this->request->getPost();
-
+            // $dataPesquisa['dataPaciente'] = new \DateTime($dataPesquisa['dataPaciente']);
+            // $dataPesquisa['dataPaciente'] = $dataPesquisa['dataPaciente']->format('Y-d-m');
+            
             if (isset($dataPesquisa['dataPaciente'])) {
                 echo 'true';
                 $bd = new paciente;
-                function Reversedates($oldData)
-                {
-                    $orgDate = $oldData;
-                    $date = str_replace('/', '-', $orgDate);
-                    $newDate = date("Y-m-d", strtotime($date));
-                    return $newDate;
-                }
-                $date = Reversedates($dataPesquisa['dataPaciente']);
-                $pacientes = $bd->where('created_at', $date)
+                $pacientes = $bd->where('created_at', $dataPesquisa)
                     ->findAll();
                 $dados = [
                     'paciente' => $pacientes,
@@ -400,16 +395,8 @@ class  Atendimento extends BaseController
                 return view('layout/novos', $dados);
             } else {
                 $bd = new listagem;
-                function Reversedates($oldData)
-                {
-                    $orgDate = $oldData;
-                    $date = str_replace('/', '-', $orgDate);
-                    $newDate = date("Y-m-d", strtotime($date));
-                    return $newDate;
-                }
-                $date = ReverseDates($dataPesquisa['dataListagem']);
-                $listagem = $bd->where('entrada', $date)
-                    ->findAll();
+                $listagem = $bd->like('entrada', $dataPesquisa['dataListagem'])
+                ->findAll();
                 $dados = [
                     'listagem' => $listagem,
                 ];

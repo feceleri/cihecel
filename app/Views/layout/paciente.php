@@ -1,3 +1,5 @@
+
+
 <?= $this->extend('layout/principal') ?>
 
 <?= $this->section('css') ?>
@@ -47,14 +49,18 @@
         <li class="breadcrumb-item active" aria-current="page">Paciente</li>
     </ol>
 </nav>
-<p>Foram cadastradas <?php $cadastros = 0; 
-foreach ($resultado as $data) {
-    if($data->created_at == date("Y-m-d")){
-        $cadastros = $cadastros +1;
-    }
-}
-echo $cadastros;
-?> novas pessoas hoje.</p>
+
+<p>
+    Foram cadastradas 
+    <?php 
+        $db = db_connect();
+        $query = $db->query('SELECT COUNT(*) AS hoje FROM `paciente` WHERE `created_at` = CURDATE()');
+        foreach ($query->getResult() as $row) {
+            echo $row->hoje;
+        }
+    ?> 
+    novas pessoas hoje.
+</p>
 <?= $this->include('tabelas/tabelaPrincipal.php') ?>
 
 <!-- Modal -->
