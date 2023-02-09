@@ -382,10 +382,7 @@ class  Atendimento extends BaseController
     {
         
         if ($this->request->getPost()) {
-            $dataPesquisa = $this->request->getPost();
-            // $dataPesquisa['dataPaciente'] = new \DateTime($dataPesquisa['dataPaciente']);
-            // $dataPesquisa['dataPaciente'] = $dataPesquisa['dataPaciente']->format('Y-d-m');
-            
+            $dataPesquisa = $this->request->getPost();            
             if (isset($dataPesquisa['dataPaciente'])) {
                 $bd = new paciente;
                 $pacientes = $bd->where('created_at', $dataPesquisa)
