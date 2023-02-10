@@ -484,31 +484,24 @@ class  Atendimento extends BaseController
         $post = $this->request->getPost();
 
         if (!empty($post)) {
-            // $busca = $post['search'];
-            // $nc = strpos($busca, "nc:"); 
-            // $cpf = strpos($busca, "cpf:");           
+            $busca = $post['search'];
+            $nc = strpos($busca, "nc:"); 
+            $cpf = strpos($busca, "cpf:");           
            
-            // if (!$nc){                       
-            //     $data = [
-            //         'resultado' => $paciente->orderBy('nome')->like('nome', $busca)->findAll(),
-            //         'pager' => $paciente->pager
-            //     ];               
-            // }
-            // if(is_int($nc))
-            // {                
-            //     $busca=str_replace("nc:","",$busca);
-            //     $data = [
-            //         'resultado' => $paciente->orderBy('nome')->where('id', $busca)->findAll(),
-            //         'pager' => $paciente->pager
-            //     ];
-            // }
-            // if(is_int($cpf)){
-            //     $busca=str_replace("cpf:","",$busca);
-            //     $data = [
-            //         'resultado' => $paciente->orderBy('nome')->like('cpf', '')->findAll(),
-            //         'pager' => $paciente->pager
-            //     ];  
-            // }
+            if (!$nc){                       
+                $data = [
+                    'resultado' => $paciente->orderBy('nome')->like('nome', $busca)->findAll(),
+                    'pager' => $paciente->pager
+                ];               
+            }
+            if(is_int($nc))
+            {                
+                $busca=str_replace("nc:","",$busca);
+                $data = [
+                    'resultado' => $paciente->orderBy('nome')->where('id', $busca)->findAll(),
+                    'pager' => $paciente->pager
+                ];
+            }
             
 
                 
@@ -522,23 +515,49 @@ class  Atendimento extends BaseController
     }
 
     public function listagemPDF(){
-        $listagem = new Listagem();
-        $segment =  $this->request->uri->getSegment(3);
-        $dompdf = new Dompdf();
-        $dompdf->loadHtml('gfhgf');
-        $dompdf->render();
-        $dompdf->stream("test.pdf", array("Attachment"=>1));
 
+        if ($this->request->getPost()) {
 
-        if($segment)
-        {
-            $id = $segment;
-            $html_content = '<h3 align="center">Listagem Semanal</h3>';
-            $html_content .= $this->htmltopdf_model->fetch_single_details($id);
-            $dompdf->loadHtml($html_content);
-            $dompdf->render();
-            $dompdf->stream("".$id.".pdf", array("Attachment"=>0));
+            $inicioListagem = $this->request->getPost();
+
+            if (isset($inicioListagem['dataLista'])){
+                $bd = new listagem;
+                function Reversedates($oldData)
+                {
+                    $orgDate = $oldData;
+                    //var_dump($orgDate);die;
+                    $date = str_replace('/', '-', $orgDate);
+                    $newDate = date("Y-m-d", strtotime($date));
+                    return $newDate;
+                }
+                $date = ReverseDates($inicioListagem['dataLista']);
+                $listagem = $bd->where('entrada', $date)
+                    ->findAll();
+                $dados = [
+                    'listagem' => $listagem,
+                ];
+            
+                $segment =  $this->request->uri->getSegment(2);
+                $dompdf = new Dompdf();
+    
+                if($segment)
+                {
+                    $id = $segment;
+                    $listagem = new Listagem();
+                    $now = date_create(null, timezone_open('America/Sao_Paulo'));
+                    $until = date('d/m/Y', strtotime('+7 days'));
+                    //var_dump($date);die;
+                    $html_content = '<h3 align="center">Listagem Semanal: '. $now->format('d/m/Y') . ' até ' 
+                    . $until . '</h3>';
+                    $html_content .= $listagem->pdfDetails($date);
+                    $dompdf->loadHtml($html_content);
+                    $dompdf->render();
+                    $dompdf->stream("".$id.".pdf", array("Attachment"=>false));
+                }
+            }
+
         }
+        
     }
 
     public function legados(){

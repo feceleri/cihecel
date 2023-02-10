@@ -67,19 +67,33 @@
     } ?>
     <div class="col-md-12">
         <div class="card-box">
-            <h4 class="card-title" style="display: initial;">Listagem</h4>
-            <div class="utilityTable">
-                <div style="top:5px">
-                    <div class="searchTable">
-                        <form action="<?= base_url('atendimento/listagem') ?>" method="post">
-                            <input name="search" class="form-control" type="search" placeholder="Pesquisar">
-                            <button type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
-                        </form>
+            <div style="float:left;">
+                <h4 class="card-title" style="display: initial;">Listagem</h4>
+                <div class="utilityTable">
+                    <div style="top:5px">
+                        <div class="searchTable">
+                            <form action="<?= base_url('atendimento/listagem') ?>" method="post">
+                                <input name="search" class="form-control" type="search" placeholder="Pesquisar">
+                                <button type="submit" style="border: none;"><i class="fa fa-search" aria-hidden="true"></i></button>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
-            <a class="btn btn-success mb-3" href="<?= base_url('atendimento/salvarListagem') ?>" style="float:right;top:5px"><i class="fa fa-book" aria-hidden="true"></i></a>
-            <a class="btn btn-dark mb-3" title="Gerar PDF" href="<?= base_url('atendimento/listagemPDF') ?>" role="button" style="float:right;top:5px; margin-right:1rem;color: white;"><i class="fa fa-file" aria-hidden="true"></i></a>
+
+            <div style="float:right;" class="align-items-center">
+                <a class="btn btn-success mb-2 mt-1" href="<?= base_url('atendimento/salvarListagem') ?>" style="float:right;"><i class="fa fa-book" aria-hidden="true"></i></a>
+                <form class="form-inline align-items-center mt-0" action="<?= base_url('atendimento/listagemPDF') ?>"  method="post">
+                    <div class="form-group input-group align-items-center" >
+                        <label for="data" class="form-label" style="min-width: 3em !important">Dia: </label>
+                        <input name="dataLista" class="form-control form-control-sm mb-3" type="date" placeholder="Pesquisar" id="data">
+                    </div>
+                    <div class="form-group form-row">
+                        <button type="submit" class="btn btn-dark mb-3" href="<?= base_url('atendimento/listagemPDF') ?>" title="Gerar PDF" style="float:right;top:5px; margin-right:1rem;color: white;"><i class="fa fa-file" aria-hidden="true"></i></button>
+                    </div>
+                </form>
+            </div>
+            
             <div class="table-responsive" style="width: 100%;">
                 <table class="table table-sm table-striped" id="ajaxTableListagem" style="width:100% !important">
                     <thead>
@@ -151,4 +165,32 @@
             </div>
         </div>
     </div>
+    <!-- <div class="modal fade" id="modalPDF" tabindex="-1" aria-labelledby="modalPDFgenerator" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalPDFgenerator">Modal title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>testando</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" data-bs-target='#deleteModal' data-bs-toggle='modal' onclick="modalPDF">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div> -->
+    <!-- <script>
+        $(document).ready(function(){
+            $("#myModal").modal();
+        });
+        $('#modalPDF').on('show.bs.modal', function (e) {
+            $('#modalPDF').modal('show');
+        })
+        
+    </script> -->
 </div>

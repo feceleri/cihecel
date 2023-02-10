@@ -1,5 +1,5 @@
 <?php 
-$output .= '
+$output = '
     <table>
         <tr>
             <th>
@@ -11,7 +11,4 @@ $output .= '
         </tr>
     </table>    
     ';
-
-
-
 ?>

@@ -51,5 +51,36 @@ class Listagem extends Model
         return $result;
     }
 
+    public function pdfDetails($date){
+        $data = $this->like('entrada', $date)->findAll();
+        $output = '<table width="100%" border="1"  cellpadding="6">';
+        $output .= '    
+            <tr> 
+                <th>Senha</th>
+                <th>CPF</th>
+                <th>Nome</th>
+                <th>Qtd. Receitas</th>
+                <th>Data Entrada</th>
+                <th>Data Retirada</th> 
+            </tr>
+        ';
+        //var_dump($data); die;
+        foreach($data as $row){
+             $output .= '
+                <tr>
+                    <td>'. $row->senha .'</td>
+                    <td>'. $row->cpfResponsavel .'</td>
+                    <td>'. $row->nomeResponsavel .'.</td>
+                    <td>'. $row->qtdReceitaResponsavel .'</td>
+                    <td>'. $row->entrada .'</td>
+                    <td>'. $row->saida .'</td>   
+                </tr>
+            '; 
+        }
+
+        $output .= '</table>';
+        //var_dump($output); die;
+        return $output;
+    }
 
 }
