@@ -84,5 +84,4 @@ class Paciente extends Model
         return $valido;
     }
     
-    
 }
