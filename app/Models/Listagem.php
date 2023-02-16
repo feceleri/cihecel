@@ -53,9 +53,9 @@ class Listagem extends Model
 
     public function pdfDetails($date){
         $data = $this->like('entrada', $date)->findAll();
-        $output = '<table width="100%" border="1"  cellpadding="6">';
+        $output = '<table width="100%" style="min-width:100vw;" border="1"  cellpadding="6">';
         $output .= '    
-            <tr> 
+            <tr style="background:lightgray;"> 
                 <th>Senha</th>
                 <th>CPF</th>
                 <th>Nome</th>
