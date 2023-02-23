@@ -516,8 +516,12 @@ class  Atendimento extends BaseController
                     return $newDate;
                 }
                 $date = ReverseDates($inicioListagem['dataLista']);
-                $listagem = $bd->where('entrada', $date)
-                    ->findAll();
+                $until = date($inicioListagem['dataLista'], strtotime('+7 days'));
+                //var_dump($until);die;
+                $where = `entrada ={$date} AND entrada={$until}`;
+                $listagem = $bd->where($where);
+                //var_dump($listagem);die;
+
                 $dados = [
                     'listagem' => $listagem,
                 ];
