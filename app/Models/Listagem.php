@@ -72,8 +72,8 @@ class Listagem extends Model
                     <td>'. $row->cpfResponsavel .'</td>
                     <td>'. $row->nomeResponsavel .'.</td>
                     <td>'. $row->qtdReceitaResponsavel .'</td>
-                    <td>'. $row->entrada .'</td>
-                    <td>'. $row->saida .'</td>   
+                    <td>'. date('d/m/Y',  strtotime($row->entrada)) .'</td>
+                    <td>'. date('d/m/Y',  strtotime($row->saida)) .'</td>   
                 </tr>
             '; 
         }
