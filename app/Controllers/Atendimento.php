@@ -568,6 +568,7 @@ class  Atendimento extends BaseController
         } else {
             $data = [
                 'resultado' => $legado->orderBy('id')->paginate(10),
+                //x
                 'pager' => $legado->pager
             ];
         }
