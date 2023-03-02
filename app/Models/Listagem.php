@@ -69,8 +69,8 @@ class Listagem extends Model
              $output .= '
                 <tr>
                     <td>'. $row->senha .'</td>
-                    <td>'. $row->cpfResponsavel .'</td>
-                    <td>'. $row->nomeResponsavel .'.</td>
+                    <td nowrap>'. $row->cpfResponsavel .'</td>
+                    <td nowrap>'. $row->nomeResponsavel .'.</td>
                     <td>'. $row->qtdReceitaResponsavel .'</td>
                     <td>'. date('d/m/Y',  strtotime($row->entrada)) .'</td>
                     <td>'. date('d/m/Y',  strtotime($row->saida)) .'</td>   
