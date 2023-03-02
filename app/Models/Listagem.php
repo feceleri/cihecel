@@ -73,7 +73,7 @@ class Listagem extends Model
                     <td nowrap>'. $row->nomeResponsavel .'.</td>
                     <td>'. $row->qtdReceitaResponsavel .'</td>
                     <td>'. date('d/m/Y',  strtotime($row->entrada)) .'</td>
-                    <td>'. date('d/m/Y',  strtotime($row->saida)) .'</td>   
+                    <td>'. (isset($row->saida)?date('d/m/Y',  strtotime($row->saida)) : 'Não retirado') .'</td>   
                 </tr>
             '; 
         }
