@@ -11,9 +11,10 @@ use App\Models\Listagem;
 use Dompdf\Adapter\CPDF;
 use Dompdf\Dompdf;
 use Dompdf\Exception;
+
 class  Atendimento extends BaseController
 {
-    
+
     public function index()
     {
         $paciente =  new Paciente();
@@ -21,42 +22,37 @@ class  Atendimento extends BaseController
 
         if (!empty($post)) {
             $busca = $post['search'];
-            $nc = strpos($busca, "nc:"); 
-            $cpf = strpos($busca, "cpf:");           
-           
-            if (!$nc){                       
+            $nc = strpos($busca, "nc:");
+            $cpf = strpos($busca, "cpf:");
+
+            if (!$nc) {
                 $data = [
                     'resultado' => $paciente->orderBy('nome')->like('nome', $busca)->findAll(),
                     'pager' => $paciente->pager
-                ];               
+                ];
             }
-            if(is_int($nc))
-            {                
-                $busca=str_replace("nc:","",$busca);
+            if (is_int($nc)) {
+                $busca = str_replace("nc:", "", $busca);
                 $data = [
                     'resultado' => $paciente->orderBy('nome')->where('id', $busca)->findAll(),
                     'pager' => $paciente->pager
                 ];
             }
-            if(is_int($cpf)){
-                $busca=str_replace("cpf:","",$busca);
+            if (is_int($cpf)) {
+                $busca = str_replace("cpf:", "", $busca);
                 $data = [
                     'resultado' => $paciente->orderBy('nome')->like('cpf', $busca)->findAll(),
                     'pager' => $paciente->pager
-                ];  
+                ];
             }
-            
-
-                
         } else {
-            
+
             $data = [
                 'resultado' => $paciente->orderBy('id')->where('cpf != ""')->paginate(10),
                 'pager' => $paciente->pager
             ];
         }
         echo view('layout/paciente', $data);
-        
     }
 
     public function salvar()
@@ -173,44 +169,39 @@ class  Atendimento extends BaseController
 
         if (!empty($post)) {
             $busca = $post['search'];
-            $senha = strpos($busca, "senha:"); 
+            $senha = strpos($busca, "senha:");
             $nome = strpos($busca, "nome:");
             $entrada = strpos($busca, "entrada:");
-           
-            if (!$senha){                       
-                $arrayBd = [
-                    'date' => $listagem->orderBy('id', 'desc')->where('senha', $busca)->findAll(),
-                    'pager' => $listagem->pager
-                ];               
-            }
-            if(is_int($senha))
-            {                
-                $busca=str_replace("senha:","",$busca);
+
+            if (!$senha) {
                 $arrayBd = [
                     'date' => $listagem->orderBy('id', 'desc')->where('senha', $busca)->findAll(),
                     'pager' => $listagem->pager
                 ];
             }
-            if(is_int($entrada))
-            {                
-                $busca=str_replace("entrada:","",$busca);
+            if (is_int($senha)) {
+                $busca = str_replace("senha:", "", $busca);
+                $arrayBd = [
+                    'date' => $listagem->orderBy('id', 'desc')->where('senha', $busca)->findAll(),
+                    'pager' => $listagem->pager
+                ];
+            }
+            if (is_int($entrada)) {
+                $busca = str_replace("entrada:", "", $busca);
                 $busca = new \DateTime($busca);
-                $busca=$busca->format('Y-d-m');
+                $busca = $busca->format('Y-d-m');
                 $arrayBd = [
                     'date' => $listagem->orderBy('id', 'desc')->like('entrada', $busca)->findAll(),
                     'pager' => $listagem->pager
                 ];
             }
-            if(is_int($nome)){
-                $busca=str_replace("nome:","",$busca);
+            if (is_int($nome)) {
+                $busca = str_replace("nome:", "", $busca);
                 $arrayBd = [
                     'date' => $listagem->orderBy('id', 'desc')->like('nomeResponsavel', $busca)->findAll(),
                     'pager' => $listagem->pager
-                ];  
+                ];
             }
-            
-
-                
         } else {
             $arrayBd = [
                 'date' => $listagem->orderBy('id', 'desc')->paginate(10),
@@ -226,7 +217,7 @@ class  Atendimento extends BaseController
         if (!empty($post)) {
             $listagem =  new Listagem();
             $db = db_connect();
-            $nomeTel = $db->query("SELECT nome, telefone1 FROM paciente WHERE cpf = '".$post["cpfResp"]."'")->getResult();
+            $nomeTel = $db->query("SELECT nome, telefone1 FROM paciente WHERE cpf = '" . $post["cpfResp"] . "'")->getResult();
 
             $dadosBD = [
                 "cpfResponsavel" => $post["cpfResp"],
@@ -380,9 +371,9 @@ class  Atendimento extends BaseController
 
     public function novos()
     {
-        
+
         if ($this->request->getPost()) {
-            $dataPesquisa = $this->request->getPost();            
+            $dataPesquisa = $this->request->getPost();
             if (isset($dataPesquisa['dataPaciente'])) {
                 $bd = new paciente;
                 $pacientes = $bd->where('created_at', $dataPesquisa)
@@ -394,7 +385,7 @@ class  Atendimento extends BaseController
             } else {
                 $bd = new listagem;
                 $listagem = $bd->like('entrada', $dataPesquisa['dataListagem'])
-                ->findAll();
+                    ->findAll();
                 $dados = [
                     'listagem' => $listagem,
                 ];
@@ -470,26 +461,22 @@ class  Atendimento extends BaseController
 
         if (!empty($post)) {
             $busca = $post['search'];
-            $nc = strpos($busca, "nc:"); 
-            $cpf = strpos($busca, "cpf:");           
-           
-            if (!$nc){                       
+            $nc = strpos($busca, "nc:");
+            $cpf = strpos($busca, "cpf:");
+
+            if (!$nc) {
                 $data = [
                     'resultado' => $paciente->orderBy('nome')->like('nome', $busca)->findAll(),
                     'pager' => $paciente->pager
-                ];               
+                ];
             }
-            if(is_int($nc))
-            {                
-                $busca=str_replace("nc:","",$busca);
+            if (is_int($nc)) {
+                $busca = str_replace("nc:", "", $busca);
                 $data = [
                     'resultado' => $paciente->orderBy('nome')->where('id', $busca)->findAll(),
                     'pager' => $paciente->pager
                 ];
             }
-            
-
-                
         } else {
             $data = [
                 'resultado' => $paciente->orderBy('id')->where('cpf', "")->paginate(10),
@@ -499,13 +486,14 @@ class  Atendimento extends BaseController
         echo view('layout/incompletos', $data);
     }
 
-    public function listagemPDF(){
+    public function listagemPDF()
+    {
 
         if ($this->request->getPost()) {
 
             $inicioListagem = $this->request->getPost();
 
-            if (isset($inicioListagem['dataLista'])){
+            if (isset($inicioListagem['dataLista'])) {
                 $bd = new listagem;
                 function Reversedates($oldData)
                 {
@@ -525,63 +513,58 @@ class  Atendimento extends BaseController
                 $dados = [
                     'listagem' => $listagem,
                 ];
-            
+
                 $segment =  $this->request->uri->getSegment(2);
                 $dompdf = new Dompdf();
-    
-                if($segment)
-                {
+
+                if ($segment) {
                     $id = $segment;
                     $listagem = new Listagem();
-                    $now = date_create(null, timezone_open('America/Sao_Paulo'));
-                    $until = date('d/m/Y', strtotime('+7 days'));
+                    $now = strtotime($inicioListagem['dataLista']);
+                    $until = strtotime('+7 days', $now);
+                    $now = new \DateTime($inicioListagem['dataLista']);
                     //var_dump($date);die;
-                    $html_content = '<h3 align="center">Listagem Semanal: '. $now->format('d/m/Y') . ' até ' 
-                    . $until . '</h3>';
+                    $html_content = '<h3 align="center">Listagem Semanal: ' . $now->format('d/m/Y') . ' até '
+                        . date('d/m/Y',$until) . '</h3>';
                     $html_content .= $listagem->pdfDetails($date);
                     $dompdf->loadHtml($html_content);
                     $dompdf->render();
-                    $dompdf->stream("Listagem".".pdf", array("Attachment"=>0));
+                    $dompdf->stream("Listagem" . ".pdf", array("Attachment" => 0));
                 }
             }
-
         }
-        
     }
 
-    public function legados(){
+    public function legados()
+    {
         $legado =  new Legados();
         $post = $this->request->getPost();
 
         if (!empty($post)) {
             $busca = $post['search'];
-            $id = strpos($busca, "id:"); 
-            $senha = strpos($busca, "senha:");           
-           
-            if (!$id){                       
+            $id = strpos($busca, "id:");
+            $senha = strpos($busca, "senha:");
+
+            if (!$id) {
                 $data = [
                     'resultado' => $legado->orderBy('id')->like('id', $busca)->findAll(),
                     'pager' => $legado->pager
-                ];               
+                ];
             }
-            if(is_int($id))
-            {                
-                $busca=str_replace("id:","",$busca);
+            if (is_int($id)) {
+                $busca = str_replace("id:", "", $busca);
                 $data = [
                     'resultado' => $legado->orderBy('id')->where('id', $busca)->findAll(),
                     'pager' => $legado->pager
                 ];
             }
-            if(is_int($senha)){
-                $busca=str_replace("senha:","",$busca);
+            if (is_int($senha)) {
+                $busca = str_replace("senha:", "", $busca);
                 $data = [
                     'resultado' => $legado->orderBy('id')->like('senha', $busca)->findAll(),
                     'pager' => $legado->pager
-                ];  
+                ];
             }
-            
-
-                
         } else {
             $data = [
                 'resultado' => $legado->orderBy('id')->paginate(10),
@@ -624,12 +607,12 @@ class  Atendimento extends BaseController
 
             if (isset($post["id"])) {
                 $dadosBD["id"] = $post["id"];
-                
-                    $legado->save($dadosBD);
-                    $mensagem["mensagem"] =  'Alterado com sucesso!';
-                    $this->session->setFlashdata('mensagem', $mensagem);
-                    return redirect()->to(base_url('/atendimento/legados'));
-                } 
+
+                $legado->save($dadosBD);
+                $mensagem["mensagem"] =  'Alterado com sucesso!';
+                $this->session->setFlashdata('mensagem', $mensagem);
+                return redirect()->to(base_url('/atendimento/legados'));
+            }
         }
 
         echo view('layout/legado');
@@ -666,5 +649,4 @@ class  Atendimento extends BaseController
             return $this->response->setJSON($legado->deleteService($id));
         }
     }
-
 }
