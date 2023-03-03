@@ -44,7 +44,7 @@
         border-radius: 0 10px 10px 0;
     }
 
-    .table-responsive{
+    .table-responsive {
         overflow: hidden;
     }
 </style>
@@ -82,9 +82,11 @@
             </div>
 
             <div style="float:right;" class="align-items-center">
-                <a class="btn btn-success mb-2 mt-1" href="<?= base_url('atendimento/salvarListagem') ?>" style="float:right;"><i class="fa fa-book" aria-hidden="true"></i></a>
-                <form class="form-inline align-items-center mt-0" action="<?= base_url('atendimento/listagemPDF') ?>"  method="post">
-                    <div class="form-group input-group align-items-center" >
+                <?php if ($_SESSION['usuario']['user']->tipo == '1' || $_SESSION['usuario']['user']->tipo == '0') : ?>
+                    <a class="btn btn-success mb-2 mt-1" href="<?= base_url('atendimento/salvarListagem') ?>" style="float:right;"><i class="fa fa-book" aria-hidden="true"></i></a>
+                <?php endif; ?>
+                <form class="form-inline align-items-center mt-0" action="<?= base_url('atendimento/listagemPDF') ?>" method="post">
+                    <div class="form-group input-group align-items-center">
                         <label for="data" class="form-label" style="min-width: 3em !important">Dia: </label>
                         <input name="dataLista" class="form-control form-control-sm mb-3" type="date" placeholder="Pesquisar" id="data">
                     </div>
@@ -93,8 +95,8 @@
                     </div>
                 </form>
             </div>
-            
-            <div class="table-responsive" style="width: 100%;">
+
+            <div class="table-responsive mt-2" style="width: 100%;">
                 <table class="table table-sm table-striped" id="ajaxTableListagem" style="width:100% !important">
                     <thead>
                         <tr>

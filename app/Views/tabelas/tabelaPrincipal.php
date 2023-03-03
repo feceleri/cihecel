@@ -77,7 +77,14 @@ function reverseDates($oldData)
                         </form>
                     </div>
                 </div>
-                <div><a class="btn btn-success mb-3" href="<?= base_url('atendimento/salvar') ?>"><i class="fa fa-user-plus" aria-hidden="true" style="font-size: 17px;"></i></a></div>
+                <div>
+                    <?php
+                    $cadastrar = base_url('atendimento/salvar');
+                    echo ($_SESSION['usuario']['user']->tipo == '1' || $_SESSION['usuario']['user']->tipo == '0')?
+                    "<a class='btn btn-success mb-3' href='$cadastrar'>
+                    <i class='fa fa-user-plus' aria-hidden='true' style='font-size: 17px;'></i></a>" : " ";
+                    ?>
+                </div>
             </div>
             <div style="width: 100%;">
 
@@ -100,7 +107,7 @@ function reverseDates($oldData)
                             echo    "<td ><a style='text-transform:uppercase;'href='" . base_url('atendimento/perfil/' . base64_encode($paciente->id)) . "'>" . $paciente->nome . "</a></td>";
                             echo    "<td id='tdCpf'>" . ($paciente->cpf) . "</td>";
                             echo    "<td>" . (!empty($paciente->dataNascimento) ? reverseDates($paciente->dataNascimento) : 'Não cadastrado!') . "</td>";
-                            echo ($_SESSION['usuario']['user']->tipo == '1') ? "<td> <div><a class='pencil' href='" . base_url('atendimento/editar/' . base64_encode($paciente->id)) . "'><span><i class='fa fa-pencil' aria-hidden='true'></i> </span></a><button class='eraser' data-bs-target='#deleteModal' data-bs-toggle='modal' onclick='preencherModalDelete(" . $paciente->id . ")' ><span><i class='fa fa-eraser' aria-hidden='true'></i> </span></button></div> </td>" : '';
+                            echo ($_SESSION['usuario']['user']->tipo == '1') ? "<td> <div><a class='pencil' href='" . base_url('atendimento/editar/' . base64_encode($paciente->id)) . "'><span><i class='fa fa-pencil' aria-hidden='true'></i> </span></a><button class='eraser' data-bs-target='#deleteModal' data-bs-toggle='modal' onclick='preencherModalDelete(" . $paciente->id . ")' ><span><i class='fa fa-eraser' aria-hidden='true'></i> </span></button></div> </td>" : (($_SESSION['usuario']['user']->tipo == '0')? "<td> <div><a class='pencil' href='" . base_url('atendimento/editar/' . base64_encode($paciente->id)) . "'><span><i class='fa fa-pencil' aria-hidden='true'></i>": "");
                             echo "</tr>";
                         }; ?>
 

@@ -48,7 +48,11 @@
 <!-- Conteudo -->
 
 
-<?php function dates($oldData)
+<?php
+
+use App\Models\Legados;
+
+function dates($oldData)
 {
     // $oldData = $value->entrada;
     $orgDate = $oldData;
@@ -139,8 +143,12 @@ function reverseDates($oldData)
                 <div class="card-body">
                     <h5 class="card-title">Observação: <a id="edit" onclick="Editobservacao()"><i class="fa fa-pencil-square" aria-hidden="true"></i></a></h5>
                     <h6 class="card-subtitle mb-2 text-muted" style="text-transform: Capitalize;"> <?= $resultado->nome ?>,</h6> <br>
-                    <p class="card-text"><?php if (isset($resultado->obs)) {
-                                                echo $resultado->obs;
+                    <p class="card-text"><?php if (isset($resultado->obs) || isset($legados)) {
+                                                foreach($legados as $legado){
+                                                echo $resultado->obs . "</br>";
+                                                echo dates($legado->entrada) . " " . $legado->obs. "</br>";
+                                                }
+                                                
                                             } else {
                                                 echo 'Não há nenhuma observação registrada.';
                                             }
@@ -150,7 +158,7 @@ function reverseDates($oldData)
             <div class="col-12">
                 <form action="<?= base_url('atendimento/obs') ?>" id="form" class="hidden" method="post">
                     <label for="comentario">Observação:</label>
-                    <textarea name="obs" id="comentario" class="form-control" name="obs" minlength="5" required><?= $resultado->obs ?></textarea>
+                    <textarea name="obs" id="comentario" class="form-control" name="obs" minlength="5" value="<?= isset($legados->obs)? $legados->obs : '' ?>" required><?= isset($legados->obs)? $legados->obs : $resultado->obs ?></textarea>
                     <input name="id" type="text" style="display:none;" value="<?= base64_encode($resultado->id); ?>">
                     <div class="row" style="padding-top:10px;width:100%;">
                         <div class="col-9"><a style="margin:0 1.5em;" id="reverse" onclick="reverse()" class="btn btn-secondary btn-sm">Voltar</a></div>
@@ -169,61 +177,94 @@ function reverseDates($oldData)
                 <th>Recomendação</th>
             </tr>
             <?php
-            foreach ($listagens as $listagem) {
-                echo "<tr>";
-                echo "<td> <a href='" . base_url('atendimento/senha/' . base64_encode($listagem->id)) . "'> $listagem->senha </a> </td>";
-                echo "<td>" . dates($listagem->entrada) . "</td>";
-                if (isset($listagem->saida)) {
-                    $saida = dates($listagem->saida);
-                } else {
-                }
-                echo (isset($listagem->saida)) ? '<td>' . dates($listagem->saida) . '</td>' : ' <td>Não foi registrado saída</td>';
+            if (isset($legados)) {
+                foreach ($legados as $legado) {
+                    echo "<tr>";
+                    echo "<td>" . (isset($legado->senha)? $legado->senha : 'Não Tem') . "</td>";
+                    echo "<td>" . dates($legado->entrada) . "</td>";
+                    if (isset($legado->saida)) {
+                        $saida = dates($legado->saida);
+                    } else {
+                    }
+                    echo (isset($legado->saida)) ? '<td>' . dates($legado->saida) . '</td>' : ' <td>Não foi registrado saída</td>';
 
 
-                $retorno = 0;
-                if ($listagem->saida == null) {
-                    $retorno = "<i class='fa fa-times' aria-hidden='true'></i>";
-                } else {
-                    $retorno =  date("d/m/Y", strtotime("+1 month", strtotime($listagem->saida)));
-                }
-                echo "<td>$retorno</td>";
-                if ($retorno != 0) {
+                    $retorno = 0;
+                    if ($legado->saida == null) {
+                        $retorno = "<i class='fa fa-times' aria-hidden='true'></i>";
+                    } else {
+                        $retorno =  date("d/m/Y", strtotime("+1 month", strtotime($legado->saida)));
+                    }
+                    echo "<td>$retorno</td>";
+                    if ($retorno != 0) {
 
-                    $recomendacao = date('d/m/Y', strtotime('-4 days', strtotime(reverseDates($retorno))));
-                } else {
-                    $recomendacao = "<i class='fa fa-times' aria-hidden='true'></i>";
+                        $recomendacao = date('d/m/Y', strtotime('-4 days', strtotime(reverseDates($retorno))));
+                    } else {
+                        $recomendacao = "<i class='fa fa-times' aria-hidden='true'></i>";
+                    }
+                    echo "<td>$recomendacao</td>";
+                    echo "</tr>";
                 }
-                echo "<td>$recomendacao</td>";
-                echo "</tr>";
-            } ?>
+            }
+
+
+                foreach ($listagens as $listagem) {
+                    echo "<tr>";
+                    echo "<td> <a href='" . base_url('atendimento/senha/' . base64_encode($listagem->id)) . "'> $listagem->senha </a> </td>";
+                    echo "<td>" . dates($listagem->entrada) . "</td>";
+                    if (isset($listagem->saida)) {
+                        $saida = dates($listagem->saida);
+                    } else {
+                    }
+                    echo (isset($listagem->saida)) ? '<td>' . dates($listagem->saida) . '</td>' : ' <td>Não foi registrado saída</td>';
+
+
+                    $retorno = 0;
+                    if ($listagem->saida == null) {
+                        $retorno = "<i class='fa fa-times' aria-hidden='true'></i>";
+                    } else {
+                        $retorno =  date("d/m/Y", strtotime("+1 month", strtotime($listagem->saida)));
+                    }
+                    echo "<td>$retorno</td>";
+                    if ($retorno != 0) {
+
+                        $recomendacao = date('d/m/Y', strtotime('-4 days', strtotime(reverseDates($retorno))));
+                    } else {
+                        $recomendacao = "<i class='fa fa-times' aria-hidden='true'></i>";
+                    }
+                    echo "<td>$recomendacao</td>";
+                    echo "<td></td>";
+                    echo "</tr>";
+                } ?>
             <?php
-            foreach ($listagensAdicionais as $listagem) {
-                echo "<tr>";
-                echo "<td> <a href='" . base_url('atendimento/senha/' . base64_encode($listagem->id)) . "'> $listagem->senha </a> </td>";
-                echo "<td>" . dates($listagem->entrada) . "</td>";
-                if (isset($listagem->saida)) {
-                    $saida = dates($listagem->saida);
-                } else {
-                }
-                echo (isset($listagem->saida)) ? '<td>' . dates($listagem->saida) . '</td>' : ' <td>Não foi registrado saída</td>';
+                foreach ($listagensAdicionais as $listagem) {
+                    echo "<tr>";
+                    echo "<td> <a href='" . base_url('atendimento/senha/' . base64_encode($listagem->id)) . "'> $listagem->senha </a> </td>";
+                    echo "<td>" . dates($listagem->entrada) . "</td>";
+                    if (isset($listagem->saida)) {
+                        $saida = dates($listagem->saida);
+                    } else {
+                    }
+                    echo (isset($listagem->saida)) ? '<td>' . dates($listagem->saida) . '</td>' : ' <td>Não foi registrado saída</td>';
 
 
-                $retorno = 0;
-                if ($listagem->saida == null) {
-                    $retorno = "<i class='fa fa-times' aria-hidden='true'></i>";
-                } else {
-                    $retorno =  date("d/m/Y", strtotime("+1 month", strtotime($listagem->saida)));
-                }
-                echo "<td>$retorno</td>";
-                if ($retorno != 0) {
+                    $retorno = 0;
+                    if ($listagem->saida == null) {
+                        $retorno = "<i class='fa fa-times' aria-hidden='true'></i>";
+                    } else {
+                        $retorno =  date("d/m/Y", strtotime("+1 month", strtotime($listagem->saida)));
+                    }
+                    echo "<td>$retorno</td>";
+                    if ($retorno != 0) {
 
-                    $recomendacao = date('d/m/Y', strtotime('-4 days', strtotime(reverseDates($retorno))));
-                } else {
-                    $recomendacao = "<i class='fa fa-times' aria-hidden='true'></i>";
+                        $recomendacao = date('d/m/Y', strtotime('-4 days', strtotime(reverseDates($retorno))));
+                    } else {
+                        $recomendacao = "<i class='fa fa-times' aria-hidden='true'></i>";
+                    }
+                    echo "<td>$recomendacao</td>";
+                    echo "</tr>";
                 }
-                echo "<td>$recomendacao</td>";
-                echo "</tr>";
-            } ?>
+             ?>
         </table>
 
     </div>
@@ -232,7 +273,6 @@ function reverseDates($oldData)
     <?= $this->section('script') ?>
     <!-- Script -->
     <script>
-        
         function preencherModalDelete(id) {
             modal = document.getElementById("deleteModal");
             btnExcluir = modal.getElementsByClassName("btn-danger")[0];

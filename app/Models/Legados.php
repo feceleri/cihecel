@@ -34,8 +34,8 @@ class Legados extends Model
 
     public function getAll()
     {
-        $result = $this->orderBy('id')->findAll();
-        return $result;
+        $result = $this->findAll();
+       return $result;
     }
 
     public function getService($id)

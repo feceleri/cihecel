@@ -132,11 +132,16 @@ class  Atendimento extends BaseController
 
         $listagemModel =  new Listagem();
         $listagens = $listagemModel->select('listagem.id, listagem.senha, listagem.entrada, listagem.saida')->join('paciente', 'paciente.cpf = listagem.cpfResponsavel', 'listagem.idsAdicional->>"id"=' . $id)->where('paciente.id = ' . $id)->findAll();
+        $legadosModel = new Legados();
+        $legados = $legadosModel->select('atendimento.id, atendimento.senha, atendimento.entrada, atendimento.saida, atendimento.obs')
+                           ->join('paciente', 'paciente.id = atendimento.idPaciente')
+                           ->where('paciente.id',$id)->findAll();
         $listagensAdicional = $listagemModel->select('listagem.id, listagem.senha, listagem.entrada, listagem.saida')->join('paciente', 'paciente.cpf = listagem.cpfResponsavel', 'listagem.idsAdicional->>"id"=' . $id)->where("JSON_CONTAINS(idsAdicional, '{\"id\": $id }')")->findAll();
         $data = [
             'resultado' => $resultado,
             'listagens' => $listagens,
-            'listagensAdicionais' => $listagensAdicional
+            'listagensAdicionais' => $listagensAdicional,
+            'legados' => $legados,
         ];
         return view('layout/perfil', $data);
     }
@@ -268,10 +273,21 @@ class  Atendimento extends BaseController
     {
         $id = base64_decode($id);
         $bdListagem = new listagem();
+        $bdLegados = new Legados();
+        $bdLegados->find($id);
         $bdPaciente = new paciente();
         $bdListagem->find($id);
         $people = $bdListagem->select('paciente.cpf,paciente.nome,paciente.telefone1,paciente.telefone2,qtdReceitaResponsavel,idsAdicional,listagem.id,listagem.senha,listagem.entrada,listagem.saida')->join('paciente', 'paciente.cpf = listagem.cpfResponsavel')->findAll();
-
+        $legados = $bdLegados->select('paciente.cpf, paciente.nome, paciente.telefone1, paciente.telefone2, atendimento.obs, atendimento.id, atendimento.senha, atendimento.entrada, atendimento.saida')
+                             ->join('paciente', 'paciente.id = atendimento.idPaciente')
+                             ->findAll();
+        if(!empty($legados)){
+            foreach ($legados as $value) {
+                if ($value->id == $id) {
+                    $legado = $value;
+                }
+            }
+        }
         foreach ($people as $value) {
             if ($value->id == $id) {
                 $responsavel = $value;
@@ -291,6 +307,7 @@ class  Atendimento extends BaseController
                 } else {
                     $date = [
                         'responsavel' => $responsavel,
+                        'legado'      => $legado,
                     ];
                     echo view('layout/senha', $date);
                 }
