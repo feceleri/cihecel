@@ -95,7 +95,7 @@ function reverseDates($oldData)
 <div class="card-box">
     <div class="d-flex justify-content-end">
         <?php
-        echo ($_SESSION['usuario']['user']->tipo == '1') ? "<a class='edit me-1' href='" . base_url('atendimento/editar/' . base64_encode($resultado->id)) . "'><span><i class='fa fa-pencil' aria-hidden='true' title='Editar Cadastro'></i> </span></a><button class='edit' data-bs-target='#deleteModal' data-bs-toggle='modal' onclick='preencherModalDelete(" . $resultado->id . ")' ><span><i class='fa fa-trash' aria-hidden='true' title='Deletar Cadastro'></i> </span></button> " : '';
+        echo ($_SESSION['usuario']['user']->tipo == '1') ? "<a class='edit me-1' href='" . base_url('atendimento/editar/' . base64_encode($resultado->id)) . "'><span><i class='fa fa-pencil' aria-hidden='true' title='Editar Cadastro'></i> </span></a><button class='edit' data-bs-target='#deleteModal' data-bs-toggle='modal' onclick='preencherModalDelete(" . $resultado->id . ")' ><span><i class='fa fa-trash' aria-hidden='true' title='Deletar Cadastro'></i> </span></button> " : (($_SESSION['usuario']['user']->tipo == '0')?"<a class='edit me-1' href='" . base_url('atendimento/editar/' . base64_encode($resultado->id)) . "'><span><i class='fa fa-pencil' aria-hidden='true' title='Editar Cadastro'></i> </span></a>":" ");
         ?>
     </div>
     <div class="row">
@@ -233,7 +233,6 @@ function reverseDates($oldData)
                         $recomendacao = "<i class='fa fa-times' aria-hidden='true'></i>";
                     }
                     echo "<td>$recomendacao</td>";
-                    echo "<td></td>";
                     echo "</tr>";
                 } ?>
             <?php
