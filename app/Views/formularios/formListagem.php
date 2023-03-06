@@ -25,7 +25,7 @@
                 </div>
                 <div class="form-group">
                     <label for="responsavel">Responsável</label>
-                    <input type="text" name="responsavel" id="responsavel" value="<?= isset($paciente->nome) ? $paciente->nome : '' ?>" required class="form-control" readonly required />
+                    <input type="text" name="responsavel" id="responsavel" disabled value="<?= isset($paciente->nome) ? $paciente->nome : '' ?>" required class="form-control" readonly required />
                 </div>
                 <div style="display:flex;" class="adicional">
                     <div class="form-group" style="margin-right: 10px;">
