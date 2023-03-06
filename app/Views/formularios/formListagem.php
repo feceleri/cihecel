@@ -11,7 +11,7 @@
                         </div>
                         <div class="col-11">
                             <label>CPF</label>
-                            <input type="text" maxlength="14" id="cpfResp" value="<?= isset($paciente->cpf) ? $paciente->cpf : '' ?>" name="cpfResp" class="form-control" required onkeyup="searchPeople(this.value)">
+                            <input type="text" disabled maxlength="14" id="cpfResp" value="<?= isset($paciente->cpf) ? $paciente->cpf : '' ?>" name="cpfResp" class="form-control" required onkeyup="searchPeople(this.value)">
                         </div>
                     </div>
                 </div>
