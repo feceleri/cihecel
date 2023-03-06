@@ -83,7 +83,7 @@
 
             <div style="float:right;" class="align-items-center">
                 <?php if ($_SESSION['usuario']['user']->tipo == '1' || $_SESSION['usuario']['user']->tipo == '0') : ?>
-                    <a class="btn btn-success mb-2 mt-1" href="<?= base_url('atendimento/salvarListagem') ?>" style="float:right;"><i class="fa fa-book" aria-hidden="true"></i></a>
+                    <a class="btn btn-success mb-2 mt-1" href="<?= base_url('listagemcontroller/salvarlistagem/'. base64_encode(0)) ?>" style="float:right;"><i class="fa fa-book" aria-hidden="true"></i></a>
                 <?php endif; ?>
                 <form class="form-inline align-items-center mt-0" action="<?= base_url('atendimento/listagemPDF') ?>" method="post">
                     <div class="form-group input-group align-items-center">
@@ -127,10 +127,10 @@
                                         <a id='manual_" . $value->id . "' onclick='dateManual(" . $value->id . ")' class='showbutton' style='margin: 20px;' href='#'>
                                             <i class='fa fa-calendar' aria-hidden='true'></i>
                                         </a>
-                                        <a class='showbutton' id='automatico_" . $value->id . "' href='" . base_url('atendimento/saidaListagem/' . base64_encode($value->id)) . "' id='check'>
+                                        <a class='showbutton' id='automatico_" . $value->id . "' href='" . base_url('listagemcontroller/saidaListagem/' . base64_encode($value->id)) . "' id='check'>
                                             <i class='fa fa-check-square' aria-hidden='true'></i>
                                         </a>
-                                        <form action='" . base_url('atendimento/saidaListagemManual') . "' method='post'>
+                                        <form action='" . base_url('listagemcontroller/saidaListagemManual') . "' method='post'>
                                             <input name='saida'style='width: 113px;' id='inputManual_" . $value->id . "' class='hiddenbutton' type='date' required>
                                             <input style='display:none;' name='id' value='" . $value->id . "' >
                                                 <button id='buttonManual_" . $value->id . "' class='hiddenbutton showbutton' style='border:none;background:none;margin:-7px;' type='submit'><i class='fa fa-check' aria-hidden='true'></i></button>

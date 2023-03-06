@@ -60,7 +60,7 @@
                             <a href="<?= base_url('') ?>"><i class="fa fa-user"></i> <span>Pacientes</span></a>
                         </li>
                         <li class="active">
-                            <a href="<?= base_url('atendimento/listagem') ?>"><i class="fa fa-address-book" aria-hidden="true"></i><span>Listagem</span></a>
+                            <a href="<?= base_url('listagemcontroller/listagem') ?>"><i class="fa fa-address-book" aria-hidden="true"></i><span>Listagem</span></a>
                         </li>
                         <li class="active">
                             <a href="<?= base_url('atendimento/novos') ?>"><i class="fa fa-line-chart" aria-hidden="true"></i><span>Relátorio</span></a>

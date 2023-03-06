@@ -5,7 +5,7 @@ namespace App\Models;
 use CodeIgniter\Model;
 
 class Listagem extends Model
-{    
+{
     protected $table            = 'listagem';
     protected $primaryKey       = 'id';
     protected $useAutoIncrement = true;
@@ -41,17 +41,38 @@ class Listagem extends Model
 
     public function getAll()
     {
-    $result = $this->findAll();
-       return $result;
+        $result = $this->findAll();
+        return $result;
+    }
+
+    public function modelListagemInsert($post)
+    {
+        if (!empty($post)) {
+            $db = db_connect();
+            $nomeTel = $db->query("SELECT nome, telefone1 FROM paciente WHERE cpf = '" . $post["cpfResp"] . "'")->getResult();
+            $dadosBD = [
+                "cpfResponsavel" => $post["cpfResp"],
+                "senha" => $post["senha"],
+                "qtdReceitaResponsavel" => $post["receitasResponsavel"],
+                "idsAdicional" => $post["idsAdicional"],
+                "idAdicionalTeste" => $post["idsAdicional"],
+                "nomeResponsavel" => $nomeTel[0]->nome,
+                "telResponsavel" => $nomeTel[0]->telefone1
+            ];
+            return $this->save($dadosBD) ? true : false;
+        }
     }
 
 
-    public function getMed($id){
+
+    public function getMed($id)
+    {
         $result = $this->find($id);
         return $result;
     }
 
-    public function pdfDetails($date){
+    public function pdfDetails($date)
+    {
         $data = $this->like('entrada', $date)->findAll();
         $output = '<table width="100%" style="min-width:100vw;" border="1"  cellpadding="6">';
         $output .= '    
@@ -65,22 +86,21 @@ class Listagem extends Model
             </tr>
         ';
         //var_dump($data); die;
-        foreach($data as $row){
-             $output .= '
+        foreach ($data as $row) {
+            $output .= '
                 <tr>
-                    <td>'. $row->senha .'</td>
-                    <td nowrap>'. $row->cpfResponsavel .'</td>
-                    <td nowrap>'. $row->nomeResponsavel .'.</td>
-                    <td>'. $row->qtdReceitaResponsavel .'</td>
-                    <td>'. date('d/m/Y',  strtotime($row->entrada)) .'</td>
-                    <td>'. (isset($row->saida)?date('d/m/Y',  strtotime($row->saida)) : 'Não retirado') .'</td>   
+                    <td>' . $row->senha . '</td>
+                    <td nowrap>' . $row->cpfResponsavel . '</td>
+                    <td nowrap>' . $row->nomeResponsavel . '.</td>
+                    <td>' . $row->qtdReceitaResponsavel . '</td>
+                    <td>' . date('d/m/Y',  strtotime($row->entrada)) . '</td>
+                    <td>' . (isset($row->saida) ? date('d/m/Y',  strtotime($row->saida)) : 'Não retirado') . '</td>   
                 </tr>
-            '; 
+            ';
         }
 
         $output .= '</table>';
         //var_dump($output); die;
         return $output;
     }
-
 }
