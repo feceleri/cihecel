@@ -72,7 +72,7 @@
                 <div class="utilityTable">
                     <div style="top:5px">
                         <div class="searchTable">
-                            <form action="<?= base_url('atendimento/listagem') ?>" method="post">
+                            <form action="<?= base_url('listagemcontroller/listagem') ?>" method="post">
                                 <input name="search" class="form-control" type="search" placeholder="Pesquisar">
                                 <button type="submit" style="border: none;"><i class="fa fa-search" aria-hidden="true"></i></button>
                             </form>

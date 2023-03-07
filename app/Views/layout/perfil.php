@@ -229,12 +229,12 @@ function reverseDates($oldData)
             </div>
         </div>
         <table class="table table-striped table-responsive mt-2" style="width: 100%;">
-            <tr>
+            <tr class='text-center'>
                 <th>Senha</th>
                 <th>Entrada</th>
                 <th>Saída</th>
-                <th class='text-center'>Retorno</th>
-                <th class='text-center'>Recomendação</th>
+                <th>Retorno</th>
+                <th>Recomendação</th>
             </tr>
             <?php
             foreach ($listagens as $listagem) {
@@ -279,13 +279,27 @@ function reverseDates($oldData)
 
             if (isset($legados)) {
                 foreach ($legados as $legado) {
-                    echo "<tr>";
+                    echo "<tr class='text-center'>";
                     echo "<td class='text-center'>" . (isset($legado->senha) ? $legado->senha : 'Não Tem') . "</td>";
                     echo "<td>" . dates($legado->entrada) . "</td>";
                     if (isset($legado->saida)) {
-                        $saida = dates($legado->saida);
+                        echo "<td>" . dates($legado->saida) . "</td>";
+                    } else {
+                        echo "<td id='td' style='width:25%;'>
+                                <a id='manual_" . $legado->id . "' onclick='dateManual(" . $legado->id . ")' class='showbutton' style='margin: 20px;'>
+                                    <i class='fa fa-calendar' aria-hidden='true'></i>
+                                </a>
+                                <a class='showbutton' id='automatico_" . $legado->id . "' href='" . base_url('legadoscontroller/saidaListagem/' . base64_encode($legado->id)) . "' id='check'>
+                                    <i class='fa fa-check-square' aria-hidden='true'></i>
+                                </a>
+                                <form action='" . base_url('legadoscontroller/saidaListagemManual') . "' method='post'>
+                                    <input name='saida'style='width: 113px;' id='inputManual_" . $legado->id . "' class='hiddenbutton' type='date' required>
+                                    <input style='display:none;' name='id' value='" . $legado->id . "' >
+                                        <button id='buttonManual_" . $legado->id . "' class='hiddenbutton showbutton' style='border:none;background:none;margin:-7px;' type='submit'><i class='fa fa-check' aria-hidden='true'></i></button>
+                                        <a onclick='reverseDateManual(" . $legado->id . ")' id='x_" . $legado->id . "' class='hiddenbutton' style='border:none;background:none;' type='submit'><i class='fa fa-times' aria-hidden='true'></i></a>
+                                </form>
+                              </td>";
                     }
-                    echo (isset($legado->saida)) ? '<td>' . dates($legado->saida) . '</td>' : ' <td>Não foi registrado saída</td>';
 
 
                     $retorno = 0;

@@ -35,7 +35,7 @@ class Legados extends Model
     public function getAll()
     {
         $result = $this->findAll();
-       return $result;
+        return $result;
     }
 
     public function getService($id)
@@ -54,5 +54,23 @@ class Legados extends Model
             return false;
             // return 'FKIHJDES';
         }
+    }
+
+    public function modelSaidaListagem($id)
+    {
+        $id = base64_decode($id);
+        $data = [
+            'saida' => date("Y/m/d")
+        ];
+        return $this->update($id, $data) ? true : false;
+    }
+
+    public function modelSaidaLegadoManual($post)
+    {
+        $id = $post['id'];
+        $data = [
+            'saida' => $post['saida'],
+        ];
+        return $this->update($id, $data) ? true : false;
     }
 }

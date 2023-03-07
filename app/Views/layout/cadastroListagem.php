@@ -110,6 +110,34 @@
                     } else {
                         document.getElementById("nomeAdicional").value = $row[0]['nome'];
                         document.getElementById("idAdicional").value = $row[0]['id'];
+                        document.getElementById("ncAdicional").value = $row[0]['id'];
+
+                    }
+                },
+                error: function() {
+                    console.log('Error');
+                }
+            })
+        }
+    });
+
+    document.getElementById("ncAdicional").addEventListener("focusout", function() {
+        if (document.getElementById("ncAdicional").value) {
+            $.ajax({
+                method: "POST",
+                url: "<?= base_url('atendimento/getCpf') ?>",
+                data: {
+                    cpf: document.getElementById("ncAdicional").value
+                },
+                success: function($row) {
+                    if ($row == false) {
+                        document.getElementById("nomeAdicional").value = 'NC inválido ou não existe no sistema.';
+                    } else {
+                        document.getElementById("nomeAdicional").value = $row[0]['nome'];
+                        document.getElementById("cpfAdicional").value = $row[0]['cpf'];
+                        document.getElementById("idAdicional").value = $row[0]['id'];
+                        document.getElementById("ncAdicional").value = $row[0]['id'];
+
                     }
                 },
                 error: function() {

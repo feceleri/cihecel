@@ -18,40 +18,25 @@ class  Atendimento extends BaseController
     public function index()
     {
         $paciente =  new Paciente();
-        $post = $this->request->getPost();
+        $searchInput = $this->request->getGet('search');
 
-        if (!empty($post)) {
-            $busca = $post['search'];
-            $nc = strpos($busca, "nc:");
-            $cpf = strpos($busca, "cpf:");
-
-            if (!$nc) {
-                $data = [
-                    'resultado' => $paciente->orderBy('nome')->like('nome', $busca)->findAll(),
-                    'pager' => $paciente->pager
-                ];
-            }
-            if (is_int($nc)) {
-                $busca = str_replace("nc:", "", $busca);
-                $data = [
-                    'resultado' => $paciente->orderBy('nome')->where('id', $busca)->findAll(),
-                    'pager' => $paciente->pager
-                ];
-            }
-            if (is_int($cpf)) {
-                $busca = str_replace("cpf:", "", $busca);
-                $data = [
-                    'resultado' => $paciente->orderBy('nome')->like('cpf', $busca)->findAll(),
-                    'pager' => $paciente->pager
-                ];
-            }
-        } else {
-
+        if ($searchInput) {
             $data = [
-                'resultado' => $paciente->orderBy('id')->where('cpf != ""')->paginate(10),
-                'pager' => $paciente->pager
+                'resultado'      => $paciente->like('cpf', $searchInput)->where('cpf != ""')
+                    ->orLike('id', $searchInput)->where('cpf != ""')
+                    ->orLike('nome', $searchInput)->where('cpf != ""')
+                    ->orLike('created_at', $searchInput = implode('-', array_reverse(explode('/', $searchInput))))->where('cpf != ""')
+                    ->orLike('dataNascimento', $searchInput = implode('-', array_reverse(explode('/', $searchInput))))->where('cpf != ""')
+                    ->orderBy('id')->paginate(10),
+                'pager'         => $paciente->pager,
             ];
+            return view('layout/paciente', $data);
         }
+        $data = [
+            'resultado'  => $paciente->where('cpf != ""')->orderBy('id')->paginate(10),
+            'pager'     => $paciente->pager,
+
+        ];
         echo view('layout/paciente', $data);
     }
 
@@ -134,8 +119,8 @@ class  Atendimento extends BaseController
         $listagens = $listagemModel->select('listagem.id, listagem.senha, listagem.entrada, listagem.saida')->join('paciente', 'paciente.cpf = listagem.cpfResponsavel', 'listagem.idsAdicional->>"id"=' . $id)->where('paciente.id = ' . $id)->findAll();
         $legadosModel = new Legados();
         $legados = $legadosModel->select('atendimento.id, atendimento.senha, atendimento.entrada, atendimento.saida, atendimento.obs')
-                           ->join('paciente', 'paciente.id = atendimento.idPaciente')
-                           ->where('paciente.id',$id)->findAll();
+            ->join('paciente', 'paciente.id = atendimento.idPaciente')
+            ->where('paciente.id', $id)->findAll();
         $listagensAdicional = $listagemModel->select('listagem.id, listagem.senha, listagem.entrada, listagem.saida')->join('paciente', 'paciente.cpf = listagem.cpfResponsavel', 'listagem.idsAdicional->>"id"=' . $id)->where("JSON_CONTAINS(idsAdicional, '{\"id\": $id }')")->findAll();
         $data = [
             'resultado' => $resultado,
@@ -172,7 +157,11 @@ class  Atendimento extends BaseController
         if ($this->request->isAJAX()) {
             $cpf = $this->request->getPost('cpf');
             $people =  new Paciente();
-            $result = $people->where('cpf', $cpf)->find();
+            if (strlen($cpf) == 14) {
+                $result = $people->where('cpf', $cpf)->find();
+            } else {
+                $result = $people->where('id', $cpf)->find();
+            }
             if (!isset($result)) {
                 return $this->response->setJSON(false);
             } else {
@@ -191,9 +180,9 @@ class  Atendimento extends BaseController
         $bdListagem->find($id);
         $people = $bdListagem->select('paciente.cpf,paciente.nome,paciente.telefone1,paciente.telefone2,qtdReceitaResponsavel,idsAdicional,listagem.id,listagem.senha,listagem.entrada,listagem.saida')->join('paciente', 'paciente.cpf = listagem.cpfResponsavel')->findAll();
         $legados = $bdLegados->select('paciente.cpf, paciente.nome, paciente.telefone1, paciente.telefone2, atendimento.obs, atendimento.id, atendimento.senha, atendimento.entrada, atendimento.saida')
-                             ->join('paciente', 'paciente.id = atendimento.idPaciente')
-                             ->findAll();
-        if(!empty($legados)){
+            ->join('paciente', 'paciente.id = atendimento.idPaciente')
+            ->findAll();
+        if (!empty($legados)) {
             foreach ($legados as $value) {
                 if ($value->id == $id) {
                     $legado = $value;
@@ -226,7 +215,6 @@ class  Atendimento extends BaseController
             }
         }
     }
-
 
     public function obs()
     {
@@ -339,32 +327,27 @@ class  Atendimento extends BaseController
     public function incompletos()
     {
         $paciente =  new Paciente();
-        $post = $this->request->getPost();
+        $searchInput = $this->request->getGet('search');
 
-        if (!empty($post)) {
-            $busca = $post['search'];
-            $nc = strpos($busca, "nc:");
-            $cpf = strpos($busca, "cpf:");
-
-            if (!$nc) {
-                $data = [
-                    'resultado' => $paciente->orderBy('nome')->like('nome', $busca)->findAll(),
-                    'pager' => $paciente->pager
-                ];
-            }
-            if (is_int($nc)) {
-                $busca = str_replace("nc:", "", $busca);
-                $data = [
-                    'resultado' => $paciente->orderBy('nome')->where('id', $busca)->findAll(),
-                    'pager' => $paciente->pager
-                ];
-            }
-        } else {
+        if ($searchInput) {
             $data = [
-                'resultado' => $paciente->orderBy('id')->where('cpf', "")->paginate(10),
-                'pager' => $paciente->pager
+                'resultado'      => $paciente->like('id', $searchInput)->where('cpf = ""')
+                    ->orLike('nome', $searchInput)->where('cpf = ""')
+                    ->orLike('created_at', $searchInput = implode('-', array_reverse(explode('/', $searchInput))))->where('cpf = ""')
+                    ->orLike('dataNascimento', $searchInput = implode('-', array_reverse(explode('/', $searchInput))))->where('cpf = ""')
+                    ->orderBy('id')->paginate(10),
+                'pager'         => $paciente->pager,
+                'incompletos'   => true,
+
             ];
+            return view('layout/incompletos', $data);
         }
+        $data = [
+            'resultado'  => $paciente->where('cpf = ""')->orderBy('id')->paginate(10),
+            'pager'     => $paciente->pager,
+            'incompletos' => true,
+
+        ];
         echo view('layout/incompletos', $data);
     }
 
@@ -407,7 +390,7 @@ class  Atendimento extends BaseController
                     $now = new \DateTime($inicioListagem['dataLista']);
                     //var_dump($date);die;
                     $html_content = '<h3 align="center">Listagem Semanal: ' . $now->format('d/m/Y') . ' até '
-                        . date('d/m/Y',$until) . '</h3>';
+                        . date('d/m/Y', $until) . '</h3>';
                     $html_content .= $listagem->pdfDetails($date);
                     $dompdf->loadHtml($html_content);
                     $dompdf->render();

@@ -71,10 +71,10 @@ function reverseDates($oldData)
             <div class="utilityTable">
                 <div style="top:5px">
                     <div class="searchTable">
-                        <form action="<?= base_url('atendimento/index') ?>" method="post">
-                            <input name="search" class="form-control" type="search" placeholder="Pesquisar">
-                            <button type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
-                        </form>
+                            <form action="<?= isset($incompletos)? base_url('atendimento/incompletos') : base_url('atendimento/index') ?>" method="get">
+                                <input name="search" class="form-control" type="search" placeholder="Pesquisar">
+                                <button type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
+                            </form>
                     </div>
                 </div>
                 <div>

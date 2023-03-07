@@ -2,7 +2,7 @@
     <div class="col-md-12">
         <div class="card-box">
             <h4 class="card-title">Cadastro de Listagem</h4>
-            <form action="<?= base_url('listagemcontroller/listagemsubmit/'.  $paciente->id) ?>" method="POST" name="formListagem" id="form">
+            <form action="<?= base_url('listagemcontroller/listagemsubmit/' .  $paciente->id) ?>" method="POST" name="formListagem" id="form">
                 <div class="form-group">
                     <div class="row">
                         <div class="col">
@@ -28,6 +28,11 @@
                     <input type="text" name="responsavel" id="responsavel" value="<?= isset($paciente->nome) ? $paciente->nome : '' ?>" required class="form-control" readonly required />
                 </div>
                 <div style="display:flex;" class="adicional">
+
+                    <div class="form-group col-1" style="margin-right: 10px;">
+                        <label>NC</label>
+                        <input type="text" name="ncAdicional" class="form-control" maxlength="14" id="ncAdicional">
+                    </div>
                     <div class="form-group" style="margin-right: 10px;">
                         <label>CPF</label>
                         <input type="text" name="cpfAdicional" class="form-control" maxlength="14" id="cpfAdicional">
