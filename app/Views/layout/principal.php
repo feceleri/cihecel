@@ -42,7 +42,7 @@
             <a id="mobile_btn" class="mobile_btn float-left" href="#sidebar"><i class="fa fa-bars"></i></a>
             <div class="dropdown float-end m-3">
                 <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    <span style="font-size: 15px; padding:3px; text-transform: capitalize;"> <?= $_SESSION['usuario']['user']->nome;?></span> <i class="fa fa-caret-down" aria-hidden="true"></i>
+                    <span style="font-size: 15px; padding:3px; text-transform: capitalize;"> <?= $_SESSION['usuario']['user']->nome; ?></span> <i class="fa fa-caret-down" aria-hidden="true"></i>
                 </a>
 
                 <ul class="dropdown-menu">
@@ -59,9 +59,11 @@
                         <li class="active">
                             <a href="<?= base_url('') ?>"><i class="fa fa-user"></i> <span>Pacientes</span></a>
                         </li>
-                        <li class="active">
-                            <a href="<?= base_url('listagemcontroller/listagem') ?>"><i class="fa fa-address-book" aria-hidden="true"></i><span>Listagem</span></a>
-                        </li>
+                        <?php if ($_SESSION['usuario']['user']->tipo == '1') : ?>
+                            <li class="active">
+                                <a href="<?= base_url('listagemcontroller/listagem') ?>"><i class="fa fa-address-book" aria-hidden="true"></i><span>Listagem</span></a>
+                            </li>
+                        <?php endif; ?>
                         <li class="active">
                             <a href="<?= base_url('atendimento/novos') ?>"><i class="fa fa-line-chart" aria-hidden="true"></i><span>Relátorio</span></a>
                         </li>
@@ -85,7 +87,7 @@
             </div>
         </div>
 
-        <div class="page-wrapper ajuste" style="padding: 100px 18px;" >
+        <div class="page-wrapper ajuste" style="padding: 100px 18px;">
             <!-- Conteudo -->
             <?= $this->renderSection("conteudo"); ?>
         </div>

@@ -2,7 +2,7 @@
     <div class="col-md-12">
         <div class="card-box">
             <h4 class="card-title">Cadastro de Listagem</h4>
-            <form action="<?= base_url('listagemcontroller/listagemsubmit/' .  $paciente->id) ?>" method="POST" name="formListagem" id="form">
+            <form action="<?= base_url('listagemcontroller/listagemsubmit/' . (isset($paciente->id) ? $paciente->id : '')) ?>" method="POST" name="formListagem" id="form">
                 <div class="form-group">
                     <div class="row">
                         <div class="col">
