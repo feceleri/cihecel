@@ -11,7 +11,7 @@ use Dompdf\Adapter\CPDF;
 use Dompdf\Dompdf;
 use Dompdf\Exception;
 
-class  ListagemController extends BaseController
+class  Listagemcontroller extends BaseController
 {
 
     public function listagem()

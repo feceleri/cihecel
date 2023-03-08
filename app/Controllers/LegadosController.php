@@ -11,7 +11,7 @@ use Dompdf\Adapter\CPDF;
 use Dompdf\Dompdf;
 use Dompdf\Exception;
 
-class  LegadosController extends BaseController
+class  Legadoscontroller extends BaseController
 {
     public function saidaListagem($id)
     {
