@@ -120,7 +120,8 @@ class  Atendimento extends BaseController
         $legadosModel = new Legados();
         $legados = $legadosModel->select('atendimento.id, atendimento.senha, atendimento.entrada, atendimento.saida, atendimento.obs')
             ->join('paciente', 'paciente.id = atendimento.idPaciente')
-            ->where('paciente.id', $id)->findAll();
+            ->where('paciente.id', $id)
+            ->orderBy('atendimento.entrada DESC')->findAll();
         $listagensAdicional = $listagemModel->select('listagem.id, listagem.senha, listagem.entrada, listagem.saida')->join('paciente', 'paciente.cpf = listagem.cpfResponsavel', 'listagem.idsAdicional->>"id"=' . $id)->where("JSON_CONTAINS(idsAdicional, '{\"id\": $id }')")->findAll();
         $data = [
             'resultado' => $resultado,
