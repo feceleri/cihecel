@@ -13,11 +13,11 @@ class Listagem extends Model
     protected $returnType       = 'object';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['senha', 'cpfResponsavel', 'qtdReceitaResponsavel', 'idsAdicional', 'saida', 'nomeResponsavel', 'telResponsavel'];
+    protected $allowedFields    = ['senha','entrada', 'cpfResponsavel', 'qtdReceitaResponsavel', 'idsAdicional', 'saida', 'nomeResponsavel', 'telResponsavel'];
 
 
     protected $useTimestamps = true;
-    protected $createdField  = 'entrada';
+    protected $createdField  = '';
     protected $updatedField  = 'ultimaListagem';
     protected $deletedField  = 'deletado';
 
@@ -57,8 +57,10 @@ class Listagem extends Model
                 "idsAdicional" => $post["idsAdicional"],
                 "idAdicionalTeste" => $post["idsAdicional"],
                 "nomeResponsavel" => $nomeTel[0]->nome,
-                "telResponsavel" => $nomeTel[0]->telefone1
+                "telResponsavel" => $nomeTel[0]->telefone1,
+                "entrada" => $post["dtEntrada"],
             ];
+
             return $this->save($dadosBD) ? true : false;
         }
     }

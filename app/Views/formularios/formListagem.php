@@ -4,28 +4,36 @@
             <h4 class="card-title">Cadastro de Listagem</h4>
             <form action="<?= base_url('listagemcontroller/listagemsubmit/' . (isset($paciente->id) ? $paciente->id : '')) ?>" method="POST" name="formListagem" id="form">
                 <div class="form-group">
+                    <label for="responsavel">Responsável</label>
+                    <input type="text" name="responsavel" id="responsavel" value="<?= isset($paciente->nome) ? $paciente->nome : '' ?>" required class="form-control" readonly required />
+                </div>
+                <div class="form-group">
                     <div class="row">
-                        <div class="col">
+                        <div class="col-2">
                             <label>NC:</label>
                             <input type="text" id="ncResp" value="<?= isset($paciente->id) ? $paciente->id : '' ?>" name="ncResp" class="form-control" required readonly>
                         </div>
-                        <div class="col-11">
+                        <div class="col-10">
                             <label>CPF</label>
                             <input type="text" readonly maxlength="14" id="cpfResp" value="<?= isset($paciente->cpf) ? $paciente->cpf : '' ?>" name="cpfResp" class="form-control" required onkeyup="searchPeople(this.value)">
                         </div>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label>N° da Senha</label>
-                    <input type="number" name="senha" required class="form-control">
+                    <div class="row">
+                        <div class="col-2">
+                            <label>N° da Senha</label>
+                            <input autofocus type="number" name="senha" required class="form-control" required>
+                        </div>
+                        <div class="col-2">
+                            <label>Data da entrada:</label>
+                            <input type="date" name="dtEntrada" id="dtEntrada" class="form-control" required>
+                        </div>
+                    </div>
                 </div>
                 <div class="form-group">
                     <label>QTD de receitas (responsável)</label>
                     <input type="number" name="receitasResponsavel" required class="form-control">
-                </div>
-                <div class="form-group">
-                    <label for="responsavel">Responsável</label>
-                    <input type="text" name="responsavel" id="responsavel" value="<?= isset($paciente->nome) ? $paciente->nome : '' ?>" required class="form-control" readonly required />
                 </div>
                 <div style="display:flex;" class="adicional">
 

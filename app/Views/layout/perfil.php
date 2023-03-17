@@ -264,12 +264,11 @@ function reverseDates($oldData)
                 if ($listagem->saida == null) {
                     $retorno = "<i class='fa fa-times' aria-hidden='true'></i>";
                 } else {
-                    $retorno =  date("d/m/Y", strtotime("+1 month", strtotime($listagem->saida)));
+                    $retorno =  date("d/m/Y",strtotime("+1 month", strtotime($listagem->saida)));
                 }
                 echo "<td style='text-align:center;'>$retorno</td>";
                 if ($retorno != 0) {
-
-                    $recomendacao = date('d/m/Y', strtotime('-4 days', strtotime(Reversedates($retorno))));
+                    $recomendacao =  date("d/m/Y",strtotime("+27 days", strtotime($listagem->saida)));
                 } else {
                     $recomendacao = "<i class='fa fa-times' aria-hidden='true'></i>";
                 }
