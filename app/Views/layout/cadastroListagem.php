@@ -22,7 +22,7 @@
 <?= $this->section('conteudo') ?>
 <!-- Conteudo -->
 <ol class="breadcrumb">
-    <li class="breadcrumb-item"><a href="<?= base_url('atendimento/listagem') ?>">Listagem</a></li>
+    <li class="breadcrumb-item"><a href="<?= base_url('listagemcontroller/listagem') ?>">Listagem</a></li>
     <li class="breadcrumb-item active" aria-current="page">Cadastro Listagem</li>
 </ol>
 

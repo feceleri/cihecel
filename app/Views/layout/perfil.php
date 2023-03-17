@@ -241,11 +241,11 @@ function reverseDates($oldData)
                 echo "<tr'>";
                 echo  "<td style='text-align:center;'> <a href='" . base_url('atendimento/senha/' . base64_encode($listagem->id)) . "'> " . $listagem->senha . "</a></td>";
                 $entrada = dates($listagem->entrada);
-                echo  "<td> " . $entrada . "</td>";
+                echo  "<td class='text-center'> " . $entrada . "</td>";
                 if (isset($listagem->saida)) {
-                    echo "<td>" . dates($listagem->saida) . "</td>";
+                    echo "<td class='text-center'>" . dates($listagem->saida) . "</td>";
                 } else {
-                    echo "<td id='td' style='width:25%;'>
+                    echo "<td class='text-center' id='td' style='width:25%;'>
                             <a id='manual_" . $listagem->id . "' onclick='dateManual(" . $listagem->id . ")' class='showbutton' style='margin: 20px;'>
                                 <i class='fa fa-calendar' aria-hidden='true'></i>
                             </a>
@@ -322,9 +322,9 @@ function reverseDates($oldData)
             ?>
             <?php
             foreach ($listagensAdicionais as $listagem) {
-                echo "<tr>";
-                echo "<td> <a href='" . base_url('atendimento/senha/' . base64_encode($listagem->id)) . "'> $listagem->senha </a> </td>";
-                echo "<td>" . dates($listagem->entrada) . "</td>";
+                echo "<tr class='text-center'>";
+                echo "<td class='text-center'> <a href='" . base_url('atendimento/senha/' . base64_encode($listagem->id)) . "'> $listagem->senha </a> </td>";
+                echo "<td class='text-center'>" . dates($listagem->entrada) . "</td>";
                 if (isset($listagem->saida)) {
                     $saida = dates($listagem->saida);
                 } else {
@@ -338,14 +338,14 @@ function reverseDates($oldData)
                 } else {
                     $retorno =  date("d/m/Y", strtotime("+1 month", strtotime($listagem->saida)));
                 }
-                echo "<td>$retorno</td>";
+                echo "<td class='text-center'>$retorno</td>";
                 if ($retorno != 0) {
 
                     $recomendacao = date('d/m/Y', strtotime('-4 days', strtotime(reverseDates($retorno))));
                 } else {
                     $recomendacao = "<i class='fa fa-times' aria-hidden='true'></i>";
                 }
-                echo "<td>$recomendacao</td>";
+                echo "<td class='text-center'>$recomendacao</td>";
                 echo "</tr>";
             }
             ?>

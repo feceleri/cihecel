@@ -7,11 +7,11 @@
                     <div class="row">
                         <div class="col">
                             <label>NC:</label>
-                            <input type="text" id="ncResp" value="<?= isset($paciente->id) ? $paciente->id : '' ?>" name="ncResp" class="form-control" required disabled>
+                            <input type="text" id="ncResp" value="<?= isset($paciente->id) ? $paciente->id : '' ?>" name="ncResp" class="form-control" required readonly>
                         </div>
                         <div class="col-11">
                             <label>CPF</label>
-                            <input type="text" disabled maxlength="14" id="cpfResp" value="<?= isset($paciente->cpf) ? $paciente->cpf : '' ?>" name="cpfResp" class="form-control" required onkeyup="searchPeople(this.value)">
+                            <input type="text" readonly maxlength="14" id="cpfResp" value="<?= isset($paciente->cpf) ? $paciente->cpf : '' ?>" name="cpfResp" class="form-control" required onkeyup="searchPeople(this.value)">
                         </div>
                     </div>
                 </div>
@@ -25,7 +25,7 @@
                 </div>
                 <div class="form-group">
                     <label for="responsavel">Responsável</label>
-                    <input type="text" name="responsavel" id="responsavel" disabled value="<?= isset($paciente->nome) ? $paciente->nome : '' ?>" required class="form-control" readonly required />
+                    <input type="text" name="responsavel" id="responsavel" value="<?= isset($paciente->nome) ? $paciente->nome : '' ?>" required class="form-control" readonly required />
                 </div>
                 <div style="display:flex;" class="adicional">
 

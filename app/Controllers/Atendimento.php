@@ -22,11 +22,11 @@ class  Atendimento extends BaseController
 
         if ($searchInput) {
             $data = [
-                'resultado'      => $paciente->like('cpf', $searchInput)->where('cpf != ""')
-                    ->orLike('id', $searchInput)->where('cpf != ""')
-                    ->orLike('nome', $searchInput)->where('cpf != ""')
-                    ->orLike('created_at', $searchInput = implode('-', array_reverse(explode('/', $searchInput))))->where('cpf != ""')
-                    ->orLike('dataNascimento', $searchInput = implode('-', array_reverse(explode('/', $searchInput))))->where('cpf != ""')
+                'resultado'      => $paciente->like('cpf', $searchInput)
+                    ->orLike('id', $searchInput)
+                    ->orLike('nome', $searchInput)
+                    ->orLike('created_at', $searchInput = implode('-', array_reverse(explode('/', $searchInput))))
+                    ->orLike('dataNascimento', $searchInput = implode('-', array_reverse(explode('/', $searchInput))))
                     ->orderBy('id')->paginate(10),
                 'pager'         => $paciente->pager,
             ];
@@ -120,7 +120,8 @@ class  Atendimento extends BaseController
         $legadosModel = new Legados();
         $legados = $legadosModel->select('atendimento.id, atendimento.senha, atendimento.entrada, atendimento.saida, atendimento.obs')
             ->join('paciente', 'paciente.id = atendimento.idPaciente')
-            ->where('paciente.id', $id)->findAll();
+            ->where('paciente.id', $id)
+            ->orderBy('atendimento.entrada DESC')->findAll();
         $listagensAdicional = $listagemModel->select('listagem.id, listagem.senha, listagem.entrada, listagem.saida')->join('paciente', 'paciente.cpf = listagem.cpfResponsavel', 'listagem.idsAdicional->>"id"=' . $id)->where("JSON_CONTAINS(idsAdicional, '{\"id\": $id }')")->findAll();
         $data = [
             'resultado' => $resultado,
