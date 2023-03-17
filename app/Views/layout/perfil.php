@@ -147,7 +147,7 @@ function reverseDates($oldData)
 <div class="card-box">
     <div class="d-flex justify-content-end">
         <?php
-        echo ($_SESSION['usuario']['user']->tipo == '1') ? "<a class='edit me-1' href='" . base_url('atendimento/editar/' . base64_encode($resultado->id)) . "'><span><i class='fa fa-pencil' aria-hidden='true' title='Editar Cadastro'></i> </span></a><button class='edit' data-bs-target='#deleteModal' data-bs-toggle='modal' onclick='preencherModalDelete(" . $resultado->id . ")' ><span><i class='fa fa-trash' aria-hidden='true' title='Deletar Cadastro'></i> </span></button> " : (($_SESSION['usuario']['user']->tipo == '0') ? "<a class='edit me-1' href='" . base_url('atendimento/editar/' . base64_encode($resultado->id)) . "'><span><i class='fa fa-pencil' aria-hidden='true' title='Editar Cadastro'></i> </span></a>" : " ");
+        echo ($_SESSION['usuario']['user']->tipo == '1') ? "<a class='edit me-1' href='" . base_url('atendimento/editar/' . base64_encode($resultado->id)) . "'><span><i class='fa fa-pencil' aria-hidden='true' title='Editar Paciente'></i> </span></a><button class='edit' data-bs-target='#deleteModal' data-bs-toggle='modal' onclick='preencherModalDelete(" . $resultado->id . ")' ><span><i class='fa fa-trash' aria-hidden='true' title='Deletar Paciente'></i> </span></button> " : (($_SESSION['usuario']['user']->tipo == '0') ? "<a class='edit me-1' href='" . base_url('atendimento/editar/' . base64_encode($resultado->id)) . "'><span><i class='fa fa-pencil' aria-hidden='true' title='Editar Cadastro'></i> </span></a>" : " ");
         ?>
     </div>
     <div class="row">
@@ -224,7 +224,7 @@ function reverseDates($oldData)
                 <?php
 
                 echo ($_SESSION['usuario']['user']->tipo == '1' || $_SESSION['usuario']['user']->tipo == '0') ?
-                    "<a class='btn btn-success mb-2 mt-1' href='" . base_url('listagemcontroller/listagemsubmit/' . base64_encode($resultado->id)) . "'><i class='fa fa-book' aria-hidden='true'></i></a>" : '';
+                    "<a title='Novo Atendimento' class='btn btn-success mb-2 mt-1' href='" . base_url('listagemcontroller/listagemsubmit/' . base64_encode($resultado->id)) . "'><i class='fa fa-book' aria-hidden='true'></i></a>" : '';
                 ?>
             </div>
         </div>

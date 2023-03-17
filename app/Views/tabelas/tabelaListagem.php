@@ -82,9 +82,9 @@
             </div>
 
             <div style="float:right;" class="align-items-center">
-                <?php if ($_SESSION['usuario']['user']->tipo == '1' || $_SESSION['usuario']['user']->tipo == '0') : ?>
+                <?php /*if ($_SESSION['usuario']['user']->tipo == '1' || $_SESSION['usuario']['user']->tipo == '0') : ?>
                     <a class="btn btn-success mb-2 mt-1" href="<?= base_url('listagemcontroller/listagemsubmit/'. base64_encode(0)) ?>" style="float:right;"><i class="fa fa-book" aria-hidden="true"></i></a>
-                <?php endif; ?>
+                <?php endif; */?>
                 <form class="form-inline align-items-center mt-0" action="<?= base_url('atendimento/listagemPDF') ?>" method="post">
                     <div class="form-group input-group align-items-center">
                         <label for="data" class="form-label" style="min-width: 3em !important">Dia: </label>

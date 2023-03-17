@@ -57,21 +57,21 @@
                     <ul>
                         <li class="menu-title">Menu</li>
                         <li class="active">
-                            <a href="<?= base_url('') ?>"><i class="fa fa-user"></i> <span>Pacientes</span></a>
+                            <a title="Todos os Pacientes" href="<?= base_url('') ?>"><i class="fa fa-user"></i> <span>Pacientes</span></a>
+                        </li>
+                        <li class="active">
+                            <a title="Informações Incompletas" href="<?= base_url('atendimento/incompletos') ?>" ><i class="fa fa-question-circle" aria-hidden="true"></i><span>Info Incompleta</span></a>
                         </li>
                         <?php if ($_SESSION['usuario']['user']->tipo == '1') : ?>
                             <li class="active">
-                                <a href="<?= base_url('listagemcontroller/listagem') ?>"><i class="fa fa-address-book" aria-hidden="true"></i><span>Listagem</span></a>
+                                <a title="Listagem" href="<?= base_url('listagemcontroller/listagem') ?>"><i class="fa fa-address-book" aria-hidden="true"></i><span>Listagem</span></a>
                             </li>
                         <?php endif; ?>
                         <li class="active">
-                            <a href="<?= base_url('atendimento/novos') ?>"><i class="fa fa-line-chart" aria-hidden="true"></i><span>Relátorio</span></a>
+                            <a title="Relatórios" href="<?= base_url('atendimento/novos') ?>"><i class="fa fa-line-chart" aria-hidden="true"></i><span>Relátorio</span></a>
                         </li>
                         <li class="active">
-                            <a href="<?= base_url('atendimento/incompletos') ?>" title="Informações Incompletas"><i class="fa fa-question-circle" aria-hidden="true"></i><span>Info Incompleta</span></a>
-                        </li>
-                        <li class="active">
-                            <a href="<?= base_url('atendimento/legados') ?>" title="Atendimentos Anteriores"><i class="fa fa-clock-o" aria-hidden="true"></i><span>Atendimentos Anteriores</span></a>
+                            <a title="Atendimentos Anteriores" href="<?= base_url('atendimento/legados') ?>"><i class="fa fa-clock-o" aria-hidden="true"></i><span>Atendimentos Anteriores</span></a>
                         </li>
                     </ul>
                 </div>
