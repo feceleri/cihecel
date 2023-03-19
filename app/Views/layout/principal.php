@@ -10,6 +10,7 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!-- <link rel="stylesheet" type="text/css" href="<?= base_url('resources') ?>/css/bootstrap.min.css"> -->
     <link rel="stylesheet" href="    https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <link rel="stylesheet" type="text/css" href="<?= base_url('resources') ?>/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="<?= base_url('resources') ?>/css/style.css">
     <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
@@ -102,6 +103,8 @@
     <script src="<?= base_url('public') ?>/resources/js/Chart.bundle.js"></script>
     <script src="<?= base_url('public') ?>/resources/js/chart.js"></script>
     <script src="<?= base_url('public') ?>/resources/js/app.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    
     <!-- Script -->
     <?= $this->renderSection("script"); ?>
 </body>

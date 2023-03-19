@@ -42,7 +42,7 @@ class Paciente extends Model
 
     public function getAll()
     {
-        $result = $this->orderBy('nome')->findAll();
+        $result = $this->orderBy('id')->findAll();
         return $result;
     }
 

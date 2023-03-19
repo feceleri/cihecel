@@ -33,8 +33,8 @@ class  Atendimento extends BaseController
             return view('layout/paciente', $data);
         }
         $data = [
-            'resultado'  => $paciente->where('cpf != ""')->orderBy('id')->paginate(10),
-            'pager'     => $paciente->pager,
+            'resultado'     => $paciente->where('cpf != ""')->orderBy('id')->paginate(10),
+            'pager'         => $paciente->pager,
 
         ];
         echo view('layout/paciente', $data);
@@ -255,8 +255,8 @@ class  Atendimento extends BaseController
                 return view('layout/novos', $dados);
             } else {
                 $bd = new listagem;
-                $listagem = $bd->like('entrada', $dataPesquisa['dataListagem'])
-                    ->findAll();
+                $listagem = $bd->where('entrada BETWEEN "'. $dataPesquisa['data1'] .'" AND "'.$dataPesquisa['data2'] .'"')->orWhere('entrada', $dataPesquisa['data1'])
+                    ->orderby('entrada ASC')->findAll();
                 $dados = [
                     'listagem' => $listagem,
                 ];

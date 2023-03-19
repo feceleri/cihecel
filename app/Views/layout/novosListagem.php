@@ -38,8 +38,10 @@ $resources = new Resource;
         </div>
         <form action="<?= base_url('atendimento/novos') ?>" method="post">
             <div class="row">
-                <div class="col-4"><label for="dataPaciente">Digite uma data:</label>
-                    <input type="date" name="dataListagem">
+                <div class="col-4"><label for="data1">De:</label>
+                    <input type="date" name="data1">
+                    <label for="data2">Até:</label>
+                    <input type="date" name="data2">
                     <button style="border:none; background:none;" type="submit"><i class="fa fa-search"></i>
                 </div>
             </div>
