@@ -16,7 +16,7 @@ class  Listagemcontroller extends BaseController
 
     public function listagem()
     {
-        $listagem =  new Listagem();
+        $listagem = new Listagem();
         $post = $this->request->getPost();
 
         if (!empty($post)) {
@@ -117,15 +117,22 @@ class  Listagemcontroller extends BaseController
             $post = $this->request->getPost();
             if ($post['saida'] > date("Y-m-d")) {
                 $mensagem['tipo'] = 'alert-danger';
-                $mensagem['mensagem'] = 'A data foi inserida incorretamente!';
+                $mensagem['mensagem'] = 'A saída não pode ser maior que a data de hoje!';
                 session()->setFlashdata('mensagem', $mensagem);
                 return redirect()->back();
             }
-            $id = $post['id'];
+            $entrada =$bd->getListagem($post['id'])->entrada;
+            $entrada = date('Y-m-d', strtotime($entrada));
+            if ($post['saida'] < $entrada ){ 
+                $mensagem['tipo'] = 'alert-danger';
+                $mensagem['mensagem'] = 'A saída não pode ser menor que a entrada!';
+                session()->setFlashdata('mensagem', $mensagem);
+                return redirect()->back();
+            }
             $date = [
                 'saida' => $post['saida'],
             ];
-            if ($bd->update($id, $date)) {
+            if ($bd->update($post['id'], $date)) {
                 $mensagem['tipo'] = 'alert-success';
                 $mensagem['mensagem'] = 'Saída registrada com successo!';
                 session()->setFlashdata('mensagem', $mensagem);

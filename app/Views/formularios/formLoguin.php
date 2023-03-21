@@ -13,8 +13,8 @@
             <input type="password" name="password" class="form-control">
         </div>
     </div>
-    <div class="text-right">
-        <a class="btn btn-secondary float-start" href="<?= base_url('login/recuperarSenha')?>">Esqueci a senha</a>
+    <div>
+        <!-- <a class="btn btn-secondary float-start" href="<?= base_url('login/recuperarSenha')?>">Esqueci a senha</a> -->
         <button type="submit" class="btn btn-primary float-end">Entrar</button>
         <p><br></p>
     </div>

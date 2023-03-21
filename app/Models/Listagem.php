@@ -67,7 +67,7 @@ class Listagem extends Model
 
 
 
-    public function getMed($id)
+    public function getListagem($id)
     {
         $result = $this->find($id);
         return $result;
