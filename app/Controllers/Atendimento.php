@@ -395,8 +395,7 @@ class  Atendimento extends BaseController
                     $html_content .= $listagem->pdfDetails($date);
                     $dompdf->loadHtml($html_content);
                     $dompdf->render();
-                    header('Content-Type: application/pdf');
-                    $dompdf->stream("Listagem" . ".pdf", array("Attachment" => 0));
+                    $dompdf->stream("Listagem.pdf", array("Attachment" => false));
                 }
             }
         }

@@ -104,7 +104,6 @@ class Listagem extends Model
                 <th>Senha</th>
                 <th>CPF</th>
                 <th>Nome</th>
-                <th>Qtd. Receitas</th>
                 <th>Data Entrada</th>
                 <th>Data Retirada</th> 
             </tr>
@@ -116,7 +115,6 @@ class Listagem extends Model
                     <td>' . $row->senha . '</td>
                     <td nowrap>' . $row->cpfResponsavel . '</td>
                     <td nowrap>' . $row->nomeResponsavel . '.</td>
-                    <td>' . $row->qtdReceitaResponsavel . '</td>
                     <td>' . date('d/m/Y',  strtotime($row->entrada)) . '</td>
                     <td>' . (isset($row->saida) ? date('d/m/Y',  strtotime($row->saida)) : 'Não retirado') . '</td>   
                 </tr>
