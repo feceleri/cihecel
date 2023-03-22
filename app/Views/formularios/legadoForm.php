@@ -2,7 +2,7 @@
     <div class="col-md-12">
         <div class="card-box">
             <h4 class="card-title">Informações Atendimento</h4>
-            <form action="<?= base_url('atendimento/salvarLegado') ?>" method="POST" name="atendimentoCadastro" id='formPrincipal'>
+            <form action="<?= base_url('atendimento/legadoupdate/'. (base64_encode($resultado->id))) ?>" method="POST" name="atendimentoCadastro" id='formPrincipal'>
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group row">
@@ -26,7 +26,7 @@
                     </div>
                     <div class="col-6">
                         <label for="comentario">Observação:</label>
-                        <textarea name="obs" id="comentario" class="form-control" name="obs" rows="6" minlength="5" required><?= $resultado->obs ?></textarea>
+                        <textarea name="obs" id="comentario" class="form-control" name="obs" rows="6" minlength="5"><?= $resultado->obs ?></textarea>
                         <input name="id" type="text" style="display:none;" value="<?= base64_encode($resultado->id); ?>">
 
                     </div>

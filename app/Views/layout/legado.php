@@ -22,7 +22,7 @@
 <?= $this->section('conteudo') ?>
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="<?= base_url('/atendimento/legados') ?>">Atendimento</a></li>
+        <li class="breadcrumb-item"><a href="javascript:history.go(-1)">Perfil</a></li>
         <?php if (isset($editar)) {
             echo '<li class="breadcrumb-item active" aria-current="page">Edição</li>';
         } else {

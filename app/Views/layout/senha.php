@@ -47,7 +47,7 @@ function Reversedates($oldData)
 } ?>
 
 <ol class="breadcrumb print">
-    <li class="breadcrumb-item"><a href="<?= base_url('atendimento/listagem') ?>">Listagem</a></li>
+    <li class="breadcrumb-item"><a href="javascript:history.go(-1)">Perfil</a></li>
     <li  style='text-transform:capitalize' class="breadcrumb-item active" aria-current="page">Listagem senha : <?= $responsavel->senha ?>   Responsável - <?= $responsavel->nome ?></li>
 </ol>
 

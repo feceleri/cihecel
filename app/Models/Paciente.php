@@ -52,6 +52,13 @@ class Paciente extends Model
         return $result;
     }
 
+    public function getUserIdByCpf($cpf){
+        $result = $this->select('paciente.id')
+        ->join('listagem', 'paciente.cpf = listagem.cpfResponsavel')
+        ->where('paciente.cpf', $cpf)->find();
+        return $result[0]->id;
+    }
+
     public function deleteUser($id)
     {
         if ($this->find($id)) {

@@ -38,6 +38,12 @@ class Legados extends Model
         return $result;
     }
 
+    public function getUserId($id){
+        $result = $this->select('atendimento.idPaciente')
+        ->where('atendimento.idPaciente', $id)->find();
+        return $result[0]->idPaciente;
+    }
+
     public function getService($id)
     {
         $result = $this->find($id);
@@ -72,5 +78,18 @@ class Legados extends Model
             'saida' => $post['saida'],
         ];
         return $this->update($id, $data) ? true : false;
+    }
+
+    public function modelLegadosUpdate($post, $id)
+    {
+        if (!empty($post)) {
+            $idListagem = base64_decode($id);
+            $dadosBD = [
+                "senha" => $post["senha"],
+                "entrada" => $post["dtEntrada"],
+            ];
+
+            return $this->table('listagem')->update($idListagem,$dadosBD) ? true : false;
+        }
     }
 }

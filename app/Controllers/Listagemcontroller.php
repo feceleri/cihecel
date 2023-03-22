@@ -146,4 +146,55 @@ class  Listagemcontroller extends BaseController
         }
     }
 
+    public function listagemUpdate($id)
+    {
+        $listagem = new Listagem();
+        $paciente = new Paciente();
+        $post = $this->request->getPost();
+        $senha = $listagem->getListagem(base64_decode($id));
+        if (!empty($post)) {
+            $listagem = new Listagem();
+            if ($listagem->modelListagemUpdate($post, $id)) {
+                $mensagem['mensagem'] = 'Listagem registrada com successo!';
+                $mensagem['tipo'] = 'alert-success';
+                $this->session->setFlashdata('mensagem', $mensagem);
+                $idPessoa = $paciente->getUserIdByCpf($senha->cpfResponsavel);
+                return redirect()->to(isset($idPessoa) ? base_url('atendimento/perfil/' . base64_encode($idPessoa)) : base_url('listagemcontroller/listagem'));
+            } else {
+                $mensagem['mensagem'] = 'Houve um erro no cadastramento, tente novamente!';
+                $mensagem['tipo'] = 'alert-danger';
+                $this->session->setFlashdata('mensagem', $mensagem);
+                return redirect()->to(isset($idPessoa) ? base_url('atendimento/perfil/' . base64_encode($idPessoa)) : base_url('listagemcontroller/listagem'));
+            }
+        } else {
+            $userData = [
+                'senha'     => $senha,
+                'id'        => $id,
+                'editar'    => true,
+            ];
+            echo view('layout/cadastroListagem', $userData);
+        }
+    }
+
+    public function editarListagem($id)
+    {
+
+        $listagem = new Listagem();
+        $senha = $listagem->getListagem(base64_decode($id));
+        $userData = [
+            'senha'     => $senha,
+            'id'        => $id,
+            'editar'    => true,
+        ];
+        echo view('layout/cadastroListagem', $userData);
+    }
+
+    public function deletarListagem()
+    {
+        if ($this->request->isAJAX()) {
+            $id = $this->request->getPost('id');
+            $listagem =  new Listagem();
+            return $this->response->setJSON($listagem->deleteListagem($id));
+        }
+    }
 }

@@ -144,6 +144,40 @@ function reverseDates($oldData)
         </div>
     </div>
 </div>
+<div class="modal fade" id="modalDeleteListagem" tabindex="-1" aria-labelledby="modalDeleteListagemLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalDeleteListagemLabel"><span class="text-danger font-weight-bold">DELETAR </span>Atendimento</h5>
+                <button type="button" id="fecharModal" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Você realmente deseja <span class="text-danger font-weight-bold">EXCLUIR</span> esse atendimento do paciente?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <a class="btn btn-danger" id="btnDeletarListagem">Excluir</a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="modalDeleteLegado" tabindex="-1" aria-labelledby="modalDeleteLegadoLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalDeleteLegadoLabel"><span class="text-danger font-weight-bold">DELETAR </span>Atendimento</h5>
+                <button type="button" id="fecharModal" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Você realmente deseja <span class="text-danger font-weight-bold">EXCLUIR</span> esse atendimento do paciente?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <a class="btn btn-danger" id="btnDeletarLegado">Excluir</a>
+            </div>
+        </div>
+    </div>
+</div>
 <div class="card-box">
     <div class="d-flex justify-content-end">
         <?php
@@ -233,8 +267,9 @@ function reverseDates($oldData)
                 <th>Senha</th>
                 <th>Entrada</th>
                 <th>Saída</th>
-                <th>Retorno</th>
-                <th>Recomendação</th>
+                <!-- <th>Retorno</th>
+                <th>Recomendação</th> -->
+                <th>Ações</th>
             </tr>
             <?php
             foreach ($listagens as $listagem) {
@@ -260,19 +295,36 @@ function reverseDates($oldData)
                             </form>
                           </td>";
                 }
-                $retorno = 0;
-                if ($listagem->saida == null) {
-                    $retorno = "<i class='fa fa-times' aria-hidden='true'></i>";
-                } else {
-                    $retorno =  date("d/m/Y",strtotime("+1 month", strtotime($listagem->saida)));
-                }
-                echo "<td style='text-align:center;'>$retorno</td>";
-                if ($retorno != 0) {
-                    $recomendacao =  date("d/m/Y",strtotime("+27 days", strtotime($listagem->saida)));
-                } else {
-                    $recomendacao = "<i class='fa fa-times' aria-hidden='true'></i>";
-                }
-                echo "<td style='text-align:center;'>$recomendacao</td>";
+                // $retorno = 0;
+                // if ($listagem->saida == null) {
+                //     $retorno = "<i class='fa fa-times' aria-hidden='true'></i>";
+                // } else {
+                //     $retorno =  date("d/m/Y", strtotime("+1 month", strtotime($listagem->saida)));
+                // }
+                // echo "<td style='text-align:center;'>$retorno</td>";
+                // if ($retorno != 0) {
+                //     $recomendacao =  date("d/m/Y", strtotime("+27 days", strtotime($listagem->saida)));
+                // } else {
+                //     $recomendacao = "<i class='fa fa-times' aria-hidden='true'></i>";
+                // }
+                // echo "<td style='text-align:center;'>$recomendacao</td>";
+                echo ($_SESSION['usuario']['user']->tipo == '1') ? "<td class='text-center'> 
+                                                                        <div>
+                                                                            <a title='Editar Atendimento' class='pencil' href='" . base_url('listagemcontroller/listagemupdate/' . base64_encode($listagem->id)) . "'>
+                                                                                <span><i class='fa fa-pencil' aria-hidden='true'></i> </span>
+                                                                            </a>
+                                                                            <button title='Deletar Atendimento' class='eraser border border-0 bg-transparent' data-bs-target='#modalDeleteListagem' data-bs-toggle='modal' onclick='preencherModalDeleteListagem(" . $listagem->id . ")' >
+                                                                                <span><i class='fa fa-eraser' aria-hidden='true'></i> </span>
+                                                                            </button>
+                                                                        </div> 
+                                                                    </td>" 
+                  : (($_SESSION['usuario']['user']->tipo == '0') ? "<td class='text-center'> 
+                                                                        <div>
+                                                                            <a title='Editar Atendimento' class='pencil' href='" . base_url('listagemcontroller/listagemupdate/' . base64_encode($listagem->id)) . "'>
+                                                                                <span><i class='fa fa-pencil' aria-hidden='true'></i>
+                                                                            </a>
+                                                                        </div>
+                                                                    </td>" : "");
                 echo "</tr>";
             }
 
@@ -301,20 +353,37 @@ function reverseDates($oldData)
                     }
 
 
-                    $retorno = 0;
-                    if ($legado->saida == null) {
-                        $retorno = "<i class='fa fa-times' aria-hidden='true'></i>";
-                    } else {
-                        $retorno =  date("d/m/Y", strtotime("+1 month", strtotime($legado->saida)));
-                    }
-                    echo "<td class='text-center'>$retorno</td>";
-                    if ($retorno != 0) {
+                    // $retorno = 0;
+                    // if ($legado->saida == null) {
+                    //     $retorno = "<i class='fa fa-times' aria-hidden='true'></i>";
+                    // } else {
+                    //     $retorno =  date("d/m/Y", strtotime("+1 month", strtotime($legado->saida)));
+                    // }
+                    // echo "<td class='text-center'>$retorno</td>";
+                    // if ($retorno != 0) {
 
-                        $recomendacao = date('d/m/Y', strtotime('-4 days', strtotime(reverseDates($retorno))));
-                    } else {
-                        $recomendacao = "<i class='fa fa-times' aria-hidden='true'></i>";
-                    }
-                    echo "<td class='text-center'>$recomendacao</td>";
+                    //     $recomendacao = date('d/m/Y', strtotime('-4 days', strtotime(reverseDates($retorno))));
+                    // } else {
+                    //     $recomendacao = "<i class='fa fa-times' aria-hidden='true'></i>";
+                    // }
+                    // echo "<td class='text-center'>$recomendacao</td>";
+                    echo ($_SESSION['usuario']['user']->tipo == '1') ? "<td class='text-center'> 
+                                                                        <div>
+                                                                            <a title='Editar Atendimento' class='pencil' href='" . base_url('atendimento/legadoupdate/' . base64_encode($legado->id)) . "'>
+                                                                                <span><i class='fa fa-pencil' aria-hidden='true'></i> </span>
+                                                                            </a>
+                                                                            <button title='Deletar Atendimento' class='eraser border border-0 bg-transparent' data-bs-target='#modalDeleteLegado' data-bs-toggle='modal' onclick='preencherModalDeleteLegado(" . $legado->id . ")' >
+                                                                                <span><i class='fa fa-eraser' aria-hidden='true'></i> </span>
+                                                                            </button>
+                                                                        </div> 
+                                                                    </td>" 
+                  : (($_SESSION['usuario']['user']->tipo == '0') ? "<td class='text-center'> 
+                                                                        <div>
+                                                                            <a title='Editar Atendimento' class='pencil' href='" . base_url('atendimento/legadoupdate/' . base64_encode($legado->id)) . "'>
+                                                                                <span><i class='fa fa-pencil' aria-hidden='true'></i>
+                                                                            </a>
+                                                                        </div>
+                                                                    </td>" : "");
                     echo "</tr>";
                 }
             }
@@ -361,7 +430,7 @@ function reverseDates($oldData)
             btnExcluir = modal.getElementsByClassName("btn-danger")[0];
             btnExcluir.setAttribute('dado-alvo', id);
         }
-
+        
         $('#btnDeletar').on('click', function() {
             var id = btnExcluir.getAttribute('dado-alvo', id);
             // id = 3;
@@ -385,6 +454,84 @@ function reverseDates($oldData)
                     } else {
                         alerta.classList.add('alert-danger');
                         msg.textContent = 'Erro ao excluir o paciente!';
+                    }
+                    new bootstrap.Toast(document.querySelector('#basicToast')).show();
+                    document.querySelector('#fecharModal').click();
+                    document.querySelector('#tr' + id).remove();
+
+
+                }
+            });
+        });
+        
+        function preencherModalDeleteListagem(id) {
+            modal = document.getElementById("modalDeleteListagem");
+            btnExcluir = modal.getElementsByClassName("btn-danger")[0];
+            btnExcluir.setAttribute('dado-alvo', id);
+        }
+
+        $('#btnDeletarListagem').on('click', function() {
+            var id = btnExcluir.getAttribute('dado-alvo', id);
+            // id = 3;
+            $.ajax({
+                url: '<?= base_url('listagemcontroller/deletarlistagem') ?>',
+                type: 'post',
+                dataType: 'json',
+
+                data: {
+                    id: id
+                },
+                success: function(data) {
+                    msg = document.querySelector('#msgInfo');
+                    alerta = document.querySelector('#alerta');
+                    if (data) {
+                        alerta.classList.add('alert-success');
+                        msg.textContent = 'Excluido com sucesso!';
+                        setTimeout(() => {
+                            window.location.reload();
+                        }, 500)
+                    } else {
+                        alerta.classList.add('alert-danger');
+                        msg.textContent = 'Erro ao excluir o atendimento!';
+                    }
+                    new bootstrap.Toast(document.querySelector('#basicToast')).show();
+                    document.querySelector('#fecharModal').click();
+                    document.querySelector('#tr' + id).remove();
+
+
+                }
+            });
+        });
+
+        function preencherModalDeleteLegado(id) {
+            modal = document.getElementById("modalDeleteLegado");
+            btnExcluir = modal.getElementsByClassName("btn-danger")[0];
+            btnExcluir.setAttribute('dado-alvo', id);
+        }
+
+        $('#btnDeletarLegado').on('click', function() {
+            var id = btnExcluir.getAttribute('dado-alvo', id);
+            // id = 3;
+            $.ajax({
+                url: '<?= base_url('atendimento/deletarlegado') ?>',
+                type: 'post',
+                dataType: 'json',
+
+                data: {
+                    id: id
+                },
+                success: function(data) {
+                    msg = document.querySelector('#msgInfo');
+                    alerta = document.querySelector('#alerta');
+                    if (data) {
+                        alerta.classList.add('alert-success');
+                        msg.textContent = 'Excluido com sucesso!';
+                        setTimeout(() => {
+                            window.location.reload();
+                        }, 500)
+                    } else {
+                        alerta.classList.add('alert-danger');
+                        msg.textContent = 'Erro ao excluir o atendimento!';
                     }
                     new bootstrap.Toast(document.querySelector('#basicToast')).show();
                     document.querySelector('#fecharModal').click();

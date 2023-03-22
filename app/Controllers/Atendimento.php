@@ -395,6 +395,7 @@ class  Atendimento extends BaseController
                     $html_content .= $listagem->pdfDetails($date);
                     $dompdf->loadHtml($html_content);
                     $dompdf->render();
+                    header('Content-Type: application/pdf');
                     $dompdf->stream("Listagem" . ".pdf", array("Attachment" => 0));
                 }
             }
@@ -452,37 +453,32 @@ class  Atendimento extends BaseController
         return view('layout/legado', $data);
     }
 
-    public function salvarLegado()
+    public function legadoUpdate($id)
     {
-        $legado =  new Legados();
-
+        $legados = new legados();
         $post = $this->request->getPost();
-
+        $resultado = $legados->getService(base64_decode($id));
         if (!empty($post)) {
-
-            $mensagem = [
-                'mensagem' => 'Cadastrado com sucesso!',
-                'tipo' => 'alert-success',
-            ];
-
-            $dadosBD = [
-                "senha" => $post["senha"],
-                "idPaciente" => $post["idPaciente"],
-                "entrada" => $post["dtEntrada"],
-                "obs"     => $post["obs"]
-            ];
-
-            if (isset($post["id"])) {
-                $dadosBD["id"] = $post["id"];
-
-                $legado->save($dadosBD);
-                $mensagem["mensagem"] =  'Alterado com sucesso!';
+            if ($legados->modelLegadosUpdate($post, $id)) {
+                $mensagem['mensagem'] = 'Listagem registrada com successo!';
+                $mensagem['tipo'] = 'alert-success';
                 $this->session->setFlashdata('mensagem', $mensagem);
-                return redirect()->to(base_url('/atendimento/legados'));
+                $idPessoa = $legados->getUserId($resultado->idPaciente);
+                return redirect()->to(isset($idPessoa) ? base_url('atendimento/perfil/' . base64_encode($idPessoa)) : base_url('listagemcontroller/listagem'));
+            } else {
+                $mensagem['mensagem'] = 'Houve um erro no cadastramento, tente novamente!';
+                $mensagem['tipo'] = 'alert-danger';
+                $this->session->setFlashdata('mensagem', $mensagem);
+                return redirect()->to(isset($idPessoa) ? base_url('atendimento/perfil/' . base64_encode($idPessoa)) : base_url('listagemcontroller/listagem'));
             }
+        } else {
+            $userData = [
+                'resultado' => $resultado,
+                'id'        => $id,
+                'editar'    => true,
+            ];
+            echo view('layout/legado', $userData);
         }
-
-        echo view('layout/legado');
     }
 
     public function obsLegado()

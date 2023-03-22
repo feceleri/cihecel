@@ -53,7 +53,6 @@ class Listagem extends Model
             $dadosBD = [
                 "cpfResponsavel" => $post["cpfResp"],
                 "senha" => $post["senha"],
-                "qtdReceitaResponsavel" => $post["receitasResponsavel"],
                 "idsAdicional" => $post["idsAdicional"],
                 "idAdicionalTeste" => $post["idsAdicional"],
                 "nomeResponsavel" => $nomeTel[0]->nome,
@@ -65,7 +64,30 @@ class Listagem extends Model
         }
     }
 
+    public function modelListagemUpdate($post, $id)
+    {
+        if (!empty($post)) {
+            $idListagem = base64_decode($id);
+            $dadosBD = [
+                "senha" => $post["senha"],
+                "entrada" => $post["dtEntrada"],
+            ];
 
+            return $this->table('listagem')->update($idListagem,$dadosBD) ? true : false;
+        }
+    }
+
+    public function deleteListagem($id)
+    {
+        if ($this->find($id)) {
+            $this->delete($id);
+            return true;
+            // return 'ACHOU!';
+        } else {
+            return false;
+            // return 'FKIHJDES';
+        }
+    }
 
     public function getListagem($id)
     {
