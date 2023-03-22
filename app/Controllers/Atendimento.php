@@ -114,15 +114,14 @@ class  Atendimento extends BaseController
         $id = base64_decode($id);
         $cadastros = new  Paciente();
         $resultado = $cadastros->getUser($id);
-
         $listagemModel =  new Listagem();
-        $listagens = $listagemModel->select('listagem.id, listagem.senha, listagem.entrada, listagem.saida')->join('paciente', 'paciente.cpf = listagem.cpfResponsavel', 'listagem.idsAdicional->>"id"=' . $id)->where('paciente.id = ' . $id)->findAll();
+        $listagens = $listagemModel->select('listagem.id, listagem.senha, listagem.entrada, listagem.saida')->join('paciente', 'paciente.id = listagem.idPaciente', 'listagem.idsAdicional->>"id"=' . $id)->where('paciente.id = ' . $id)->findAll();
         $legadosModel = new Legados();
         $legados = $legadosModel->select('atendimento.id, atendimento.senha, atendimento.entrada, atendimento.saida, atendimento.obs')
             ->join('paciente', 'paciente.id = atendimento.idPaciente')
             ->where('paciente.id', $id)
             ->orderBy('atendimento.entrada DESC')->findAll();
-        $listagensAdicional = $listagemModel->select('listagem.id, listagem.senha, listagem.entrada, listagem.saida')->join('paciente', 'paciente.cpf = listagem.cpfResponsavel', 'listagem.idsAdicional->>"id"=' . $id)->where("JSON_CONTAINS(idsAdicional, '{\"id\": $id }')")->findAll();
+        $listagensAdicional = $listagemModel->select('listagem.id, listagem.senha, listagem.entrada, listagem.saida')->join('paciente', 'paciente.id = listagem.idPaciente', 'listagem.idsAdicional->>"id"=' . $id)->where("JSON_CONTAINS(idsAdicional, '{\"id\": $id }')")->findAll();
         $data = [
             'resultado' => $resultado,
             'listagens' => $listagens,

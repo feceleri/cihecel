@@ -67,6 +67,7 @@ class  Listagemcontroller extends BaseController
     {
         $post = $this->request->getPost();
         if (!empty($post)) {
+            // var_dump($post);die;
             $listagem = new Listagem();
             if ($listagem->modelListagemInsert($post)) {
                 $mensagem['mensagem'] = 'Listagem registrada com successo!';
@@ -158,7 +159,7 @@ class  Listagemcontroller extends BaseController
                 $mensagem['mensagem'] = 'Listagem registrada com successo!';
                 $mensagem['tipo'] = 'alert-success';
                 $this->session->setFlashdata('mensagem', $mensagem);
-                $idPessoa = $paciente->getUserIdByCpf($senha->cpfResponsavel);
+                $idPessoa = $paciente->getUserIdByCpf($senha->ncResp);
                 return redirect()->to(isset($idPessoa) ? base_url('atendimento/perfil/' . base64_encode($idPessoa)) : base_url('listagemcontroller/listagem'));
             } else {
                 $mensagem['mensagem'] = 'Houve um erro no cadastramento, tente novamente!';
