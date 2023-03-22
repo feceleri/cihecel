@@ -395,7 +395,7 @@ class  Atendimento extends BaseController
                     $html_content .= $listagem->pdfDetails($date);
                     $dompdf->loadHtml($html_content);
                     $dompdf->render();
-                    $dompdf->stream("Listagem.pdf");
+                    $dompdf->stream("Listagem_".  date('d-m-Y') . ".pdf");
                 }
             }
         }
