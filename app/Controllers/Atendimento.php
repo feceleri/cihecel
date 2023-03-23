@@ -178,7 +178,7 @@ class  Atendimento extends BaseController
         $bdLegados->find($id);
         $bdPaciente = new paciente();
         $bdListagem->find($id);
-        $people = $bdListagem->select('paciente.cpf,paciente.nome,paciente.telefone1,paciente.telefone2,qtdReceitaResponsavel,idsAdicional,listagem.id,listagem.senha,listagem.entrada,listagem.saida')->join('paciente', 'paciente.id = listagem.idPaciente')->findAll();
+        $people = $bdListagem->select('paciente.cpf, paciente.nome, paciente.telefone1, paciente.telefone2, idsAdicional, listagem.id, listagem.idPaciente, listagem.senha, listagem.entrada,listagem.saida')->join('paciente', 'paciente.id = listagem.idPaciente')->findAll();
         $legados = $bdLegados->select('paciente.cpf, paciente.nome, paciente.telefone1, paciente.telefone2, atendimento.obs, atendimento.id, atendimento.senha, atendimento.entrada, atendimento.saida')
             ->join('paciente', 'paciente.id = atendimento.idPaciente')
             ->findAll();
@@ -197,18 +197,19 @@ class  Atendimento extends BaseController
                     $adicionais = [];
                     foreach ($idsAdicional as $idAdicional) {
                         $item = $bdPaciente->find($idAdicional->id);
-                        $item->qtd = $idAdicional->qtd;
                         array_push($adicionais, $item);
                     }
                     $date = [
                         'responsavel' => $responsavel,
                         'adicionais' => $adicionais,
+                        'id'          => $id,
                     ];
                     echo view('layout/senha', $date);
                 } else {
                     $date = [
                         'responsavel' => $responsavel,
                         'legado'      => $legado,
+                        'id'          => $id,
                     ];
                     echo view('layout/senha', $date);
                 }

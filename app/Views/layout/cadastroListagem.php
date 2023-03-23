@@ -147,7 +147,7 @@
         }
     });
 
-    function adicional(nomeAdicional, cpfAdicional, qtdAdicional) {
+    function adicional(nomeAdicional, cpfAdicional) {
         if (cpfAdicional.length == 14 & nomeAdicional !== 'CPF inválido ou não existe no sistema.') {
             var idPaciente = document.getElementById("idAdicional").value;
            
@@ -164,21 +164,21 @@
                 var linha = tb.insertRow(qtdLinhas);
                 var cellNome = linha.insertCell(0);
                 var cellCpf = linha.insertCell(1);
-                var cellQtd = linha.insertCell(2);
+                // var cellQtd = linha.insertCell(2);
 
                 var item = {
                     id: parseInt(idPaciente),
-                    qtd: qtdAdicional
+                    // qtd: qtdAdicional
                 };
 
                 pacientes.push(item);
 
                 cellNome.innerHTML = nomeAdicional;
                 cellCpf.innerHTML = cpfAdicional;
-                cellQtd.innerHTML = qtdAdicional;
+                // cellQtd.innerHTML = qtdAdicional;
                 document.getElementById("idsAdicional").value = JSON.stringify(pacientes);
                 document.getElementById("cpfAdicional").value = null;
-                document.getElementById("qtdAdicional").value = null;
+                // document.getElementById("qtdAdicional").value = null;
                 document.getElementById("nomeAdicional").value = null;
 
             } else {

@@ -48,7 +48,7 @@ function Reversedates($oldData)
 
 <ol class="breadcrumb print">
     <li class="breadcrumb-item"><a href="javascript:history.go(-1)">Perfil</a></li>
-    <li  style='text-transform:capitalize' class="breadcrumb-item active" aria-current="page">Listagem senha : <?= $responsavel->senha ?>   Responsável - <?= $responsavel->nome ?></li>
+    <li style='text-transform:capitalize' class="breadcrumb-item active" aria-current="page">Listagem senha : <?= $responsavel->senha ?> Responsável - <?= $responsavel->nome ?></li>
 </ol>
 
 <div class="card-box ajuste" style="width:455px">
@@ -57,21 +57,22 @@ function Reversedates($oldData)
         <thead>
             <tr>
                 <th>Nome</th>
-                <th>QTD Receitas</th>
+                <th class="text-end">NC</th>
             </tr>
         </thead>
         <tbody>
             <tr>
-                <td style="text-transform: capitalize;"><?= $responsavel->nome ?></td>
-                <td><?= $responsavel->qtdReceitaResponsavel ?></td>
+                <td style="text-transform: capitalize;"><span><?= $responsavel->nome ?></td>
+                <td class="text-end" style="text-transform: capitalize;"><span><?= $responsavel->idPaciente ?></span></td>
             </tr>
             <?php
             if (($responsavel->idsAdicional != '0')) {
                 foreach ($adicionais as $adicional) {
                     echo '<tr>';
+                    echo '<th colspan="2">Adicional</th>';
+                    echo '</tr>';
+                    echo '<tr>';
                     echo "<td style='text-transform: capitalize;'>" . $adicional->nome . "</td>";
-
-                    echo "<td>" . $adicional->qtd . "<td>";
                     echo '</tr>';
                 }
             }
@@ -84,31 +85,14 @@ function Reversedates($oldData)
         <thead>
             <tr>
                 <th>Entrada</th>
-                <th>Saída</th>
-                <th>Retorno</th>
-                <th>Recomendação</th>
+                <th class="text-end mr-2">Saída</th>
             </tr>
         </thead>
         <tbody>
             <?php
-           echo "<tr>";
-           echo "<td>" . dates($responsavel->entrada). "</td>" ;
-
-           echo   $responsavel->saida == null ? "<td> <i class='fa fa-times' aria-hidden='true'></i> </td> " : "<td>".dates($responsavel->saida)."</td>" ;
-            $retorno = 0;
-            if ($responsavel->saida == null) {
-                $retorno = "<i class='fa fa-times' aria-hidden='true'></i>";
-            } else {
-                $retorno =  date("d/m/Y", strtotime("+1 month", strtotime($responsavel->saida)));
-            }
-            echo "<td style='text-align:center;'>$retorno</td>";
-            if ($retorno != 0) {
-
-                $recomendacao = date('d/m/Y', strtotime('-4 days', strtotime(Reversedates($retorno))));
-            } else {
-                $recomendacao = "<i class='fa fa-times' aria-hidden='true'></i>";
-            }
-            echo "<td style='text-align:center;'>$recomendacao</td>";
+            echo "<tr>";
+            echo "<td>" . dates($responsavel->entrada) . "</td>";
+            echo   $responsavel->saida == null ? "<td class='text-end'> <i class='fa fa-times' aria-hidden='true'></i> </td> " : "<td class='text-end'>" . dates($responsavel->saida) . "</td>";
             echo "</tr>";
 
             ?>

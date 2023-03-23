@@ -42,17 +42,17 @@
                         <label style="margin-bottom: 10px;">CPF</label>
                         <input type="text" name="cpfAdicional" class="form-control" maxlength="14" id="cpfAdicional">
                     </div>
-                    <!--  -->
+                    <!--  
                     <div class="form-group" style="margin-right: 10px;">
                         <label style="margin-bottom: 10px;">QTD de receitas</label>
                         <input type="number" class="form-control" name="qtdAdicional" id="qtdAdicional">
                     </div>
-                    <!--  -->
+                     -->
                     <div class="form-group" style="margin-right: 10px;">
                         <label style="margin-bottom: 10px;">Nome</label>
                         <input style="width: 292px; " type="text" class="form-control" id="nomeAdicional" name="nomeAdicional" readonly required>
                     </div>
-                    <input readonly value="+" onclick="adicional(nomeAdicional.value,cpfAdicional.value,qtdAdicional.value)" id="add" class="btn btn-success" style="height: min-content;width: 35px; margin-top: 33px;"> </input>
+                    <input readonly value="+" onclick="adicional(nomeAdicional.value,cpfAdicional.value)" id="add" class="btn btn-success" style="height: min-content;width: 35px; margin-top: 33px;"> </input>
 
                     <input type="hidden" value="0" name="idAdicional" id="idAdicional" />
                     <input type="hidden" value="0" name="idsAdicional" id="idsAdicional" />
@@ -64,7 +64,6 @@
                             <tr>
                                 <td>Nome</td>
                                 <td>CPF</td>
-                                <td>QTD</td>
                             </tr>
                         </thead>
                     </table>
