@@ -13,7 +13,7 @@ class Listagem extends Model
     protected $returnType       = 'object';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['senha','entrada', 'ncResp', 'qtdReceitaResponsavel', 'idsAdicional', 'saida', 'nomeResponsavel', 'telResponsavel'];
+    protected $allowedFields    = ['senha','entrada', 'idPaciente', 'qtdReceitaResponsavel', 'idsAdicional', 'saida', 'nomeResponsavel', 'telResponsavel'];
 
 
     protected $useTimestamps = true;
@@ -51,7 +51,7 @@ class Listagem extends Model
             $db = db_connect();
             $nomeTel = $db->query("SELECT nome, telefone1 FROM paciente WHERE id = '" . $post["ncResp"] . "'")->getResult();
             $dadosBD = [
-                "ncResp" => $post["ncResp"],
+                "idPaciente" => $post["ncResp"],
                 "senha" => $post["senha"],
                 "idsAdicional" => $post["idsAdicional"],
                 "idAdicionalTeste" => $post["idsAdicional"],
