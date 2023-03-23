@@ -179,10 +179,13 @@ function reverseDates($oldData)
     </div>
 </div>
 <div class="card-box">
-    <div class="d-flex justify-content-end">
-        <?php
-        echo ($_SESSION['usuario']['user']->tipo == '1') ? "<a class='edit me-1' href='" . base_url('atendimento/editar/' . base64_encode($resultado->id)) . "'><span><i class='fa fa-pencil' aria-hidden='true' title='Editar Paciente'></i> </span></a><button class='edit' data-bs-target='#deleteModal' data-bs-toggle='modal' onclick='preencherModalDelete(" . $resultado->id . ")' ><span><i class='fa fa-trash' aria-hidden='true' title='Deletar Paciente'></i> </span></button> " : (($_SESSION['usuario']['user']->tipo == '0') ? "<a class='edit me-1' href='" . base_url('atendimento/editar/' . base64_encode($resultado->id)) . "'><span><i class='fa fa-pencil' aria-hidden='true' title='Editar Cadastro'></i> </span></a>" : " ");
-        ?>
+    <div class="d-flex justify-content-between">
+        <div class="col-6 fw-bolder fs-1"><span>NC: </span>&nbsp;<?= $resultado->id ?></div>
+        <div class="col-6 text-end">
+            <?php
+            echo ($_SESSION['usuario']['user']->tipo == '1') ? "<a class='edit me-1' href='" . base_url('atendimento/editar/' . base64_encode($resultado->id)) . "'><span><i class='fa fa-pencil' aria-hidden='true' title='Editar Paciente'></i> </span></a><button class='edit' data-bs-target='#deleteModal' data-bs-toggle='modal' onclick='preencherModalDelete(" . $resultado->id . ")' ><span><i class='fa fa-trash' aria-hidden='true' title='Deletar Paciente'></i> </span></button> " : (($_SESSION['usuario']['user']->tipo == '0') ? "<a class='edit me-1' href='" . base_url('atendimento/editar/' . base64_encode($resultado->id)) . "'><span><i class='fa fa-pencil' aria-hidden='true' title='Editar Cadastro'></i> </span></a>" : " ");
+            ?>
+        </div>
     </div>
     <div class="row">
         <div class="block col-12" style="padding:0.5 1em;">
@@ -317,8 +320,8 @@ function reverseDates($oldData)
                                                                                 <span><i class='fa fa-eraser' aria-hidden='true'></i> </span>
                                                                             </button>
                                                                         </div> 
-                                                                    </td>" 
-                  : (($_SESSION['usuario']['user']->tipo == '0') ? "<td class='text-center'> 
+                                                                    </td>"
+                    : (($_SESSION['usuario']['user']->tipo == '0') ? "<td class='text-center'> 
                                                                         <div>
                                                                             <a title='Editar Atendimento' class='pencil' href='" . base_url('listagemcontroller/listagemupdate/' . base64_encode($listagem->id)) . "'>
                                                                                 <span><i class='fa fa-pencil' aria-hidden='true'></i>
@@ -376,8 +379,8 @@ function reverseDates($oldData)
                                                                                 <span><i class='fa fa-eraser' aria-hidden='true'></i> </span>
                                                                             </button>
                                                                         </div> 
-                                                                    </td>" 
-                  : (($_SESSION['usuario']['user']->tipo == '0') ? "<td class='text-center'> 
+                                                                    </td>"
+                        : (($_SESSION['usuario']['user']->tipo == '0') ? "<td class='text-center'> 
                                                                         <div>
                                                                             <a title='Editar Atendimento' class='pencil' href='" . base_url('atendimento/legadoupdate/' . base64_encode($legado->id)) . "'>
                                                                                 <span><i class='fa fa-pencil' aria-hidden='true'></i>
@@ -430,7 +433,7 @@ function reverseDates($oldData)
             btnExcluir = modal.getElementsByClassName("btn-danger")[0];
             btnExcluir.setAttribute('dado-alvo', id);
         }
-        
+
         $('#btnDeletar').on('click', function() {
             var id = btnExcluir.getAttribute('dado-alvo', id);
             // id = 3;
@@ -463,7 +466,7 @@ function reverseDates($oldData)
                 }
             });
         });
-        
+
         function preencherModalDeleteListagem(id) {
             modal = document.getElementById("modalDeleteListagem");
             btnExcluir = modal.getElementsByClassName("btn-danger")[0];
