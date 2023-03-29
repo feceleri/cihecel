@@ -81,3 +81,9 @@
 
     </div>
 </div>
+
+<script>
+    if (document.getElementById('dtEntrada').value == '') {
+        document.getElementById('dtEntrada').valueAsDate = new Date();
+    }
+</script>
