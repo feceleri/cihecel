@@ -233,9 +233,9 @@ function reverseDates($oldData)
                     <h5 class="card-title">Observação: <a id="edit" onclick="Editobservacao()"><i class="fa fa-pencil-square" aria-hidden="true"></i></a></h5>
                     <h6 class="card-subtitle mb-2 text-muted" style="text-transform: Capitalize;"> <?= $resultado->nome ?>,</h6> <br>
                     <p class="card-text"><?php if (isset($resultado->obs) || isset($legados)) {
-                                                echo $resultado->obs . "</br>";
+                                                echo "<h4><strong>" . $resultado->obs . "<strong></h4></br>";
                                                 foreach ($legados as $legado) {
-                                                    echo dates($legado->entrada) . " " . $legado->obs . "</br>";
+                                                    echo "<h4><strong>" . dates($legado->entrada) . " " . $legado->obs . "<strong></h4></br>";
                                                 }
                                             } else {
                                                 echo 'Não há nenhuma observação registrada.';

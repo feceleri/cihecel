@@ -53,6 +53,7 @@ class Listagem extends Model
             $nomeTel = $db->query("SELECT nome, telefone1 FROM paciente WHERE id = '" . $post["ncResp"] . "'")->getResult();
             $dadosBD = [
                 "idPaciente" => $post["ncResp"],
+                "cpfResponsavel" => $post['cpfResp'],
                 "senha" => $post["senha"],
                 "idsAdicional" => $post["idsAdicional"],
                 "idAdicionalTeste" => $post["idsAdicional"],
