@@ -235,7 +235,7 @@ function reverseDates($oldData)
                     <p class="card-text"><?php if (isset($resultado->obs) || isset($legados)) {
                                                 echo "<h4><strong>" . $resultado->obs . "<strong></h4></br>";
                                                 foreach ($legados as $legado) {
-                                                    echo "<h4><strong>" . dates($legado->entrada) . " " . $legado->obs . "<strong></h4></br>";
+                                                    echo !empty($legado->obs)? dates($legado->entrada) . " " . $legado->obs . "</br>": "";
                                                 }
                                             } else {
                                                 echo 'Não há nenhuma observação registrada.';
