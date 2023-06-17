@@ -13,6 +13,7 @@
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <link rel="stylesheet" type="text/css" href="<?= base_url('resources') ?>/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="<?= base_url('resources') ?>/css/style.css">
+    <link href="https://cdn.datatables.net/v/bs5/dt-1.13.4/datatables.min.css" rel="stylesheet"/>
     <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
     <?= $this->renderSection("css"); ?>
 
@@ -103,8 +104,7 @@
     <script src="<?= base_url('public') ?>/resources/js/Chart.bundle.js"></script>
     <script src="<?= base_url('public') ?>/resources/js/chart.js"></script>
     <script src="<?= base_url('public') ?>/resources/js/app.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-    
+    <script src="https://cdn.datatables.net/v/bs5/dt-1.13.4/datatables.min.js"></script>
     <!-- Script -->
     <?= $this->renderSection("script"); ?>
 </body>

@@ -159,13 +159,12 @@ class  Listagemcontroller extends BaseController
                 $mensagem['mensagem'] = 'Listagem registrada com successo!';
                 $mensagem['tipo'] = 'alert-success';
                 $this->session->setFlashdata('mensagem', $mensagem);
-                $idPessoa = $paciente->getUserIdByCpf($senha->ncResp);
-                return redirect()->to(isset($idPessoa) ? base_url('atendimento/perfil/' . base64_encode($idPessoa)) : base_url('listagemcontroller/listagem'));
+                return redirect()->to(isset($senha->idPaciente) ? base_url('atendimento/perfil/' . base64_encode($senha->idPaciente)) : base_url('listagemcontroller/listagem'));
             } else {
                 $mensagem['mensagem'] = 'Houve um erro no cadastramento, tente novamente!';
                 $mensagem['tipo'] = 'alert-danger';
                 $this->session->setFlashdata('mensagem', $mensagem);
-                return redirect()->to(isset($idPessoa) ? base_url('atendimento/perfil/' . base64_encode($idPessoa)) : base_url('listagemcontroller/listagem'));
+                return redirect()->to(isset($senha->idPaciente) ? base_url('atendimento/perfil/' . base64_encode($senha->idPaciente)) : base_url('listagemcontroller/listagem'));
             }
         } else {
             $userData = [

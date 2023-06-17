@@ -1,45 +1,5 @@
 <?= $this->extend('layout/principal') ?>
 
-<?= $this->section('css') ?>
-<!-- Style -->
-<style>
-    #ajaxTable tr td:last-child div {
-        display: flex;
-        align-items: center;
-    }
-
-    #ajaxTable button, #ajaxTable a{
-        font-size: 16px;
-        line-height: 30px;
-        text-transform: capitalize
-    }
-
-    #ajaxTable button:hover, #ajaxTable a:hover{
-        color: #009ce7;
-    }
-
-    button {
-        border: none;
-        background-color: transparent;
-    }
-
-    table.dataTable.table-sm>thead>tr>th:not(.sorting_disabled){
-        padding: none !important;
-    }
-</style>
-<!-- <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.12.1/datatables.min.css" /> -->
-<style>
-    tbody tr td a {
-        color: black;
-    }
-
-    div.dataTables_length select {
-        width: 60px !important;
-        text-align: center;
-    }
-</style>
-<?= $this->endSection() ?>
-
 <?= $this->section('conteudo') ?>
 
 <nav aria-label="breadcrumb">
@@ -47,6 +7,7 @@
         <li class="breadcrumb-item active" aria-current="page">Pacientes com cadastro incompleto (sem CPF)</li>
     </ol>
 </nav>
+
 <?= $this->include('tabelas/tabelaPrincipal.php') ?>
 
 <!-- Modal -->
@@ -105,16 +66,14 @@
                 document.querySelector('#fecharModal').click();
                 document.querySelector('#tr' + id).remove();
 
-
             }
         });
     });
 
-
-    window.onload =  function resetAllCpf(cpf){
-        cpf=document.getElementById('tdCpf');
+    window.onload = function resetAllCpf(cpf) {
+        cpf = document.getElementById('tdCpf');
         console.log(cpf)
-        
+
         cpf.value.replace(/\D/g, '')
 
         cpf = cpf.replace(/\D/g, "").slice(0, 11);
@@ -124,15 +83,25 @@
         return cpf;
     }
 
-    <?php         
-         if (isset($_SESSION['mensagem'])) {
-             echo "msg = document.querySelector('#msgInfo');
+    <?php
+    if (isset($_SESSION['mensagem'])) {
+        echo "msg = document.querySelector('#msgInfo');
              alerta = document.querySelector('#alerta');
-             alerta.classList.add('".$_SESSION['mensagem']['tipo']."');
-             msg.textContent = '".$_SESSION['mensagem']['mensagem']."';
+             alerta.classList.add('" . $_SESSION['mensagem']['tipo'] . "');
+             msg.textContent = '" . $_SESSION['mensagem']['mensagem'] . "';
              new bootstrap.Toast(document.querySelector('#basicToast')).show();";
-         }
+    }
     ?>
+
+    $(document).ready(function() {
+        $('#ajaxTable').DataTable({
+            "ajax": "<?= base_url('atendimento/ajaxpacienteincompleto') ?>",
+            language: {
+                url: '//cdn.datatables.net/plug-ins/1.13.4/i18n/pt-BR.json',
+            },
+
+        });
+    });
 </script>
 
 <?= $this->endSection() ?>

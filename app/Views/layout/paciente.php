@@ -1,49 +1,6 @@
-
-
 <?= $this->extend('layout/principal') ?>
 
-<?= $this->section('css') ?>
-<!-- Style -->
-<style>
-    #ajaxTable tr td:last-child div {
-        display: flex;
-        align-items: center;
-    }
-
-    #ajaxTable button, #ajaxTable a{
-        font-size: 16px;
-        line-height: 30px;
-        text-transform: capitalize
-    }
-
-    #ajaxTable button:hover, #ajaxTable a:hover{
-        color: #009ce7;
-    }
-
-    button {
-        border: none;
-        background-color: transparent;
-    }
-
-    table.dataTable.table-sm>thead>tr>th:not(.sorting_disabled){
-        padding: none !important;
-    }
-</style>
-<!-- <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.12.1/datatables.min.css" /> -->
-<style>
-    tbody tr td a {
-        color: black;
-    }
-
-    div.dataTables_length select {
-        width: 60px !important;
-        text-align: center;
-    }
-</style>
-<?= $this->endSection() ?>
-
 <?= $this->section('conteudo') ?>
-
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item active" aria-current="page">Paciente</li>
@@ -51,15 +8,15 @@
 </nav>
 
 <p>
-    Foram cadastradas 
-    <?php 
-        $db = db_connect();
-        $query = $db->query('SELECT COUNT(*) AS hoje FROM `paciente` WHERE `created_at` = CURDATE()');
-        $db->close();
-        foreach ($query->getResult() as $row) {
-            echo $row->hoje;
-        }
-    ?> 
+    Foram cadastradas
+    <?php
+    $db = db_connect();
+    $query = $db->query('SELECT COUNT(*) AS hoje FROM `paciente` WHERE `created_at` = CURDATE()');
+    $db->close();
+    foreach ($query->getResult() as $row) {
+        echo $row->hoje;
+    }
+    ?>
     novas pessoas hoje.
 </p>
 <?= $this->include('tabelas/tabelaPrincipal.php') ?>
@@ -115,6 +72,9 @@
                 if (data) {
                     alerta.classList.add('alert-success');
                     msg.textContent = 'Excluido com sucesso!';
+                    setTimeout(() => {
+                        window.location.reload(true);
+                    }, 100)
                 } else {
                     alerta.classList.add('alert-danger');
                     msg.textContent = 'Erro ao excluir o paciente!';
@@ -129,10 +89,10 @@
     });
 
 
-    window.onload =  function resetAllCpf(cpf){
-        cpf=document.getElementById('tdCpf');
+    window.onload = function resetAllCpf(cpf) {
+        cpf = document.getElementById('tdCpf');
         console.log(cpf)
-        
+
         cpf.value.replace(/\D/g, '')
 
         cpf = cpf.replace(/\D/g, "").slice(0, 11);
@@ -141,7 +101,7 @@
         cpf = cpf.replace(/(.{11})(\d)/, "$1-$2");
         return cpf;
     }
-    
+
     // function RetiraMascara(ObjCPF) {
     // return ObjCPF.value.replace(/\D/g, '');
     // }
@@ -156,15 +116,25 @@
     // } // 12345678910 -> 123.456.789-10
 
 
-    <?php         
-         if (isset($_SESSION['mensagem'])) {
-             echo "msg = document.querySelector('#msgInfo');
+    <?php
+    if (isset($_SESSION['mensagem'])) {
+        echo "msg = document.querySelector('#msgInfo');
              alerta = document.querySelector('#alerta');
-             alerta.classList.add('".$_SESSION['mensagem']['tipo']."');
-             msg.textContent = '".$_SESSION['mensagem']['mensagem']."';
+             alerta.classList.add('" . $_SESSION['mensagem']['tipo'] . "');
+             msg.textContent = '" . $_SESSION['mensagem']['mensagem'] . "';
              new bootstrap.Toast(document.querySelector('#basicToast')).show();";
-         }
+    }
     ?>
+
+    $(document).ready(function() {
+        $('#ajaxTable').DataTable({
+            language: {
+                url: '//cdn.datatables.net/plug-ins/1.13.4/i18n/pt-BR.json',
+            },
+            ajax: '<?= base_url('atendimento/ajaxpaciente') ?>',
+            deferRender: true,
+        });
+    });
 </script>
 
 <?= $this->endSection() ?>

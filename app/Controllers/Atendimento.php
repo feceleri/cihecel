@@ -17,27 +17,28 @@ class  Atendimento extends BaseController
 
     public function index()
     {
-        $paciente =  new Paciente();
-        $searchInput = $this->request->getGet('search');
+        echo view('layout/paciente');
+    }
 
-        if ($searchInput) {
-            $data = [
-                'resultado'      => $paciente->like('cpf', $searchInput)
-                    ->orLike('id', $searchInput)
-                    ->orLike('nome', $searchInput)
-                    ->orLike('created_at', $searchInput = implode('-', array_reverse(explode('/', $searchInput))))
-                    ->orLike('dataNascimento', $searchInput = implode('-', array_reverse(explode('/', $searchInput))))
-                    ->orderBy('id')->paginate(10),
-                'pager'         => $paciente->pager,
+    public function ajaxPaciente()
+    {
+        $pacienteModel =  new Paciente();
+        $pacientes = $pacienteModel->where('cpf != ""')->ajaxIndex();
+        foreach ($pacientes as $paciente) {
+            $result[] = [
+                $paciente->id,
+                "<td ><a target='_blank' style='text-transform:uppercase;'href='" . base_url('atendimento/perfil/' . base64_encode($paciente->id)) . "'>" . $paciente->nome . "</a></td>",
+                "<td class='text-center' id='tdCpf'>" . (!empty($paciente->cpf) ? $paciente->cpf : '<span class="badge bg-danger">Não Cadastrado!</span>') . "</td>",
+                date("d/m/Y", strtotime($paciente->dataNascimento)),
+                ($_SESSION['usuario']['user']->tipo == '1') ? "<td> <div><a title='Editar Paciente' class='pencil' href='" . base_url('atendimento/editar/' . base64_encode($paciente->id)) . "'><span><i class='fa fa-pencil' aria-hidden='true'></i> </span></a><button title='Deletar Paciente' class='eraser' data-bs-target='#deleteModal' data-bs-toggle='modal' onclick='preencherModalDelete(" . $paciente->id . ")' ><span><i class='fa fa-eraser' aria-hidden='true'></i> </span></button></div> </td>" : (($_SESSION['usuario']['user']->tipo == '0') ? "<td> <div><a title='Editar Paciente' class='pencil' href='" . base_url('atendimento/editar/' . base64_encode($paciente->id)) . "'><span><i class='fa fa-pencil' aria-hidden='true'></i>" : "")
             ];
-            return view('layout/paciente', $data);
         }
-        $data = [
-            'resultado'     => $paciente->where('cpf != ""')->orderBy('id')->paginate(10),
-            'pager'         => $paciente->pager,
 
+        $result = [
+            'data' => $result
         ];
-        echo view('layout/paciente', $data);
+
+        echo json_encode($result);
     }
 
     public function salvar()
@@ -255,7 +256,7 @@ class  Atendimento extends BaseController
                 return view('layout/novos', $dados);
             } else {
                 $bd = new listagem;
-                $listagem = $bd->where('entrada BETWEEN "'. $dataPesquisa['data1'] .'" AND "'.$dataPesquisa['data2'] .'"')->orWhere('entrada', $dataPesquisa['data1'])
+                $listagem = $bd->where('entrada BETWEEN "' . $dataPesquisa['data1'] . '" AND "' . $dataPesquisa['data2'] . '"')->orWhere('entrada', $dataPesquisa['data1'])
                     ->orderby('entrada ASC')->findAll();
                 $dados = [
                     'listagem' => $listagem,
@@ -327,29 +328,28 @@ class  Atendimento extends BaseController
 
     public function incompletos()
     {
-        $paciente =  new Paciente();
-        $searchInput = $this->request->getGet('search');
+        echo view('layout/incompletos');
+    }
 
-        if ($searchInput) {
-            $data = [
-                'resultado'      => $paciente->like('id', $searchInput)->where('cpf = ""')
-                    ->orLike('nome', $searchInput)->where('cpf = ""')
-                    ->orLike('created_at', $searchInput = implode('-', array_reverse(explode('/', $searchInput))))->where('cpf = ""')
-                    ->orLike('dataNascimento', $searchInput = implode('-', array_reverse(explode('/', $searchInput))))->where('cpf = ""')
-                    ->orderBy('id')->paginate(10),
-                'pager'         => $paciente->pager,
-                'incompletos'   => true,
-
+    public function ajaxPacienteIncompleto()
+    {
+        $pacienteModel =  new Paciente();
+        $pacientes = $pacienteModel->where('cpf = ""')->ajaxIndex();
+        foreach ($pacientes as $paciente) {
+            $result[] = [
+                $paciente->id,
+                "<td ><a target='_blank' style='text-transform:uppercase;'href='" . base_url('atendimento/perfil/' . base64_encode($paciente->id)) . "'>" . $paciente->nome . "</a></td>",
+                "<td class='text-center' id='tdCpf'>" . (!empty($paciente->cpf) ? $paciente->cpf : '<span class="badge bg-danger">Não Cadastrado!</span>') . "</td>",
+                date("d/m/Y", strtotime($paciente->dataNascimento)),
+                ($_SESSION['usuario']['user']->tipo == '1') ? "<td> <div><a title='Editar Paciente' class='pencil' href='" . base_url('atendimento/editar/' . base64_encode($paciente->id)) . "'><span><i class='fa fa-pencil' aria-hidden='true'></i> </span></a><button title='Deletar Paciente' class='eraser' data-bs-target='#deleteModal' data-bs-toggle='modal' onclick='preencherModalDelete(" . $paciente->id . ")' ><span><i class='fa fa-eraser' aria-hidden='true'></i> </span></button></div> </td>" : (($_SESSION['usuario']['user']->tipo == '0') ? "<td> <div><a title='Editar Paciente' class='pencil' href='" . base_url('atendimento/editar/' . base64_encode($paciente->id)) . "'><span><i class='fa fa-pencil' aria-hidden='true'></i>" : "")
             ];
-            return view('layout/incompletos', $data);
         }
-        $data = [
-            'resultado'  => $paciente->where('cpf = ""')->orderBy('id')->paginate(10),
-            'pager'     => $paciente->pager,
-            'incompletos' => true,
 
+        $result = [
+            'data' => $result
         ];
-        echo view('layout/incompletos', $data);
+
+        echo json_encode($result);
     }
 
     public function listagemPDF()
@@ -395,7 +395,7 @@ class  Atendimento extends BaseController
                     $html_content .= $listagem->pdfDetails($date);
                     $dompdf->loadHtml($html_content);
                     $dompdf->render();
-                    $dompdf->stream("Listagem_".  date('d-m-Y') . ".pdf");
+                    $dompdf->stream("Listagem_" .  date('d-m-Y') . ".pdf");
                 }
             }
         }

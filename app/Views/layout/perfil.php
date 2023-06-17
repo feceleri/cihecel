@@ -453,7 +453,7 @@ function reverseDates($oldData)
                         msg.textContent = 'Excluido com sucesso!';
                         setTimeout(() => {
                             window.location.href = "/cihecel/public";
-                        }, 1000)
+                        }, 100)
                     } else {
                         alerta.classList.add('alert-danger');
                         msg.textContent = 'Erro ao excluir o paciente!';
