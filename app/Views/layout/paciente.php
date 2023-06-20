@@ -133,7 +133,7 @@
                 url: '//cdn.datatables.net/plug-ins/1.13.4/i18n/pt-BR.json',
             },
             deferRender: true,
-            order: [ 2, 'asc' ],
+            order: [ 0, 'desc' ],
         });
     });
 </script>
