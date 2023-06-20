@@ -128,11 +128,12 @@
 
     $(document).ready(function() {
         $('#ajaxTable').DataTable({
+            ajax: '<?= base_url('pacientes') ?>',
             language: {
                 url: '//cdn.datatables.net/plug-ins/1.13.4/i18n/pt-BR.json',
             },
-            ajax: '<?= base_url('atendimento/ajaxpaciente') ?>',
             deferRender: true,
+            order: [ 2, 'asc' ],
         });
     });
 </script>

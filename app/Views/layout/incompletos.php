@@ -95,11 +95,11 @@
 
     $(document).ready(function() {
         $('#ajaxTable').DataTable({
-            "ajax": "<?= base_url('atendimento/ajaxpacienteincompleto') ?>",
+            "ajax": "<?= base_url('pacientes-incompletos') ?>",
             language: {
                 url: '//cdn.datatables.net/plug-ins/1.13.4/i18n/pt-BR.json',
             },
-
+            deferRender: true,
         });
     });
 </script>

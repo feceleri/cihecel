@@ -46,11 +46,6 @@ class Paciente extends Model
         return $result;
     }
 
-    public function ajaxIndex(){
-        $result = $this->select('nome, id, cpf, dataNascimento')->orderBy('id')->findAll();
-        return $result;
-    }
-
     public function getUser($id)
     {
         $result = $this->find($id);

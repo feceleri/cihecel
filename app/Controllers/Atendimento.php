@@ -20,27 +20,6 @@ class  Atendimento extends BaseController
         echo view('layout/paciente');
     }
 
-    public function ajaxPaciente()
-    {
-        $pacienteModel =  new Paciente();
-        $pacientes = $pacienteModel->where('cpf != ""')->ajaxIndex();
-        foreach ($pacientes as $paciente) {
-            $result[] = [
-                $paciente->id,
-                "<td ><a target='_blank' style='text-transform:uppercase;'href='" . base_url('atendimento/perfil/' . base64_encode($paciente->id)) . "'>" . $paciente->nome . "</a></td>",
-                "<td class='text-center' id='tdCpf'>" . (!empty($paciente->cpf) ? $paciente->cpf : '<span class="badge bg-danger">Não Cadastrado!</span>') . "</td>",
-                date("d/m/Y", strtotime($paciente->dataNascimento)),
-                ($_SESSION['usuario']['user']->tipo == '1') ? "<td> <div><a title='Editar Paciente' class='pencil' href='" . base_url('atendimento/editar/' . base64_encode($paciente->id)) . "'><span><i class='fa fa-pencil' aria-hidden='true'></i> </span></a><button title='Deletar Paciente' class='eraser' data-bs-target='#deleteModal' data-bs-toggle='modal' onclick='preencherModalDelete(" . $paciente->id . ")' ><span><i class='fa fa-eraser' aria-hidden='true'></i> </span></button></div> </td>" : (($_SESSION['usuario']['user']->tipo == '0') ? "<td> <div><a title='Editar Paciente' class='pencil' href='" . base_url('atendimento/editar/' . base64_encode($paciente->id)) . "'><span><i class='fa fa-pencil' aria-hidden='true'></i>" : "")
-            ];
-        }
-
-        $result = [
-            'data' => $result
-        ];
-
-        echo json_encode($result);
-    }
-
     public function salvar()
     {
         $paciente =  new Paciente();
@@ -331,26 +310,6 @@ class  Atendimento extends BaseController
         echo view('layout/incompletos');
     }
 
-    public function ajaxPacienteIncompleto()
-    {
-        $pacienteModel =  new Paciente();
-        $pacientes = $pacienteModel->where('cpf = ""')->ajaxIndex();
-        foreach ($pacientes as $paciente) {
-            $result[] = [
-                $paciente->id,
-                "<td ><a target='_blank' style='text-transform:uppercase;'href='" . base_url('atendimento/perfil/' . base64_encode($paciente->id)) . "'>" . $paciente->nome . "</a></td>",
-                "<td class='text-center' id='tdCpf'>" . (!empty($paciente->cpf) ? $paciente->cpf : '<span class="badge bg-danger">Não Cadastrado!</span>') . "</td>",
-                date("d/m/Y", strtotime($paciente->dataNascimento)),
-                ($_SESSION['usuario']['user']->tipo == '1') ? "<td> <div><a title='Editar Paciente' class='pencil' href='" . base_url('atendimento/editar/' . base64_encode($paciente->id)) . "'><span><i class='fa fa-pencil' aria-hidden='true'></i> </span></a><button title='Deletar Paciente' class='eraser' data-bs-target='#deleteModal' data-bs-toggle='modal' onclick='preencherModalDelete(" . $paciente->id . ")' ><span><i class='fa fa-eraser' aria-hidden='true'></i> </span></button></div> </td>" : (($_SESSION['usuario']['user']->tipo == '0') ? "<td> <div><a title='Editar Paciente' class='pencil' href='" . base_url('atendimento/editar/' . base64_encode($paciente->id)) . "'><span><i class='fa fa-pencil' aria-hidden='true'></i>" : "")
-            ];
-        }
-
-        $result = [
-            'data' => $result
-        ];
-
-        echo json_encode($result);
-    }
 
     public function listagemPDF()
     {
