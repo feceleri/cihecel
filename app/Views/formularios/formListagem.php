@@ -34,7 +34,7 @@
                         <?php if(isset($editar)): ?>
                         <div class="col-2">
                             <label>Data da saida:</label>
-                            <input type="date" name="dtSaida" value="<?= isset($editar) ? $senha->saida : '' ?>" id="dtSaida" class="form-control" required>
+                            <input type="date" name="dtSaida" value="<?= isset($editar) ? $senha->saida : '' ?>" id="dtSaida" class="form-control">
                         </div>
                         <?php endif; ?>
                     </div>

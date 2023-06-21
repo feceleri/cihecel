@@ -72,7 +72,7 @@ class Listagem extends Model
             $dadosBD = [
                 "senha" => $post["senha"],
                 "entrada" => $post["dtEntrada"],
-                "saida" => isset($post["dtSaida"])? $post["dtSaida"] : NULL,
+                "saida" => empty($post["dtSaida"])? NULL : $post["dtSaida"],
             ];
 
             return $this->table('listagem')->update($idListagem,$dadosBD) ? true : false;
