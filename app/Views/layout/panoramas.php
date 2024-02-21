@@ -29,7 +29,7 @@
 <?= $this->section('script') ?>
 <script>
     let selectAno = document.getElementById('selectAno');
-    $(document).ready(async function() {
+    window.onload = async () => {
         try {
             const response = await fetch('<?= base_url('anos') ?>', {
                 method: 'GET',
@@ -50,7 +50,7 @@
         } catch (error) {
             console.error("Erro na requisição: ", error);
         }
-    });
+    }
 
     selectAno.addEventListener('change', async (event) => {
         let panoramaContainer = document.getElementById('panorama');
