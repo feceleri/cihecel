@@ -12,7 +12,6 @@ $resources = new Resource;
     i:hover {
         color: #009ce7;
     }
-
 </style>
 <?= $this->endSection() ?>
 
@@ -23,17 +22,18 @@ $resources = new Resource;
 
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
-        <li class="breadcrumb-item active" aria-current="page">Relatório</li>
+        <li class="breadcrumb-item active" aria-current="page">Relatórios</li>
     </ol>
 </nav>
-
 
 <div class="card-box row">
     <!-- Pacientes -->
     <div id="paciente">
         <div class="row">
-           <div class="col-6"><h3>Pesquisa Pacientes</h3></div>
-            <div class="col-6 text-end"> <a class="btn btn-primary" href="<?=base_url('atendimento/novosListagem')?>">Listagem</a> </div>
+            <div class="col-6">
+                <h3>Pesquisa Pacientes</h3>
+            </div>
+            <div class="col-6 text-end"> <a class="btn btn-primary" href="<?= base_url('atendimento/novosListagem') ?>">Listagem</a> </div>
         </div>
         <form action="<?= base_url('atendimento/novos') ?>" method="post">
             <div class="row">
@@ -80,7 +80,7 @@ $resources = new Resource;
 <?= $this->section('script') ?>
 <!-- Script -->
 <script>
-    function hiddenShow(){
+    function hiddenShow() {
         let tablePaciente = document.getElementById('paciente');
         tablePaciente.classList.add('hidden');
 

@@ -34,6 +34,8 @@ $routes->setAutoRoute(true);
 $routes->get('/', 'Atendimento::index');
 $routes->get('pacientes', 'Api::all');
 $routes->get('pacientes-incompletos', 'Api::incompletos');
+$routes->get('panoramas/(:num)', 'Api::panoramas/$1');
+$routes->get('anos', 'Api::anosListagem');
 /*
  * --------------------------------------------------------------------
  * Additional Routing

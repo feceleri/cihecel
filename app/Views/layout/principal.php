@@ -13,7 +13,7 @@
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <link rel="stylesheet" type="text/css" href="<?= base_url('resources') ?>/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="<?= base_url('resources') ?>/css/style.css">
-    <link href="https://cdn.datatables.net/v/bs5/dt-1.13.4/datatables.min.css" rel="stylesheet"/>
+    <link href="https://cdn.datatables.net/v/bs5/dt-1.13.4/datatables.min.css" rel="stylesheet" />
     <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
     <?= $this->renderSection("css"); ?>
 
@@ -62,13 +62,16 @@
                             <a title="Todos os Pacientes" href="<?= base_url('') ?>"><i class="fa fa-user"></i> <span>Pacientes</span></a>
                         </li>
                         <li class="active">
-                            <a title="Informações Incompletas" href="<?= base_url('atendimento/incompletos') ?>" ><i class="fa fa-question-circle" aria-hidden="true"></i><span>Info Incompleta</span></a>
+                            <a title="Informações Incompletas" href="<?= base_url('atendimento/incompletos') ?>"><i class="fa fa-question-circle" aria-hidden="true"></i><span>Info Incompleta</span></a>
                         </li>
                         <?php if ($_SESSION['usuario']['user']->tipo == '1') : ?>
                             <li class="active">
                                 <a title="Listagem" href="<?= base_url('listagemcontroller/listagem') ?>"><i class="fa fa-address-book" aria-hidden="true"></i><span>Listagem</span></a>
                             </li>
                         <?php endif; ?>
+                        <li class="active">
+                            <a title="Panoramas" href="<?= base_url('atendimento/panoramas') ?>"><i class="fa fa-pie-chart" aria-hidden="true"></i><span>Relátorio</span></a>
+                        </li>
                         <li class="active">
                             <a title="Relatórios" href="<?= base_url('atendimento/novos') ?>"><i class="fa fa-line-chart" aria-hidden="true"></i><span>Relátorio</span></a>
                         </li>
@@ -105,6 +108,8 @@
     <script src="<?= base_url('public') ?>/resources/js/chart.js"></script>
     <script src="<?= base_url('public') ?>/resources/js/app.js"></script>
     <script src="https://cdn.datatables.net/v/bs5/dt-1.13.4/datatables.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
     <!-- Script -->
     <?= $this->renderSection("script"); ?>
 </body>

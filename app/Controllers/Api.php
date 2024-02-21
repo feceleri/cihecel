@@ -7,10 +7,12 @@ use CodeIgniter\RESTful\ResourceController;
 class Api extends ResourceController
 {
     private $pacienteModel;
+    private $listagemModel;
 
     public function __construct()
     {
         $this->pacienteModel = new \App\Models\Paciente();
+        $this->listagemModel = new \App\Models\Listagem();
     }
 
     public function all()
@@ -53,6 +55,28 @@ class Api extends ResourceController
             'data' => $result
         ];
 
+
+        return $this->response->setJSON($result);
+    }
+
+    public function panoramas($ano)
+    {
+        $panorama = $this->listagemModel->getPanoramaAnual($ano);
+        return $this->response->setJSON($panorama);
+    }
+
+    public function anosListagem()
+    {
+        $anos = $this->listagemModel->select('YEAR(entrada) as ano')->distinct()->orderBy('entrada', 'DESC')->findAll();
+        foreach ($anos as $item) {
+            $result[] = [
+                $item->ano
+            ];
+        }
+
+        // $result = [
+        //     'data' => $result
+        // ];
 
         return $this->response->setJSON($result);
     }

@@ -247,6 +247,11 @@ class  Atendimento extends BaseController
         echo view('layout/novos');
     }
 
+    public function panoramas()
+    {
+        echo view('layout/panoramas');
+    }
+
     public function novosListagem()
     {
         return view('layout/novosListagem');

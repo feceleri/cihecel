@@ -13,7 +13,7 @@ class Listagem extends Model
     protected $returnType       = 'object';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['senha','entrada', 'idPaciente','cpfResponsavel', 'qtdReceitaResponsavel', 'idsAdicional', 'saida', 'nomeResponsavel', 'telResponsavel'];
+    protected $allowedFields    = ['senha', 'entrada', 'idPaciente', 'cpfResponsavel', 'qtdReceitaResponsavel', 'idsAdicional', 'saida', 'nomeResponsavel', 'telResponsavel'];
 
 
 
@@ -72,10 +72,10 @@ class Listagem extends Model
             $dadosBD = [
                 "senha" => $post["senha"],
                 "entrada" => $post["dtEntrada"],
-                "saida" => empty($post["dtSaida"])? NULL : $post["dtSaida"],
+                "saida" => empty($post["dtSaida"]) ? NULL : $post["dtSaida"],
             ];
 
-            return $this->table('listagem')->update($idListagem,$dadosBD) ? true : false;
+            return $this->table('listagem')->update($idListagem, $dadosBD) ? true : false;
         }
     }
 
@@ -126,5 +126,27 @@ class Listagem extends Model
         $output .= '</table>';
         //var_dump($output); die;
         return $output;
+    }
+
+    public function getPanoramaAnual($ano)
+    {
+        $totalAno = $this->join('paciente', 'paciente.id = listagem.idPaciente')
+            ->where("YEAR(listagem.entrada) = {$ano}")->countAllResults();
+            
+        $totalPacientesAntigos = $this->join('paciente', 'paciente.id = listagem.idPaciente')
+            ->where("YEAR(listagem.entrada) = {$ano} AND YEAR(paciente.created_at) < {$ano}")
+            ->orWhere("YEAR(listagem.entrada) = {$ano} AND paciente.created_at IS NULL")->countAllResults();
+
+        $totalPacientesMesmoAno = $this->join('paciente', 'paciente.id = listagem.idPaciente')
+            ->where("YEAR(listagem.entrada) = {$ano} AND YEAR(paciente.created_at) = {$ano}")
+            ->countAllResults();
+
+        $data = [
+            'totalAno' => $totalAno,
+            'totalPacientesAntigos' => $totalPacientesAntigos,
+            'totalPacientesMesmoAno' => $totalPacientesMesmoAno
+        ];
+
+        return $data;
     }
 }
