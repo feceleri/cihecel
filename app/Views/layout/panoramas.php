@@ -21,7 +21,25 @@
 
         <p id="totalPacientesAntigos"></p>
         <p id="totalPacientesMesmoAno"></p>
+        <p id="totalCadastrados"></p>
+        <hr>
+
+        <table class="table table-hover" id="tabelaMeses">
+            <thead class="table-dark">
+                <tr>
+                    <th>Mês</th>
+                    <th>Novos cadastrados</th>
+                    <th>Total de senhas</th>
+                    <th>Senhas concluidas</th>
+                    <th>Senhas que não tiveram saida</th>
+                </tr>
+            </thead>
+            <tbody>
+
+            </tbody>
+        </table>
     </div>
+
 </div>
 
 <?= $this->endSection() ?>
@@ -57,6 +75,7 @@
         let totalAno = document.getElementById('totalAno');
         let totalPacientesAntigos = document.getElementById('totalPacientesAntigos');
         let totalPacientesMesmoAno = document.getElementById('totalPacientesMesmoAno');
+        let totalCadastrados = document.getElementById('totalCadastrados');
         let graficoCanvas = document.getElementById('grafico');
 
         let ano = event.target.value;
@@ -111,7 +130,38 @@
 
             totalPacientesAntigos.innerHTML = `Total de pacientes atendidos que foram cadastrados em outros anos: <span class='fw-bolder'>${panorama.totalPacientesAntigos}<span>`;
             totalPacientesMesmoAno.innerHTML = `Total de pacientes atendidos que foram cadastrados no mesmo ano: <span class='fw-bolder'>${panorama.totalPacientesMesmoAno}<span>`;
+            totalCadastrados.innerHTML = `Total de novos cadastros neste ano: <span class='fw-bolder'>${panorama.totalCadastrados}<span>`;
             totalAno.innerHTML = `Total: <span class='fw-bolder'>${panorama.totalAno}<span>`;
+
+            if ($.fn.DataTable.isDataTable('#tabelaMeses')) {
+                $('#tabelaMeses').DataTable().destroy();
+            }
+
+            $('#tabelaMeses').DataTable({
+                ajax: `<?= base_url('meses') ?>/${ano}`,
+                language: {
+                    url: '//cdn.datatables.net/plug-ins/1.13.4/i18n/pt-BR.json',
+                },
+                columnDefs: [{
+                        className: "text-center",
+                        targets: [1,2,3,4]
+                    }
+                ],
+                dom: 'ifrtpB',
+                buttons: [{
+                    extend: 'excelHtml5',
+                    text: 'Excel',
+                    title: `Pacientes por Mes - ${ano}`,
+
+                }, ],
+                ordering: false,
+                pageLength: 12,
+                deferRender: true,
+                bFilter: false,
+                bLengthChange: false,
+                bInfo: false,
+                paginate: false
+            });
 
         } catch (error) {
             console.error("Erro na requisição: ", error);

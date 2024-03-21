@@ -252,6 +252,15 @@ class  Atendimento extends BaseController
         echo view('layout/panoramas');
     }
 
+    public function detalhesMensal($mes, $ano, $tipo)
+    {
+        return view('layout/detalhesMes', [
+            'mes' => $mes,
+            'ano' => $ano,
+            'tipo' => $tipo,
+        ]);
+    }
+
     public function novosListagem()
     {
         return view('layout/novosListagem');

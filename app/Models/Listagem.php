@@ -130,21 +130,21 @@ class Listagem extends Model
 
     public function getPanoramaAnual($ano)
     {
-        $totalAno = $this->join('paciente', 'paciente.id = listagem.idPaciente')
-            ->where("YEAR(listagem.entrada) = {$ano}")->countAllResults();
-            
-        $totalPacientesAntigos = $this->join('paciente', 'paciente.id = listagem.idPaciente')
-            ->where("YEAR(listagem.entrada) = {$ano} AND YEAR(paciente.created_at) < {$ano}")
-            ->orWhere("YEAR(listagem.entrada) = {$ano} AND paciente.created_at IS NULL")->countAllResults();
-
-        $totalPacientesMesmoAno = $this->join('paciente', 'paciente.id = listagem.idPaciente')
-            ->where("YEAR(listagem.entrada) = {$ano} AND YEAR(paciente.created_at) = {$ano}")
-            ->countAllResults();
+        $pacienteModel =  new Paciente();
 
         $data = [
-            'totalAno' => $totalAno,
-            'totalPacientesAntigos' => $totalPacientesAntigos,
-            'totalPacientesMesmoAno' => $totalPacientesMesmoAno
+            'totalAno' => $this->join('paciente', 'paciente.id = listagem.idPaciente')
+                ->where("YEAR(listagem.entrada) = {$ano}")->countAllResults(),
+
+            'totalPacientesAntigos' => $this->join('paciente', 'paciente.id = listagem.idPaciente')
+                ->where("YEAR(listagem.entrada) = {$ano} AND YEAR(paciente.created_at) < {$ano}")
+                ->orWhere("YEAR(listagem.entrada) = {$ano} AND paciente.created_at IS NULL")->countAllResults(),
+
+            'totalPacientesMesmoAno' => $this->join('paciente', 'paciente.id = listagem.idPaciente')
+                ->where("YEAR(listagem.entrada) = {$ano} AND YEAR(paciente.created_at) = {$ano}")
+                ->countAllResults(),
+
+            'totalCadastrados' => $pacienteModel->where("YEAR(paciente.created_at) = {$ano}")->countAllResults(),
         ];
 
         return $data;

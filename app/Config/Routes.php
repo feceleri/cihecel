@@ -36,6 +36,11 @@ $routes->get('pacientes', 'Api::all');
 $routes->get('pacientes-incompletos', 'Api::incompletos');
 $routes->get('panoramas/(:num)', 'Api::panoramas/$1');
 $routes->get('anos', 'Api::anosListagem');
+$routes->get('meses/(:num)', 'Api::mesesListagem/$1');
+$routes->get('total/(:num)/(:num)', 'Api::detalhesMes/$1/$2');
+$routes->get('abertos/(:num)/(:num)', 'Api::emAbertoMes/$1/$2');
+$routes->get('concluidos/(:num)/(:num)', 'Api::concluidosMes/$1/$2');
+$routes->get('cadastros/(:num)/(:num)', 'Api::cadastrosMes/$1/$2');
 /*
  * --------------------------------------------------------------------
  * Additional Routing
