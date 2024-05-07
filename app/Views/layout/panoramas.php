@@ -22,16 +22,18 @@
         <p id="totalPacientesAntigos"></p>
         <p id="totalPacientesMesmoAno"></p>
         <p id="totalCadastrados"></p>
+        <p id="totalConcluidos"></p>
+        <p id="totalAbertos"></p>
         <hr>
 
         <table class="table table-hover" id="tabelaMeses">
             <thead class="table-dark">
                 <tr>
                     <th>Mês</th>
-                    <th>Novos cadastrados</th>
-                    <th>Total de senhas</th>
-                    <th>Senhas concluidas</th>
-                    <th>Senhas que não tiveram saida</th>
+                    <th>Novos cadastros</th>
+                    <th>Atendidos nesse mês</th>
+                    <th>Concluidos nesse mês</th>
+                    <th>Não encerrados desse mês</th>
                 </tr>
             </thead>
             <tbody>
@@ -76,6 +78,8 @@
         let totalPacientesAntigos = document.getElementById('totalPacientesAntigos');
         let totalPacientesMesmoAno = document.getElementById('totalPacientesMesmoAno');
         let totalCadastrados = document.getElementById('totalCadastrados');
+        let totalConcluidos = document.getElementById('totalConcluidos');
+        let totalAbertos = document.getElementById('totalAbertos');
         let graficoCanvas = document.getElementById('grafico');
 
         let ano = event.target.value;
@@ -131,6 +135,8 @@
             totalPacientesAntigos.innerHTML = `Total de pacientes atendidos que foram cadastrados em outros anos: <span class='fw-bolder'>${panorama.totalPacientesAntigos}<span>`;
             totalPacientesMesmoAno.innerHTML = `Total de pacientes atendidos que foram cadastrados no mesmo ano: <span class='fw-bolder'>${panorama.totalPacientesMesmoAno}<span>`;
             totalCadastrados.innerHTML = `Total de novos cadastros neste ano: <span class='fw-bolder'>${panorama.totalCadastrados}<span>`;
+            totalConcluidos.innerHTML = `Total de atendimentos concluidos neste ano: <span class='fw-bolder'>${panorama.totalConcluidos}<span>`;
+            totalAbertos.innerHTML = `Total de atendimentos deste ano que ainda não foram encerrados: <span class='fw-bolder'>${panorama.totalEmAberto}<span>`;
             totalAno.innerHTML = `Total: <span class='fw-bolder'>${panorama.totalAno}<span>`;
 
             if ($.fn.DataTable.isDataTable('#tabelaMeses')) {
@@ -143,15 +149,14 @@
                     url: '//cdn.datatables.net/plug-ins/1.13.4/i18n/pt-BR.json',
                 },
                 columnDefs: [{
-                        className: "text-center",
-                        targets: [1,2,3,4]
-                    }
-                ],
+                    className: "text-center",
+                    targets: [1, 2, 3, 4]
+                }],
                 dom: 'ifrtpB',
                 buttons: [{
                     extend: 'excelHtml5',
                     text: 'Excel',
-                    title: `Pacientes por Mes - ${ano}`,
+                    title: `Atendimentos por Mês - ${ano}`,
 
                 }, ],
                 ordering: false,

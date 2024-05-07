@@ -95,7 +95,7 @@ class  Atendimento extends BaseController
         $cadastros = new  Paciente();
         $resultado = $cadastros->getUser($id);
         $listagemModel =  new Listagem();
-        $listagens = $listagemModel->select('listagem.id, listagem.senha, listagem.entrada, listagem.saida')->join('paciente', 'paciente.id = listagem.idPaciente', 'listagem.idsAdicional->>"id"=' . $id)->where('paciente.id = ' . $id)->findAll();
+        $listagens = $listagemModel->select('listagem.id, listagem.senha, listagem.entrada, listagem.saida')->join('paciente', 'paciente.id = listagem.idPaciente', 'listagem.idsAdicional->>"id"=' . $id)->where('paciente.id = ' . $id)->orderBy('listagem.entrada DESC')->findAll();
         $legadosModel = new Legados();
         $legados = $legadosModel->select('atendimento.id, atendimento.senha, atendimento.entrada, atendimento.saida, atendimento.obs')
             ->join('paciente', 'paciente.id = atendimento.idPaciente')

@@ -133,18 +133,21 @@ class Listagem extends Model
         $pacienteModel =  new Paciente();
 
         $data = [
-            'totalAno' => $this->join('paciente', 'paciente.id = listagem.idPaciente')
-                ->where("YEAR(listagem.entrada) = {$ano}")->countAllResults(),
+            'totalAno' => $this->join('paciente', 'paciente.id = listagem.idPaciente')->where("YEAR(listagem.entrada)", $ano)->countAllResults(),
 
             'totalPacientesAntigos' => $this->join('paciente', 'paciente.id = listagem.idPaciente')
                 ->where("YEAR(listagem.entrada) = {$ano} AND YEAR(paciente.created_at) < {$ano}")
                 ->orWhere("YEAR(listagem.entrada) = {$ano} AND paciente.created_at IS NULL")->countAllResults(),
 
             'totalPacientesMesmoAno' => $this->join('paciente', 'paciente.id = listagem.idPaciente')
-                ->where("YEAR(listagem.entrada) = {$ano} AND YEAR(paciente.created_at) = {$ano}")
+                ->where("YEAR(listagem.entrada)", $ano)->where("YEAR(paciente.created_at)", $ano)
                 ->countAllResults(),
 
-            'totalCadastrados' => $pacienteModel->where("YEAR(paciente.created_at) = {$ano}")->countAllResults(),
+            'totalCadastrados' => $pacienteModel->where("YEAR(paciente.created_at)", $ano)->countAllResults(),
+
+            'totalConcluidos' => $this->where("YEAR(listagem.saida)", $ano)->countAllResults(),
+
+            'totalEmAberto' => $this->where("YEAR(listagem.entrada)", $ano)->where("listagem.saida", NULL)->countAllResults(),
         ];
 
         return $data;

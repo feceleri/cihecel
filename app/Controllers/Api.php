@@ -135,9 +135,10 @@ class Api extends ResourceController
                 $this->pacienteModel->select('COUNT(*) as total')->where('MONTH(created_at)', $mes->mes)->where('YEAR(created_at)', $ano)->first()->total > 0 ?
                     "<a title='Pacientes cadastrados nesse mês' target='_blank' class='fw-bold text-reset' href='" . base_url('atendimento/detalhesmensal/' . $mes->mes . '/' . $ano . '/cadastros') . "'>" . $this->pacienteModel->select('COUNT(*) as total')->where('MONTH(created_at)', $mes->mes)->where('YEAR(created_at)', $ano)->first()->total . "</a>" :
                     $this->pacienteModel->select('COUNT(*) as total')->where('MONTH(created_at)', $mes->mes)->where('YEAR(created_at)', $ano)->first()->total,
-                // "<p style='cursor:pointer' data-bs-toggle='modal' data-bs-target='#modalMes' class='fw-bold' onClick='detalhesMes(" . $mes->mes . "," . $ano . ",\"total\")'>" . $mes->total_entrada . "</p> ",
                 $mes->total_entrada,
-                "<a title='Atendimentos concluídos desse mês' target='_blank' class='fw-bold text-reset' href='" . base_url('atendimento/detalhesmensal/' . $mes->mes . '/' . $ano . '/concluidos') . "'>" . $mes->total_saida . "</a>",
+
+                "<a title='Atendimentos concluídos nesse mês' target='_blank' class='fw-bold text-reset' href='" . base_url('atendimento/detalhesmensal/' . $mes->mes . '/' . $ano . '/concluidos') . "'>" . $this->listagemModel->select('COUNT(*) as total_saida')->where('MONTH(saida)', $mes->mes)->where('YEAR(saida)', $ano)->first()->total_saida . "</a>",
+
                 $mes->total_s_saida > 0 ?
                     "<a title='Atendimentos em aberto desse mês' target='_blank' class='fw-bold text-reset' href='" . base_url('atendimento/detalhesmensal/' . $mes->mes . '/' . $ano . '/abertos') . "'>" . $mes->total_s_saida . "</a>" :
                     $mes->total_s_saida,
@@ -175,13 +176,13 @@ class Api extends ResourceController
 
     public function concluidosMes($mes, $ano)
     {
-        $datas = $this->listagemModel->select('listagem.idPaciente, listagem.entrada, paciente.nome')
+        $datas = $this->listagemModel->select('listagem.idPaciente, listagem.saida, paciente.nome')
             ->join('paciente', 'listagem.idPaciente = paciente.id')
-            ->where('MONTH(listagem.entrada)', $mes)->where('YEAR(listagem.entrada)', $ano)->where('listagem.saida IS NOT NULL')->orderBy('listagem.entrada')->findAll();
+            ->where('MONTH(listagem.saida)', $mes)->where('YEAR(listagem.saida)', $ano)->where('listagem.saida IS NOT NULL')->orderBy('listagem.saida')->findAll();
 
         foreach ($datas as $dia) {
             $result[] = [
-                date("d/m/Y", strtotime($dia->entrada)),
+                date("d/m/Y", strtotime($dia->saida)),
                 "<a target='_blank' style='text-transform:uppercase;' href='" . base_url('atendimento/perfil/' . base64_encode($dia->idPaciente)) . "'>" . $dia->nome . "</a>",
             ];
         }
