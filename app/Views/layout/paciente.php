@@ -132,7 +132,7 @@
             language: {
                 url: '//cdn.datatables.net/plug-ins/1.13.4/i18n/pt-BR.json',
             },
-            stateSave: true,
+            deferRender: true,
             order: [ 0, 'desc' ],
         });
     });
